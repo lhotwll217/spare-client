@@ -5,3 +5,11 @@
 .ui.feed > .event > .content .extra.text {
   max-width: 95%;
 }
+
+body {
+  background-color: #f6ecf5;
+}
+
+.ui.fixed.menu {
+  background-color: #354b64;
+}
