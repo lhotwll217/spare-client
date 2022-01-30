@@ -12,4 +12,5 @@ body {
 
 .ui.fixed.menu {
   background-color: #354b64;
+  z-index: 1400;
 }

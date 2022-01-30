@@ -7,6 +7,7 @@ export default function MyMap() {
       center={[42.2173, -73.8646]}
       zoom={10}
       scrollWheelZoom={false}
+      zIndex={0}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
