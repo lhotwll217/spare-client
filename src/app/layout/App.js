@@ -1,16 +1,19 @@
 import React from "react";
-import FeedContainer from "../../features/mainFeed/FeedContainer";
-import MapContainer from "../../features/map/MapContainer";
+
 import NavBar from "../../features/navBar/NavBar";
 import "./styles.css";
-
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import Home from "../../features/home/Home";
+import ListItemPage from "../../features/listItem/ListItemPage";
 function App() {
   return (
-    <div>
+    <Router>
       <NavBar />
-      <MapContainer />
-      <FeedContainer />
-    </div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='listitem' element={<ListItemPage />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -5,7 +5,7 @@ export default function NavBar() {
   return (
     <Menu inverted fixed='top'>
       <Container>
-        <MenuItem color='white' header style={{padding: "5px"}}>
+        <MenuItem header style={{padding: "10px"}}>
           <img src='/assets/spare_icon.png' alt='Spare Logo' />
           <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
         </MenuItem>

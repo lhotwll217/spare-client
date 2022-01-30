@@ -1,9 +1,9 @@
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 
-export default function MyMap() {
+export default function MyMap({height}) {
   return (
     <MapContainer
-      style={{height: "400px"}}
+      style={{height: height}}
       center={[42.2173, -73.8646]}
       zoom={10}
       scrollWheelZoom={false}

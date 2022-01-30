@@ -14,3 +14,9 @@ body {
   background-color: #354b64;
   z-index: 1400;
 }
+
+@media only screen and (max-width: 767px) {
+  .ui.items:not(.unstackable) > .item {
+    margin: 1em;
+  }
+}
