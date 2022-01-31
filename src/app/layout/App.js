@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='listitem' element={<ListItemPage />} />
-        <Route path='/listpage' element={<ListFormPage />} />
+        <Route path='/listform' element={<ListFormPage />} />
         <Route path='sandbox' element={<Sandbox />} />
       </Routes>
     </Router>

@@ -12,7 +12,11 @@ import MyTextInput from "../../app/common/form/MyTextInput";
 export default function ListFormPage() {
   console.log("listpage");
   const initialValues = {
-    title: "Title",
+    title: "",
+    listDetails: "",
+    tradeDetails: "",
+    availStart: "",
+    availEnd: "",
   };
 
   return (
@@ -24,22 +28,22 @@ export default function ListFormPage() {
             onSubmit={(values) => console.log(values)}
             handleSubmit={(e) => console.log(e)}
           >
-            {({values, handleChange, handleSubmit}) => (
-              <>
-                <h1>What</h1>
-                <Form onSubmit={handleSubmit}>
-                  <FormField>
-                    <input
-                      onChange={handleChange}
-                      type='text'
-                      name='title'
-                      placeholder='Name'
-                      value={values.title}
-                    />
-                  </FormField>
-                  <Button type='submit' content='Submit' />
-                </Form>
-              </>
+            {({values, isValid, dirty, isSubmitting}) => (
+              <Form>
+                <FormField>
+                  <input
+                    type='text'
+                    name='title'
+                    placeholder='Name'
+                    value={values.title}
+                  />
+                </FormField>
+                <MyTextInput
+                  placeholder='Details of listing'
+                  name='listDetail'
+                />
+                <Button type='submit' content='Submit' />
+              </Form>
             )}
           </Formik>
         </Segment>
