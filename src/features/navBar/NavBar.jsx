@@ -10,9 +10,7 @@ export default function NavBar() {
           <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
         </MenuItem>
         <MenuItem as={NavLink} to='sandbox' name='sandbox' />
-        <MenuItem>
-          <Button positive inverted content='List Item' />
-        </MenuItem>
+        <MenuItem as={NavLink} to='listpage' name='Create Listing' />
         <MenuItem>
           <Button basic inverted content='Profile' />
         </MenuItem>
