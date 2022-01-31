@@ -9,6 +9,7 @@ export default function NavBar() {
           <img src='/assets/spare_icon.png' alt='Spare Logo' />
           <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
         </MenuItem>
+        <MenuItem as={NavLink} to='sandbox' name='sandbox' />
         <MenuItem>
           <Button positive inverted content='List Item' />
         </MenuItem>

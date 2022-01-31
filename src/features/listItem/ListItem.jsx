@@ -45,7 +45,7 @@ export default function ListItem() {
         <ItemContent>
           <Header sub={true} content='Time window...' />
         </ItemContent>
-        <ItemContent textAlign='center'>Oct 27th - Nov, 8th</ItemContent>
+        <ItemContent>Oct 27th - Nov, 8th</ItemContent>
       </Item.Group>
     </Segment>
   );

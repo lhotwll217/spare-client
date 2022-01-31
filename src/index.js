@@ -5,13 +5,19 @@ import App from "./app/layout/App.js";
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import {Provider} from "react-redux";
+import {configureStore} from "./app/store/configureStore.js";
+
+const store = configureStore();
 
 const elRoot = document.getElementById("root");
 
 function render() {
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>,
 
     elRoot
