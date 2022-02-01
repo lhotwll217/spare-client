@@ -8,6 +8,7 @@ import {
   Button,
   Header,
 } from "semantic-ui-react";
+import MyDateInput from "../../app/common/form/MyDatePicker";
 import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
 
@@ -44,6 +45,25 @@ export default function ListFormPage() {
                   rows={3}
                   placeholder='Trade for...'
                   name='tradeDetails'
+                />
+
+                <MyDateInput
+                  name='availStart'
+                  placeholderText='Availability start...'
+                  timeFormat='HH:mm'
+                  showTimeSelect
+                  timeCaption='time'
+                  dateFormat='MMMM d, yyyy h:mm a'
+                  autoComplete='off'
+                />
+                <MyDateInput
+                  name='availEnd'
+                  placeholderText='Availability end...'
+                  timeFormat='HH:mm'
+                  showTimeSelect
+                  timeCaption='time'
+                  dateFormat='MMMM d, yyyy h:mm a'
+                  autoComplete='off'
                 />
                 <Button type='submit' content='Submit' />
               </Form>
