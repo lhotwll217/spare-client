@@ -1,14 +1,4 @@
-import {
-  Header,
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemExtra,
-  ItemHeader,
-  ItemMeta,
-  Segment,
-  SegmentGroup,
-} from "semantic-ui-react";
+import {Header, Item, ItemContent, Segment} from "semantic-ui-react";
 
 export default function ListItem() {
   return (
