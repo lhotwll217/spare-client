@@ -1,6 +1,7 @@
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import {Button} from "semantic-ui-react";
+import MyPlaceInput from "../../app/common/form/MyPlaceInput";
 import {DECREMENT_COUNTER, INCREMENT_COUNTER} from "./testReducer";
 
 export default function Sandbox() {
@@ -18,6 +19,10 @@ export default function Sandbox() {
         onClick={() => dispatch({type: DECREMENT_COUNTER})}
         content='Decrement'
       />
+
+      <div style={{margitTop: 20}}>
+        <MyPlaceInput />
+      </div>
     </div>
   );
 }

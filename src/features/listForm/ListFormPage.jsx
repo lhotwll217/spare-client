@@ -9,6 +9,7 @@ import {
   Header,
 } from "semantic-ui-react";
 import MyDateInput from "../../app/common/form/MyDatePicker";
+import MyPlaceInput from "../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
 
@@ -20,7 +21,8 @@ export default function ListFormPage() {
     tradeDetails: "",
     availStart: "",
     availEnd: "",
-    listLatLng: "",
+    listTown: "",
+    listVenue: "",
   };
 
   return (
@@ -62,6 +64,7 @@ export default function ListFormPage() {
                   dateFormat='MMMM d, yyyy'
                   autoComplete='off'
                 />
+                <MyPlaceInput name='listTown' />
                 <Button type='submit' content='Submit' />
               </Form>
             )}
