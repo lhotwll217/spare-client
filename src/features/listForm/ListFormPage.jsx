@@ -30,7 +30,7 @@ export default function ListFormPage() {
           <Formik
             initialValues={initialValues}
             onSubmit={(values) => console.log(values)}
-            handleSubmit={(e) => console.log(e)}
+            enableReinitialize
           >
             {({values, isValid, dirty, isSubmitting}) => (
               <Form>
@@ -48,21 +48,18 @@ export default function ListFormPage() {
                 />
 
                 <MyDateInput
+                  type='date'
                   name='availStart'
                   placeholderText='Availability start...'
-                  timeFormat='HH:mm'
-                  showTimeSelect
                   timeCaption='time'
-                  dateFormat='MMMM d, yyyy h:mm a'
+                  dateFormat='MMMM d, yyyy '
                   autoComplete='off'
                 />
                 <MyDateInput
                   name='availEnd'
                   placeholderText='Availability end...'
-                  timeFormat='HH:mm'
-                  showTimeSelect
                   timeCaption='time'
-                  dateFormat='MMMM d, yyyy h:mm a'
+                  dateFormat='MMMM d, yyyy'
                   autoComplete='off'
                 />
                 <Button type='submit' content='Submit' />

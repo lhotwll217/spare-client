@@ -11,6 +11,7 @@ export default function MyDateInput({label, ...props}) {
     <FormField error={meta.touched && !!meta.error}>
       <label>{label}</label>
       <DatePicker
+        typ
         {...field}
         {...props}
         selected={(field.value && new Date(field.value)) || null}
