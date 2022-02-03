@@ -6,9 +6,11 @@ import Home from "../../features/home/Home";
 import ListItemPage from "../../features/listItem/ListItemPage";
 import Sandbox from "../../features/sandbox/Sandbox";
 import ListFormPage from "../../features/listForm/ListFormPage";
+import ModalManager from "../common/modals/ModalManager";
 function App() {
   return (
     <Router>
+      <ModalManager />
       <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
