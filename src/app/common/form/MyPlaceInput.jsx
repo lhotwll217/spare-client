@@ -1,5 +1,5 @@
 import {useField} from "formik";
-import React, {useState} from "react";
+import React from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
