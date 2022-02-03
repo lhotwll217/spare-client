@@ -34,17 +34,17 @@ export default function ListFormPage() {
         <Segment style={{marginTop: "50px"}} clearing>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => console.log(values, latLng)}
             enableReinitialize
           >
-            {({values, isValid, dirty, isSubmitting}) => (
-              <Form>
+            {({values, isValid, dirty, isSubmitting, handleSubmit}) => (
+              <Form onSubmit={handleSubmit}>
                 <Header content='List Form' />
                 <MyTextInput placeholder='Title' name='title' />
                 <MyTextArea
                   rows={3}
                   placeholder='Details of listing'
-                  name='listDetail'
+                  name='listDetails'
                 />
                 <MyTextArea
                   rows={3}
