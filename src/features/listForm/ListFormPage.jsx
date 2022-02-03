@@ -1,9 +1,8 @@
 import {Formik} from "formik";
-import {useState} from "react";
+import * as Yup from "yup";
 import {
   Grid,
   Form,
-  FormField,
   GridColumn,
   Segment,
   Button,
@@ -15,8 +14,6 @@ import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
 
 export default function ListFormPage() {
-  // const [latLng, setLatLng] = useState({});
-
   const initialValues = {
     title: "",
     listDetails: "",
@@ -26,6 +23,16 @@ export default function ListFormPage() {
     location: {address: "", latLng: ""},
   };
 
+  const validationSchema = Yup.object({
+    title: Yup.string().required("Required"),
+    listDetails: Yup.string().required("Required"),
+    tradeDetails: Yup.string().required("Required"),
+    availStart: Yup.string().required("Required"),
+    availEnd: Yup.string().required("Required"),
+    location: Yup.object().shape({
+      address: Yup.string().required("Required"),
+    }),
+  });
   return (
     <Grid centered>
       <GridColumn width={12}>
@@ -34,6 +41,7 @@ export default function ListFormPage() {
             initialValues={initialValues}
             onSubmit={(values) => console.log(values)}
             enableReinitialize
+            validationSchema={validationSchema}
           >
             {({values, isValid, dirty, isSubmitting, handleSubmit}) => (
               <Form onSubmit={handleSubmit}>

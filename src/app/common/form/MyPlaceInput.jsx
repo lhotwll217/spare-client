@@ -4,6 +4,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import {FormField, Label} from "semantic-ui-react";
 
 export default function MyPlaceInput({...props}) {
   const [field, meta, helpers] = useField(props);
@@ -14,6 +15,13 @@ export default function MyPlaceInput({...props}) {
       .then((latLng) => helpers.setValue({address, latLng}))
       .catch((error) => console.error("Error", error));
   }
+  // Shares Formik onBlue while also setting the value to to empty strings if a location was not selected
+  function handleBlur(e) {
+    field.onBlur(e);
+    if (!field.value.latLng) {
+      helpers.setValue({address: "", latLng: null});
+    }
+  }
 
   return (
     <PlacesAutocomplete
@@ -22,13 +30,20 @@ export default function MyPlaceInput({...props}) {
       onSelect={(value) => handleSelect(value)}
     >
       {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
-        <div>
+        <FormField error={meta.touched && !!meta.error}>
           <input
             {...getInputProps({
               name: field.name,
+              onBlur: (e) => handleBlur(e),
               ...props,
             })}
           />
+
+          {meta.touched && !!meta.error ? (
+            <Label basic color='red'>
+              {meta.error["address"]}
+            </Label>
+          ) : null}
           <div
             style={{borderRadius: 3}}
             lassName='autocomplete-dropdown-container'
@@ -55,7 +70,7 @@ export default function MyPlaceInput({...props}) {
               );
             })}
           </div>
-        </div>
+        </FormField>
       )}
     </PlacesAutocomplete>
   );
