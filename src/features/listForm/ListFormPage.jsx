@@ -1,4 +1,5 @@
 import {Formik} from "formik";
+import {useState} from "react";
 import {
   Grid,
   Form,
@@ -14,16 +15,18 @@ import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
 
 export default function ListFormPage() {
-  console.log("listpage");
+  const [latLng, setLatLng] = useState({});
+
   const initialValues = {
     title: "",
     listDetails: "",
     tradeDetails: "",
     availStart: "",
     availEnd: "",
-    listTown: "",
-    listVenue: "",
+    locationName: "",
   };
+
+  console.log(latLng);
 
   return (
     <Grid centered>
@@ -64,7 +67,11 @@ export default function ListFormPage() {
                   dateFormat='MMMM d, yyyy'
                   autoComplete='off'
                 />
-                <MyPlaceInput name='listTown' />
+                <MyPlaceInput
+                  setLatLng={setLatLng}
+                  placeholder='Location...'
+                  name='locationName'
+                />
                 <Button type='submit' content='Submit' />
               </Form>
             )}
