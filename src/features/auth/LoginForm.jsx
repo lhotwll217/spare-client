@@ -18,8 +18,13 @@ export default function LoginForm() {
         {({isSubmitting, isValid, dirty}) => (
           <Form className='ui form'>
             <MyTextInput name='email' placeholder='Email' />
-            <MyTextInput name='password' placeholder='Password' />
+            <MyTextInput
+              type='password'
+              name='password'
+              placeholder='Password'
+            />
             <Button
+              style={{margin: "auto"}}
               loading={isSubmitting}
               disabled={!isValid || !dirty || isSubmitting}
               type='submit'
