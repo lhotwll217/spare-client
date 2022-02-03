@@ -1,11 +1,11 @@
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {Button, Container, Menu, MenuItem} from "semantic-ui-react";
 
 export default function NavBar() {
   return (
     <Menu inverted fixed='top'>
       <Container>
-        <MenuItem header style={{padding: "10px"}}>
+        <MenuItem as={Link} to='/' header style={{padding: "10px"}}>
           <img src='/assets/spare_icon.png' alt='Spare Logo' />
           <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
         </MenuItem>

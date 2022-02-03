@@ -62,7 +62,7 @@ export default function MyPlaceInput({...props}) {
                 width: "100%",
               }}
             >
-              <List selection>
+              <List selection divided>
                 {suggestions.map((suggestion) => (
                   <ListItem
                     key={suggestion.id}
