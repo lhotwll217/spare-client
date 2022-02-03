@@ -19,10 +19,6 @@ export default function Sandbox() {
         onClick={() => dispatch({type: DECREMENT_COUNTER})}
         content='Decrement'
       />
-
-      <div style={{margitTop: 20}}>
-        <MyPlaceInput />
-      </div>
     </div>
   );
 }

@@ -1,37 +1,32 @@
+import {useField} from "formik";
 import React, {useState} from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 
-export default function MyPlaceInput({setLatLng, placeholder}) {
-  const [address, setAddress] = useState("");
-
-  function handleChange(address) {
-    setAddress(address);
-  }
+export default function MyPlaceInput({...props}) {
+  const [field, meta, helpers] = useField(props);
 
   function handleSelect(address) {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
-      .then((latLng) => setLatLng(latLng))
+      .then((latLng) => helpers.setValue({address, latLng}))
       .catch((error) => console.error("Error", error));
-
-    setAddress(address);
   }
 
   return (
     <PlacesAutocomplete
-      value={address}
-      onChange={handleChange}
-      onSelect={handleSelect}
+      value={field.value["address"]}
+      onChange={(value) => helpers.setValue({address: value})}
+      onSelect={(value) => handleSelect(value)}
     >
       {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
         <div>
           <input
             {...getInputProps({
-              placeholder: placeholder,
-              className: "location-search-input",
+              name: field.name,
+              ...props,
             })}
           />
           <div

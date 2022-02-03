@@ -15,7 +15,7 @@ import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
 
 export default function ListFormPage() {
-  const [latLng, setLatLng] = useState({});
+  // const [latLng, setLatLng] = useState({});
 
   const initialValues = {
     title: "",
@@ -23,10 +23,8 @@ export default function ListFormPage() {
     tradeDetails: "",
     availStart: "",
     availEnd: "",
-    locationName: "",
+    location: {address: "", latLng: ""},
   };
-
-  console.log(latLng);
 
   return (
     <Grid centered>
@@ -34,7 +32,7 @@ export default function ListFormPage() {
         <Segment style={{marginTop: "50px"}} clearing>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => console.log(values, latLng)}
+            onSubmit={(values) => console.log(values)}
             enableReinitialize
           >
             {({values, isValid, dirty, isSubmitting, handleSubmit}) => (
@@ -67,11 +65,7 @@ export default function ListFormPage() {
                   dateFormat='MMMM d, yyyy'
                   autoComplete='off'
                 />
-                <MyPlaceInput
-                  setLatLng={setLatLng}
-                  placeholder='Location...'
-                  name='locationName'
-                />
+                <MyPlaceInput placeholder='Location...' name='location' />
                 <Button type='submit' content='Submit' />
               </Form>
             )}
