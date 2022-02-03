@@ -4,7 +4,15 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import {FormField, Label} from "semantic-ui-react";
+import {
+  FormField,
+  Label,
+  List,
+  ListContent,
+  ListHeader,
+  ListItem,
+  Segment,
+} from "semantic-ui-react";
 
 export default function MyPlaceInput({...props}) {
   const [field, meta, helpers] = useField(props);
@@ -44,32 +52,33 @@ export default function MyPlaceInput({...props}) {
               {meta.error["address"]}
             </Label>
           ) : null}
-          <div
-            style={{borderRadius: 3}}
-            lassName='autocomplete-dropdown-container'
-          >
-            {loading && <div>Loading...</div>}
-            {suggestions.map((suggestion) => {
-              const className = suggestion.active
-                ? "suggestion-item--active"
-                : "suggestion-item";
-              // inline style for demonstration purpose
-              const style = suggestion.active
-                ? {backgroundColor: "#fafafa", cursor: "pointer"}
-                : {backgroundColor: "#ffffff", cursor: "pointer"};
-              return (
-                <div
-                  {...getSuggestionItemProps(suggestion, {
-                    className,
-                    style,
-                  })}
-                  key={suggestion.placeId}
-                >
-                  <span>{suggestion.description}</span>
-                </div>
-              );
-            })}
-          </div>
+          {suggestions?.length > 0 && (
+            <Segment
+              loading={loading}
+              style={{
+                marginTop: 0,
+                positions: "absolute",
+                zIndex: 1000,
+                width: "100%",
+              }}
+            >
+              <List selection>
+                {suggestions.map((suggestion) => (
+                  <ListItem
+                    key={suggestion.id}
+                    {...getSuggestionItemProps(suggestion)}
+                  >
+                    <ListHeader>
+                      {suggestion.formattedSuggestion.mainText}
+                    </ListHeader>
+                    <ListContent>
+                      {suggestion.formattedSuggestion.secondaryText}
+                    </ListContent>
+                  </ListItem>
+                ))}
+              </List>
+            </Segment>
+          )}
         </FormField>
       )}
     </PlacesAutocomplete>
