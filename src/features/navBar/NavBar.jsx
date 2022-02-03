@@ -1,9 +1,11 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Link, NavLink} from "react-router-dom";
 import {Button, Container, Menu, MenuItem} from "semantic-ui-react";
 import {openModal} from "../../app/common/modals/modalReducer";
+import {signOutUser} from "../auth/authActions";
 
 export default function NavBar() {
+  const {authenticated} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   return (
     <Menu inverted fixed='top'>
@@ -18,24 +20,28 @@ export default function NavBar() {
           <Button basic inverted content='Profile' />
         </MenuItem>
         <MenuItem position='right'>
-          <Button
-            basic
-            inverted
-            content='Login'
-            onClick={() =>
-              dispatch(
-                openModal({
-                  modalType: "LoginForm",
-                })
-              )
-            }
-          />
-          <Button
-            basic
-            inverted
-            content='Sign Up'
-            style={{marginLeft: "0.5em"}}
-          />
+          {authenticated ? (
+            <Button
+              onClick={() => dispatch(signOutUser())}
+              basic
+              inverted
+              content='Sign Out'
+              style={{marginLeft: "0.5em"}}
+            />
+          ) : (
+            <Button
+              basic
+              inverted
+              content='Login'
+              onClick={() =>
+                dispatch(
+                  openModal({
+                    modalType: "LoginForm",
+                  })
+                )
+              }
+            />
+          )}
         </MenuItem>
       </Container>
     </Menu>

@@ -3,8 +3,11 @@ import {Button} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
 import * as Yup from "yup";
+import {useDispatch} from "react-redux";
+import {signInUser} from "./authActions";
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
   return (
     <ModalWrapper>
       <Formik
@@ -13,7 +16,7 @@ export default function LoginForm() {
           email: Yup.string().required().email(),
           password: Yup.string().required(),
         })}
-        onSubmit={(e) => console.log(e)}
+        onSubmit={(e) => dispatch(signInUser(e))}
       >
         {({isSubmitting, isValid, dirty}) => (
           <Form className='ui form'>

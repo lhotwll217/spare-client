@@ -20,7 +20,7 @@ const initialState = null;
 export default function modalReducer(state = initialState, {type, payload}) {
   switch (type) {
     case OPEN_MODAL:
-      //Destruction to get Modal definitions from the dispatch
+      //Destructure to get Modal definitions from the dispatch
       const {modalType, modalProps} = payload;
       return {modalType, modalProps};
     case CLOSE_MODAL:
