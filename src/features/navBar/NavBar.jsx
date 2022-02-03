@@ -1,7 +1,10 @@
+import {useDispatch} from "react-redux";
 import {Link, NavLink} from "react-router-dom";
 import {Button, Container, Menu, MenuItem} from "semantic-ui-react";
+import {openModal} from "../../app/common/modals/modalReducer";
 
 export default function NavBar() {
+  const dispatch = useDispatch();
   return (
     <Menu inverted fixed='top'>
       <Container>
@@ -15,7 +18,18 @@ export default function NavBar() {
           <Button basic inverted content='Profile' />
         </MenuItem>
         <MenuItem position='right'>
-          <Button basic inverted content='Login' />
+          <Button
+            basic
+            inverted
+            content='Login'
+            onClick={() =>
+              dispatch(
+                openModal({
+                  modalType: "LoginForm",
+                })
+              )
+            }
+          />
           <Button
             basic
             inverted

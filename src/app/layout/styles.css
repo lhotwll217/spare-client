@@ -1,3 +1,7 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -11,6 +15,7 @@ body {
 }
 
 .ui.fixed.menu {
+  font-family: "Poppins", sans-serif;
   background-color: #354b64;
   z-index: 1400;
 }
@@ -19,4 +24,50 @@ body {
   .ui.items:not(.unstackable) > .item {
     margin: 1em;
   }
+}
+.ui.button {
+  font-family: "Poppins", sans-serif;
+}
+
+.ui.segment {
+  font-family: "Poppins", sans-serif;
+}
+
+form {
+  font-family: "Poppins", sans-serif;
+}
+input {
+  font-family: "Poppins", sans-serif;
+}
+.ui.form input:not([type]),
+.ui.form input[type="date"],
+.ui.form input[type="datetime-local"],
+.ui.form input[type="email"],
+.ui.form input[type="file"],
+.ui.form input[type="number"],
+.ui.form input[type="password"],
+.ui.form input[type="search"],
+.ui.form input[type="tel"],
+.ui.form input[type="text"],
+.ui.form input[type="textarea"],
+.ui.form input[type="time"],
+.ui.form input[type="url"] {
+  font-family: "Poppins", sans-serif;
+}
+
+.ui.form textarea {
+  font-family: "Poppins", sans-serif;
+}
+
+.ui.header {
+  font-family: "Poppins", sans-serif;
+}
+
+h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
 }
