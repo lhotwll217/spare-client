@@ -28,17 +28,32 @@ export default function NavBar() {
               style={{marginLeft: "0.5em"}}
             />
           ) : (
-            <Button
-              basic
-              content='Login'
-              onClick={() =>
-                dispatch(
-                  openModal({
-                    modalType: "LoginForm",
-                  })
-                )
-              }
-            />
+            <>
+              <Button
+                basic
+                size='tiny'
+                content='Login'
+                onClick={() =>
+                  dispatch(
+                    openModal({
+                      modalType: "LoginForm",
+                    })
+                  )
+                }
+              />
+              <Button
+                size='tiny'
+                basic
+                content='Sign Up'
+                onClick={() =>
+                  dispatch(
+                    openModal({
+                      modalType: "SignUpForm",
+                    })
+                  )
+                }
+              />
+            </>
           )}
         </MenuItem>
       </Container>
