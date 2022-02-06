@@ -12,8 +12,11 @@ import MyDateInput from "../../app/common/form/MyDatePicker";
 import MyPlaceInput from "../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
+import {useSelector} from "react-redux";
 
 export default function ListFormPage() {
+  const user = useSelector((state) => state.auth.currentUser);
+  console.log(user);
   const initialValues = {
     title: "",
     listDetails: "",
@@ -21,6 +24,11 @@ export default function ListFormPage() {
     availStart: "",
     availEnd: "",
     location: {address: "", latLng: ""},
+    lister: {
+      displayName: user.displayName,
+      uuid: user.uid,
+      photoUrl: user.photoURL,
+    },
   };
 
   const validationSchema = Yup.object({
