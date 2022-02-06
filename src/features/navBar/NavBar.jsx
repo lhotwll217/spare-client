@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, NavLink} from "react-router-dom";
 import {Button, Container, Menu, MenuItem} from "semantic-ui-react";
 import {openModal} from "../../app/common/modals/modalReducer";
+import {signOutFirebase} from "../../app/firebase/firebaseService";
 import {signOutUser} from "../auth/authActions";
 
 export default function NavBar() {
@@ -22,7 +23,15 @@ export default function NavBar() {
         <MenuItem position='right'>
           {authenticated ? (
             <Button
-              onClick={() => dispatch(signOutUser())}
+              onClick={async () => {
+                try {
+                  await signOutFirebase().then(() => {
+                    dispatch(signOutUser());
+                  });
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
               basic
               content='Sign Out'
               style={{marginLeft: "0.5em"}}
