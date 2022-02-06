@@ -5,16 +5,16 @@ import {Button} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import {closeModal} from "../../app/common/modals/modalReducer";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
+import {signInEmail} from "../../app/firebase/firebaseService";
 import {signInUser} from "./authActions";
 
 export default function SignUpForm() {
   const dispatch = useDispatch();
-  const {authenticated} = useSelector((state) => state.auth);
 
   const initialValues = {
+    displayName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   };
 
   function handleSubmit(e) {
@@ -27,12 +27,9 @@ export default function SignUpForm() {
       <Formik onSubmit={(e) => handleSubmit(e)} initialValues={initialValues}>
         {({isValid, isSubmitting, dirty}) => (
           <Form className='ui form'>
+            <MyTextInput name='displayName' placeholder='name' />
             <MyTextInput name='email' placeholder='Email' />
             <MyTextInput name='password' placeholder='Password' />
-            <MyTextInput
-              name='passwordConfirm'
-              placeholder='Confirm Password'
-            />
             <Button
               type='submit'
               color='teal'
