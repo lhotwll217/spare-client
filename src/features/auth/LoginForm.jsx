@@ -1,11 +1,12 @@
 import {Form, Formik} from "formik";
-import {Button} from "semantic-ui-react";
+import {Button, Label} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
 import * as Yup from "yup";
 import {useDispatch} from "react-redux";
 import {signInUser} from "./authActions";
 import {closeModal} from "../../app/common/modals/modalReducer";
+import {signInWithEmail} from "../../app/firebase/firebaseService";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -22,9 +23,18 @@ export default function LoginForm() {
           email: Yup.string().required("Email Required").email(),
           password: Yup.string().required("Provide a password"),
         })}
-        onSubmit={(e) => handleSubmit(e)}
+        onSubmit={async (values, {setErrors, setSubmitting}) => {
+          try {
+            const user = await signInWithEmail(values);
+            dispatch(signInUser(user));
+            setSubmitting(false);
+            dispatch(closeModal());
+          } catch (error) {
+            setErrors({auth: error.message});
+          }
+        }}
       >
-        {({isSubmitting, isValid, dirty}) => (
+        {({isSubmitting, isValid, dirty, errors}) => (
           <Form className='ui form'>
             <MyTextInput name='email' placeholder='Email' />
             <MyTextInput
@@ -32,6 +42,12 @@ export default function LoginForm() {
               name='password'
               placeholder='Password'
             />
+
+            {errors.auth && (
+              <div style={{marginBottom: "10px"}}>
+                <Label basic color='red' content={errors.auth} />
+              </div>
+            )}
             <Button
               style={{margin: "auto"}}
               loading={isSubmitting}

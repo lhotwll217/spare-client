@@ -5,7 +5,7 @@ import {Button, Label} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import {closeModal} from "../../app/common/modals/modalReducer";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
-import {signInEmail} from "../../app/firebase/firebaseService";
+import {registerWithEmail} from "../../app/firebase/firebaseService";
 import {signInUser} from "./authActions";
 
 export default function SignUpForm() {
@@ -22,7 +22,7 @@ export default function SignUpForm() {
       <Formik
         onSubmit={async (values, {setSubmitting, setErrors}) => {
           try {
-            const result = await signInEmail(values);
+            const result = await registerWithEmail(values);
             setSubmitting(false);
             dispatch(signInUser(result));
             dispatch(closeModal());
