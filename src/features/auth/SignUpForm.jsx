@@ -17,14 +17,21 @@ export default function SignUpForm() {
     password: "",
   };
 
-  function handleSubmit(e) {
-    dispatch(signInUser(e));
-    dispatch(closeModal());
-  }
-
   return (
     <ModalWrapper>
-      <Formik onSubmit={(e) => handleSubmit(e)} initialValues={initialValues}>
+      <Formik
+        onSubmit={async (values, {setSubmitting, setErrors}) => {
+          try {
+            const result = await signInEmail(values);
+            setSubmitting(false);
+            dispatch(signInUser(result));
+          } catch (error) {
+            console.log(error);
+            setErrors(error.message);
+          }
+        }}
+        initialValues={initialValues}
+      >
         {({isValid, isSubmitting, dirty}) => (
           <Form className='ui form'>
             <MyTextInput name='displayName' placeholder='name' />
