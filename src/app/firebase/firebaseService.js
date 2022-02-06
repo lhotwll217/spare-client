@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import {app} from "../config/firebaseConfig";
 // const auth = getAuth(app);
@@ -16,7 +17,7 @@ export async function registerWithEmail(creds) {
       creds.email,
       creds.password
     );
-    return result.user;
+    await updateProfile(result.user, {displayName: creds.displayName});
   } catch (error) {
     console.log(error);
     throw error;
