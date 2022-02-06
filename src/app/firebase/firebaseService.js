@@ -11,7 +11,6 @@ export async function signInEmail(creds) {
       creds.email,
       creds.password
     );
-    console.log(result);
     return result.user;
   } catch (error) {
     console.log(error);

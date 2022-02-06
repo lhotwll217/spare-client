@@ -12,7 +12,7 @@ export default function authReducer(state = initialState, {type, payload}) {
         ...state,
         authenticated: true,
         currentUser: {
-          email: payload.email,
+          ...payload,
         },
       };
     case SIGN_OUT_USER:
