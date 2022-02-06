@@ -16,7 +16,7 @@ export default function LoginForm() {
   }
 
   return (
-    <ModalWrapper>
+    <ModalWrapper header='Login'>
       <Formik
         initialValues={{email: "", password: ""}}
         validationSchema={Yup.object({

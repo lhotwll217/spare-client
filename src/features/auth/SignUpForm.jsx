@@ -18,13 +18,12 @@ export default function SignUpForm() {
   };
 
   return (
-    <ModalWrapper>
+    <ModalWrapper header='Register'>
       <Formik
         onSubmit={async (values, {setSubmitting, setErrors}) => {
           try {
-            const result = await registerWithEmail(values);
+            await registerWithEmail(values);
             setSubmitting(false);
-            dispatch(signInUser(result));
             dispatch(closeModal());
           } catch (error) {
             console.log(error);
@@ -35,9 +34,13 @@ export default function SignUpForm() {
       >
         {({isValid, isSubmitting, dirty, errors}) => (
           <Form className='ui form'>
-            <MyTextInput name='displayName' placeholder='name' />
+            <MyTextInput name='displayName' placeholder='Name' />
             <MyTextInput name='email' placeholder='Email' />
-            <MyTextInput name='password' placeholder='Password' />
+            <MyTextInput
+              type='password'
+              name='password'
+              placeholder='Password'
+            />
             {errors.auth && (
               <div style={{marginBottom: "10px"}}>
                 <Label basic color='red' content={errors.auth} />
