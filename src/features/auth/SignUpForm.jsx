@@ -48,6 +48,7 @@ export default function SignUpForm() {
             )}
 
             <Button
+              loading={isSubmitting}
               type='submit'
               color='teal'
               disabled={!isValid || !dirty || isSubmitting}
