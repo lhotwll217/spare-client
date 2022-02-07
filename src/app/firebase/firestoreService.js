@@ -1,8 +1,32 @@
-import {collection, addDoc, getFirestore} from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  query,
+  getDocs,
+  Timestamp,
+  onSnapshot,
+} from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+//Firestore Data Shaper
+export function dataFromSnapshot(snapshot) {
+  if (!snapshot.exists) return undefined;
+  const data = snapshot.data();
+
+  for (const prop in data) {
+    if (data.hasOwnProperty(prop)) {
+      if (data[prop] instanceof Timestamp) {
+        data[prop] = data[prop].toDate();
+      }
+    }
+  }
+
+  return {...data, id: snapshot.id};
+}
 export async function addListing(values) {
   const user = auth.currentUser;
 
@@ -28,4 +52,10 @@ export async function addListing(values) {
     console.log(error);
     throw error;
   }
+}
+
+export async function getListingsFromFirestore(observer) {
+  const q = query(collection(db, "listings"));
+
+  return onSnapshot(q, observer);
 }
