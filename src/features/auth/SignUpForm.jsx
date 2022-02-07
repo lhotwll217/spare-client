@@ -1,12 +1,10 @@
 import {Form, Formik} from "formik";
-import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Button, Label} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import {closeModal} from "../../app/common/modals/modalReducer";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
 import {registerWithEmail} from "../../app/firebase/firebaseService";
-import {signInUser} from "./authActions";
 
 export default function SignUpForm() {
   const dispatch = useDispatch();

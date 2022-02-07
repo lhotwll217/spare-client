@@ -7,12 +7,14 @@ import {
   Segment,
   Button,
   Header,
+  Label,
 } from "semantic-ui-react";
 import MyDateInput from "../../app/common/form/MyDatePicker";
 import MyPlaceInput from "../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../app/common/form/MyTextArea";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import {useSelector} from "react-redux";
+import {addListing} from "../../app/firebase/firestoreService";
 
 export default function ListFormPage() {
   const user = useSelector((state) => state.auth.currentUser);
@@ -24,11 +26,6 @@ export default function ListFormPage() {
     availStart: "",
     availEnd: "",
     location: {address: "", latLng: ""},
-    lister: {
-      displayName: user.displayName,
-      uuid: user.uid,
-      photoUrl: user.photoURL,
-    },
   };
 
   const validationSchema = Yup.object({
@@ -47,11 +44,19 @@ export default function ListFormPage() {
         <Segment style={{marginTop: "50px"}} clearing>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={async (values, {setErrors, setSubmitting}) => {
+              try {
+                const docRef = await addListing(values);
+                console.log(docRef);
+                setSubmitting(false);
+              } catch (error) {
+                setErrors({firestore: error.message});
+              }
+            }}
             enableReinitialize
             validationSchema={validationSchema}
           >
-            {({values, isValid, dirty, isSubmitting, handleSubmit}) => (
+            {({values, isValid, dirty, isSubmitting, errors, handleSubmit}) => (
               <Form onSubmit={handleSubmit}>
                 <Header content='List Form' />
                 <MyTextInput placeholder='Title' name='title' />
@@ -82,6 +87,11 @@ export default function ListFormPage() {
                   autoComplete='off'
                 />
                 <MyPlaceInput placeholder='Location...' name='location' />
+                {errors.firestore && (
+                  <div style={{marginBottom: "10px"}}>
+                    <Label basic color='red' content={errors.firestore} />
+                  </div>
+                )}
                 <Button type='submit' content='Submit' />
               </Form>
             )}
