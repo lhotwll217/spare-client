@@ -12,12 +12,14 @@ import {app} from "../config/firebaseConfig";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-//Firestore Data Shaper
+//Firestore Data Shaper - it takes each snapshot, converts it into usable data. It also creates an property out of the uid that is part of the snapshot. Finds all Firestore timestamps and converts them with toDate()
 export function dataFromSnapshot(snapshot) {
+  console.log(snapshot.id);
   if (!snapshot.exists) return undefined;
   const data = snapshot.data();
 
   for (const prop in data) {
+    //The hasOwnProperty() method returns a boolean indicating whether the object has the specified property as its own property (as opposed to inheriting it).
     if (data.hasOwnProperty(prop)) {
       if (data[prop] instanceof Timestamp) {
         data[prop] = data[prop].toDate();

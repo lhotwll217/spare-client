@@ -1,5 +1,5 @@
 import {Container, Grid, GridColumn} from "semantic-ui-react";
-import MyMap from "../map/MyMap";
+import MyMap from "../../map/MyMap";
 import ListItem from "./ListItem";
 
 export default function ListDetailedPage() {

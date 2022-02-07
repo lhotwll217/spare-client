@@ -3,9 +3,9 @@ import NavBar from "../../features/navBar/NavBar";
 import "./styles.css";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from "../../features/home/Home";
-import ListItemPage from "../../features/listItem/ListItemPage";
+import ListItemPage from "../../features/listings/listItem/ListItemPage";
 import Sandbox from "../../features/sandbox/Sandbox";
-import ListFormPage from "../../features/listForm/ListFormPage";
+import ListFormPage from "../../features/listings/listForm/ListFormPage";
 import ModalManager from "../common/modals/ModalManager";
 function App() {
   return (
