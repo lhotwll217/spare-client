@@ -1,9 +1,12 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
-import {Feed, Grid} from "semantic-ui-react";
+import {Feed, Grid, Segment} from "semantic-ui-react";
 import {
-  getListings,
+  asyncActionFinish,
+  asyncActionStart,
+} from "../../../app/async/asyncReducer";
+import {
   getListingsFromFirestore,
   dataFromSnapshot,
 } from "../../../app/firebase/firestoreService";
@@ -13,10 +16,12 @@ import FeedItem from "./FeedItem";
 export default function FeedContainer() {
   const {listings} = useSelector((state) => state.listings);
   const dispatch = useDispatch();
+  const {loading} = useSelector((state) => state.async);
 
   console.log(listings);
   //Listen to data
   useEffect(() => {
+    dispatch(asyncActionStart());
     const unsubscribe = getListingsFromFirestore({
       next: (snapshot) =>
         dispatch(
@@ -26,18 +31,22 @@ export default function FeedContainer() {
         )(),
       error: (error) => console.log(error),
     });
+    dispatch(asyncActionFinish());
     return unsubscribe;
   }, [dispatch]);
+
   return (
     <Grid centered>
       <Grid.Column width={10}>
-        <Feed>
-          <FeedItem />
-          <FeedItem />
-          <FeedItem />
-          <FeedItem />
-          <FeedItem />
-        </Feed>
+        <Segment loading={loading}>
+          <Feed>
+            <FeedItem />
+            <FeedItem />
+            <FeedItem />
+            <FeedItem />
+            <FeedItem />
+          </Feed>
+        </Segment>
       </Grid.Column>
     </Grid>
   );
