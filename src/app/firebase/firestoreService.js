@@ -57,8 +57,6 @@ export async function addListing(values) {
   }
 }
 
-export async function getListingsFromFirestore(observer) {
-  const q = query(collection(db, "listings"));
-
-  return onSnapshot(q, observer);
+export async function getListingsFromFirestore() {
+  return collection(db, "listings");
 }

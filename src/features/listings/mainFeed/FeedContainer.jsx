@@ -10,6 +10,7 @@ import {
   getListingsFromFirestore,
   dataFromSnapshot,
 } from "../../../app/firebase/firestoreService";
+import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import {listenToListings} from "../listingsActions";
 import FeedItem from "./FeedItem";
 
@@ -18,20 +19,11 @@ export default function FeedContainer() {
   const dispatch = useDispatch();
   const {loading} = useSelector((state) => state.async);
 
-  useEffect(() => {
-    dispatch(asyncActionStart());
-    const unsubscribe = getListingsFromFirestore({
-      next: (snapshot) =>
-        dispatch(
-          listenToListings(
-            snapshot.docs.map((docSnapshot) => dataFromSnapshot(docSnapshot))
-          )
-        )(),
-      error: (error) => console.log(error),
-    });
-    dispatch(asyncActionFinish());
-    return unsubscribe;
-  }, [dispatch]);
+  useFirestoreCollection({
+    query: () => getListingsFromFirestore(),
+    data: (events) => dispatch(listenToListings(events)),
+    deps: [dispatch],
+  });
 
   return (
     <Grid centered>
