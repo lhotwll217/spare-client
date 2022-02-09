@@ -1,15 +1,7 @@
-import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Feed, Grid, Segment} from "semantic-ui-react";
-import {
-  asyncActionFinish,
-  asyncActionStart,
-} from "../../../app/async/asyncReducer";
-import {
-  getListingsFromFirestore,
-  dataFromSnapshot,
-} from "../../../app/firebase/firestoreService";
+import {getListingsFromFirestore} from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import {listenToListings} from "../listingsActions";
 import FeedItem from "./FeedItem";
