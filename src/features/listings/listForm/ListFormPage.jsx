@@ -18,7 +18,7 @@ import {addListing} from "../../../app/firebase/firestoreService";
 
 export default function ListFormPage() {
   const user = useSelector((state) => state.auth.currentUser);
-  console.log(user);
+
   const initialValues = {
     title: "",
     listDetails: "",
@@ -92,7 +92,12 @@ export default function ListFormPage() {
                     <Label basic color='red' content={errors.firestore} />
                   </div>
                 )}
-                <Button type='submit' content='Submit' />
+                <Button
+                  disabled={!dirty || !isValid || isSubmitting}
+                  type='submit'
+                  content='Submit'
+                  color='teal'
+                />
               </Form>
             )}
           </Formik>
