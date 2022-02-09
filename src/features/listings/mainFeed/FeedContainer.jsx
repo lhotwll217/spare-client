@@ -18,8 +18,6 @@ export default function FeedContainer() {
   const dispatch = useDispatch();
   const {loading} = useSelector((state) => state.async);
 
-  console.log(listings);
-  //Listen to data
   useEffect(() => {
     dispatch(asyncActionStart());
     const unsubscribe = getListingsFromFirestore({

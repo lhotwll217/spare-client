@@ -22,7 +22,6 @@ export function verifyAuth() {
     return onAuthStateChanged(auth, (user) => {
       //If there is user allready in storage then dispatch a sugn-in action after retrieving the user object from the store.
       if (user) {
-        console.log(user);
         dispatch({type: SIGN_IN_USER, payload: user});
       } else {
         dispatch(signOutUser());

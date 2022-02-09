@@ -15,7 +15,6 @@ const db = getFirestore(app);
 
 //Firestore Data Shaper - it takes each snapshot, converts it into usable data. It also creates an property out of the uid that is part of the snapshot. Finds all Firestore timestamps and converts them with toDate()
 export function dataFromSnapshot(snapshot) {
-  console.log(snapshot.id);
   if (!snapshot.exists) return undefined;
   const data = snapshot.data();
 

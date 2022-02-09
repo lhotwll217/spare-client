@@ -12,16 +12,13 @@ const elRoot = document.getElementById("root");
 
 function render() {
   ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-
+    <Provider store={store}>
+      <App />
+    </Provider>,
     elRoot
   );
 }
-console.log(module);
+
 if (module.hot) {
   module.hot.accept("./app/layout/App", function () {
     setTimeout(render);
