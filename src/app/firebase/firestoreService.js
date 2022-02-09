@@ -57,6 +57,6 @@ export async function addListing(values) {
   }
 }
 
-export async function getListingsFromFirestore() {
+export function getListingsFromFirestore() {
   return collection(db, "listings");
 }
