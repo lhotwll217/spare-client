@@ -6,6 +6,7 @@ import {
   getDocs,
   Timestamp,
   onSnapshot,
+  serverTimestamp,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -48,6 +49,7 @@ export async function addListing(values) {
         uid: user.uid,
         photoURL: user.photoURL || "null",
       },
+      created_at: serverTimestamp(),
     });
     return docRef;
   } catch (error) {

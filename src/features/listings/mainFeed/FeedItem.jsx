@@ -1,8 +1,10 @@
 import {Feed, Icon} from "semantic-ui-react";
-
+import {formatDistanceToNow} from "date-fns";
 export default function FeedItem({item}) {
-  const {title, lister, listDetails} = item;
-  console.log(item);
+  const {title, lister, listDetails, created_at} = item;
+
+  console.log(new Date(created_at));
+
   return (
     <Feed.Event>
       <Feed.Label
@@ -12,7 +14,10 @@ export default function FeedItem({item}) {
       <Feed.Content>
         <Feed.Summary>
           {title}
-          <Feed.Date>3 days ago</Feed.Date>
+          <Feed.Date>
+            {created_at !== undefined &&
+              formatDistanceToNow(new Date(created_at), {addSuffix: true})}
+          </Feed.Date>
         </Feed.Summary>
         <Feed.Extra text>{listDetails}</Feed.Extra>
       </Feed.Content>
