@@ -2,10 +2,7 @@ import {
   collection,
   addDoc,
   getFirestore,
-  query,
-  getDocs,
   Timestamp,
-  onSnapshot,
   serverTimestamp,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";

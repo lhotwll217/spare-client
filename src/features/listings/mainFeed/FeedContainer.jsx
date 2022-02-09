@@ -4,6 +4,7 @@ import {Feed, Grid, Segment} from "semantic-ui-react";
 import {getListingsFromFirestore} from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import {listenToListings} from "../listingsActions";
+import MyMapContainer from "../map/MyMapContainer";
 import FeedItem from "./FeedItem";
 
 export default function FeedContainer() {
@@ -13,12 +14,13 @@ export default function FeedContainer() {
 
   useFirestoreCollection({
     query: () => getListingsFromFirestore(),
-    data: (events) => dispatch(listenToListings(events)),
+    data: (listings) => dispatch(listenToListings(listings)),
     deps: [dispatch],
   });
 
   return (
     <Grid centered>
+      <MyMapContainer listings={listings} />
       <Grid.Column width={10}>
         <Segment loading={loading}>
           <Feed>
