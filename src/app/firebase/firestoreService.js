@@ -19,7 +19,7 @@ export function dataFromSnapshot(snapshot) {
   const data = snapshot.data();
 
   for (const prop in data) {
-    //The hasOwnProperty() method returns a boolean indicating whether the object has the specified property as its own property (as opposed to inheriting it).
+    //The hasOwnProperty() method returns a boolean indicating whether the object has the specified property as it's own property (as opposed to inheriting it).
     if (data.hasOwnProperty(prop)) {
       if (data[prop] instanceof Timestamp) {
         data[prop] = data[prop].toDate();

@@ -7,7 +7,7 @@ export default function listingsReducer(state = initialState, {type, payload}) {
     case FETCH_LISTINGS:
       return {
         ...state,
-        listings: [...state.listings, payload],
+        listings: payload,
       };
     default:
       return state;

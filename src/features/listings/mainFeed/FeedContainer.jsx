@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Feed, Grid, Segment} from "semantic-ui-react";
@@ -40,11 +40,9 @@ export default function FeedContainer() {
       <Grid.Column width={10}>
         <Segment loading={loading}>
           <Feed>
-            <FeedItem />
-            <FeedItem />
-            <FeedItem />
-            <FeedItem />
-            <FeedItem />
+            {listings.map((item) => {
+              return <FeedItem key={item.id} item={item} />;
+            })}
           </Feed>
         </Segment>
       </Grid.Column>
