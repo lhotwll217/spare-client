@@ -1,6 +1,6 @@
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 
-export default function MyMap({height, listings}) {
+export default function MyMap({height, listings, latLng}) {
   console.log(listings);
   return (
     <MapContainer
@@ -8,7 +8,7 @@ export default function MyMap({height, listings}) {
         height: height,
         borderRadius: "10px",
       }}
-      center={[42.2173, -73.8646]}
+      center={[latLng.lat, latLng.lng] || [42.2173, -73.8646]}
       zoom={9}
       scrollWheelZoom={false}
       zIndex={0}
@@ -17,6 +17,12 @@ export default function MyMap({height, listings}) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
+      {latLng && (
+        <Marker position={[latLng.lat, latLng.lng]}>
+          <Popup>Okay!</Popup>
+        </Marker>
+      )}
+      {/* If listings props are coming from the the the main feed, then map the multiples */}
       {listings &&
         listings.map((item) => {
           const {lat, lng} = item.location.latLng;
