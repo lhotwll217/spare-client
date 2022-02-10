@@ -22,7 +22,10 @@ export default function useFirestoreCollection({query, data, deps}) {
         data(listings);
         dispatch(asyncActionFinish());
       },
-      (error) => dispatch(asyncActionError(error))
+      (error) => {
+        dispatch(asyncActionError(error));
+        dispatch(asyncActionFinish());
+      }
     );
 
     return () => {
