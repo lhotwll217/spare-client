@@ -24,9 +24,7 @@ export default function MyMap({height, listings}) {
           if (lat !== undefined) {
             return (
               <Marker key={item.id} position={[lat, lng]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
+                <Popup>{item.title}</Popup>
               </Marker>
             );
           } else {
