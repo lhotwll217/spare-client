@@ -8,7 +8,7 @@ export default function MyMap({height, listings, latLng}) {
         height: height,
         borderRadius: "10px",
       }}
-      center={[latLng.lat, latLng.lng] || [42.2173, -73.8646]}
+      center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
       zoom={9}
       scrollWheelZoom={false}
       zIndex={0}
