@@ -43,7 +43,9 @@ export async function addListing(values) {
       lister: {
         displayName: user.displayName,
         uid: user.uid,
-        photoURL: user.photoURL || "null",
+        photoURL:
+          user.photoURL ||
+          "https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg",
       },
       created_at: serverTimestamp(),
     });

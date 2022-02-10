@@ -5,10 +5,7 @@ export default function FeedItem({item}) {
 
   return (
     <Feed.Event>
-      <Feed.Label
-        image='https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg'
-        content={lister.displayName}
-      />
+      <Feed.Label image={lister.photoURL} content={lister.displayName} />
       <Feed.Content>
         <Feed.Summary>
           {title}

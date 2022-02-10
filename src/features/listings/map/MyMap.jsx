@@ -4,9 +4,12 @@ export default function MyMap({height, listings}) {
   console.log(listings);
   return (
     <MapContainer
-      style={{height: height}}
+      style={{
+        height: height,
+        borderRadius: "10px",
+      }}
       center={[42.2173, -73.8646]}
-      zoom={10}
+      zoom={9}
       scrollWheelZoom={false}
       zIndex={0}
     >
@@ -26,6 +29,8 @@ export default function MyMap({height, listings}) {
                 </Popup>
               </Marker>
             );
+          } else {
+            return null;
           }
         })}
     </MapContainer>
