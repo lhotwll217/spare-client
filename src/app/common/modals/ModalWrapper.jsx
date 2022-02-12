@@ -17,7 +17,6 @@ export default function ModalWrapper({
     if (onClose !== undefined) {
       onClose();
     } else {
-      console.log("hitDispatch");
       dispatch(closeModal());
     }
   }

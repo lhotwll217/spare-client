@@ -35,9 +35,11 @@ export default function MyMap({height, listings, latLng, maxWidth}) {
             return (
               <Marker key={item.id} position={[lat, lng]}>
                 <Popup>
-                  {item.title}
+                  <strong>{item.title}</strong>
+
                   <br />
                   <Button
+                    style={{padding: 5, maxWidth: "70%", margin: "auto"}}
                     fluid
                     color='teal'
                     content='VIEW'

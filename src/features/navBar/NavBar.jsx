@@ -23,7 +23,7 @@ export default function NavBar() {
           <img src='/assets/spare_icon.png' alt='Spare Logo' />
           <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
         </MenuItem>
-        <MenuItem as={NavLink} to='sandbox' name='sandbox' />
+        {/* <MenuItem as={NavLink} to='sandbox' name='sandbox' /> */}
         {authenticated && (
           <MenuItem as={NavLink} to='listform' name='Create Listing' />
         )}
