@@ -1,7 +1,10 @@
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
+import {useDispatch} from "react-redux";
+import {Button} from "semantic-ui-react";
+import {openModal} from "../../../app/common/modals/modalReducer";
 
 export default function MyMap({height, listings, latLng, maxWidth}) {
-  console.log(listings);
+  const dispatch = useDispatch();
   return (
     <MapContainer
       style={{
@@ -31,7 +34,24 @@ export default function MyMap({height, listings, latLng, maxWidth}) {
           if (lat !== undefined) {
             return (
               <Marker key={item.id} position={[lat, lng]}>
-                <Popup>{item.title}</Popup>
+                <Popup>
+                  {item.title}
+                  <br />
+                  <Button
+                    fluid
+                    color='teal'
+                    content='VIEW'
+                    size='tiny'
+                    onClick={() =>
+                      dispatch(
+                        openModal({
+                          modalType: "ListItemPage",
+                          modalProps: {item: item},
+                        })
+                      )
+                    }
+                  />
+                </Popup>
               </Marker>
             );
           } else {
