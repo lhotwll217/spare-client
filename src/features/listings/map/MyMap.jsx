@@ -1,12 +1,13 @@
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 
-export default function MyMap({height, listings, latLng}) {
+export default function MyMap({height, listings, latLng, maxWidth}) {
   console.log(listings);
   return (
     <MapContainer
       style={{
         height: height,
         borderRadius: "10px",
+        maxWidth: maxWidth,
       }}
       center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
       zoom={9}
