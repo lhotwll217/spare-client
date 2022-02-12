@@ -8,7 +8,9 @@ export default function FeedItem({item}) {
   return (
     <Feed.Event
       onClick={() =>
-        dispatch(openModal({modalType: "ListItemPage", modalProps: item}))
+        dispatch(
+          openModal({modalType: "ListItemPage", modalProps: {item: item}})
+        )
       }
     >
       <Feed.Label image={lister.photoURL} content={lister.displayName} />
