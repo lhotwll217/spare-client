@@ -1,20 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
-import {
-  Link,
-  NavLink,
-  unstable_HistoryRouter,
-  useNavigate,
-} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {Button, Container, Menu, MenuItem} from "semantic-ui-react";
 import {openModal} from "../../app/common/modals/modalReducer";
 import {signOutFirebase} from "../../app/firebase/firebaseService";
 import {signOutUser} from "../auth/authActions";
-import {useHistory} from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
 
-  const {authenticated} = useSelector((state) => state.auth);
+  const {authenticated, currentUser} = useSelector((state) => state.auth);
+  // const {authenticated} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   return (
     <Menu fixed='top'>
@@ -25,7 +20,14 @@ export default function NavBar() {
         </MenuItem>
         {/* <MenuItem as={NavLink} to='sandbox' name='sandbox' /> */}
         {authenticated && (
-          <MenuItem as={NavLink} to='listform' name='Create Listing' />
+          <>
+            <MenuItem as={NavLink} to='listform' name='Create Listing' />
+            <MenuItem
+              as={NavLink}
+              to={`/profile/${currentUser.uid}`}
+              name='Profile'
+            />
+          </>
         )}
 
         <MenuItem position='right'>

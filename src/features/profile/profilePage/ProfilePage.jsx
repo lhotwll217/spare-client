@@ -1,5 +1,6 @@
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
+import {useParams} from "react-router-dom";
 import {
   Button,
   Grid,
@@ -13,15 +14,19 @@ import {getUserProfile} from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import {listenToCurrentUserProfile} from "../profileActions";
 
-export default function ProfilePage({match}) {
+export default function ProfilePage() {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
 
+  let {userId} = useParams();
+
+  console.log(userId);
+
   useFirestoreCollection({
-    query: () => getUserProfile(match.params.id),
+    query: () => getUserProfile(userId),
     data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
-    deps: [dispatch, match.params.id],
+    deps: [dispatch, userId],
   });
   return (
     <Grid style={{marginTop: "30px"}} centered>

@@ -6,6 +6,7 @@ import {
   serverTimestamp,
   doc,
   setDoc,
+  getDoc,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
