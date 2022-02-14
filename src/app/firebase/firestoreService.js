@@ -61,10 +61,12 @@ export async function addListing(values) {
 export function getListingsFromFirestore() {
   return collection(db, "listings");
 }
-
+// This is called in our firebase registerWithEmail function to creat corresponding user document we can add custom properties to since firebase auth user instances are have limited properties
 export async function setUserProfileData(user) {
   try {
+    //Finds or creates collection to add document to
     let collectionRef = await collection(db, "users");
+    //SetDoc allows you to explicitly define the uid, the doc is created within the setDoc using 'doc' passing the collection to creat it in as well as the name.
     let newUserDoc = await setDoc(doc(collectionRef, user.uid), {
       email: user.email,
       displayName: user.displayName,
