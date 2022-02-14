@@ -12,6 +12,7 @@ import {
 } from "semantic-ui-react";
 import {getUserProfile} from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
+import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
 import {listenToCurrentUserProfile} from "../profileActions";
 
 export default function ProfilePage() {
@@ -23,7 +24,7 @@ export default function ProfilePage() {
 
   console.log(userId);
 
-  useFirestoreCollection({
+  useFirestoreDoc({
     query: () => getUserProfile(userId),
     data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
     deps: [dispatch, userId],
