@@ -15,9 +15,11 @@ import MyTextArea from "../../../app/common/form/MyTextArea";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import {useSelector} from "react-redux";
 import {addListing} from "../../../app/firebase/firestoreService";
+import {useNavigate} from "react-router-dom";
 
 export default function ListFormPage() {
   const user = useSelector((state) => state.auth.currentUser);
+  const navigate = useNavigate();
 
   const initialValues = {
     title: "",
@@ -49,6 +51,7 @@ export default function ListFormPage() {
                 const docRef = await addListing(values);
                 console.log(docRef);
                 setSubmitting(false);
+                navigate("/");
               } catch (error) {
                 setErrors({firestore: error.message});
               }
