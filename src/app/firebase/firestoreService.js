@@ -79,3 +79,7 @@ export async function setUserProfileData(user) {
     console.log(error);
   }
 }
+
+export function getUserProfile(uid) {
+  return doc(db, "users", uid);
+}

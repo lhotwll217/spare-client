@@ -9,11 +9,20 @@ import {
   Label,
   Segment,
 } from "semantic-ui-react";
+import {getUserProfile} from "../../../app/firebase/firestoreService";
+import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
+import {listenToCurrentUserProfile} from "../profileActions";
 
-export default function ProfilePage() {
+export default function ProfilePage({match}) {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
+
+  useFirestoreCollection({
+    query: () => getUserProfile(match.params.id),
+    data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
+    deps: [dispatch, match.params.id],
+  });
   return (
     <Grid style={{marginTop: "30px"}} centered>
       <GridColumn width={12}>
