@@ -18,7 +18,7 @@ function App() {
         <Route path='listitem' element={<ListItemPage />} />
         <Route path='/listform' element={<ListFormPage />} />
         <Route path='sandbox' element={<Sandbox />} />
-        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/profile/:id' element={<ProfilePage />} />
       </Routes>
     </Router>
   );

@@ -7,7 +7,6 @@ import {
   Label,
   Segment,
 } from "semantic-ui-react";
-import MyTextInput from "../../../app/common/form/MyTextInput";
 
 export default function ProfilePage() {
   return (
