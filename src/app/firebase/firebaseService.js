@@ -6,6 +6,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import {app} from "../config/firebaseConfig";
+import {setUserProfileData} from "./firestoreService";
 // const auth = getAuth(app);
 
 export async function registerWithEmail(creds) {
@@ -17,7 +18,10 @@ export async function registerWithEmail(creds) {
       creds.email,
       creds.password
     );
-    await updateProfile(result.user, {displayName: creds.displayName});
+    await updateProfile(result.user, {
+      displayName: creds.displayName,
+    });
+    return await setUserProfileData(result.user);
   } catch (error) {
     console.log(error);
     throw error;
@@ -41,6 +45,5 @@ export async function signInWithEmail(creds) {
 export async function signOutFirebase() {
   const auth = getAuth();
   const result = await signOut(auth);
-  console.log(result);
   return result;
 }

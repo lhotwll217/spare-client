@@ -1,3 +1,5 @@
+import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {
   Button,
   Grid,
@@ -9,6 +11,9 @@ import {
 } from "semantic-ui-react";
 
 export default function ProfilePage() {
+  const dispatch = useDispatch();
+  const {currentUserProfile} = useSelector((state) => state.profile);
+  const {loading} = useSelector((state) => state.async);
   return (
     <Grid style={{marginTop: "30px"}} centered>
       <GridColumn width={12}>

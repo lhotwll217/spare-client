@@ -4,6 +4,8 @@ import {
   getFirestore,
   Timestamp,
   serverTimestamp,
+  doc,
+  setDoc,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -58,4 +60,20 @@ export async function addListing(values) {
 
 export function getListingsFromFirestore() {
   return collection(db, "listings");
+}
+
+export async function setUserProfileData(user) {
+  try {
+    let collectionRef = await collection(db, "users");
+    let newUserDoc = await setDoc(doc(collectionRef, user.uid), {
+      email: user.email,
+      displayName: user.displayName,
+      providerId: user.providerId,
+      photoURL: user.photoURL,
+      createdAt: serverTimestamp(),
+    });
+    console.log(newUserDoc);
+  } catch (error) {
+    console.log(error);
+  }
 }
