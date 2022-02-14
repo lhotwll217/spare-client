@@ -1,4 +1,13 @@
-import {Button, Grid, GridColumn, Image} from "semantic-ui-react";
+import {
+  Button,
+  Grid,
+  GridColumn,
+  Image,
+  Input,
+  Label,
+  Segment,
+} from "semantic-ui-react";
+import MyTextInput from "../../../app/common/form/MyTextInput";
 
 export default function ProfilePage() {
   return (
@@ -17,6 +26,12 @@ export default function ProfilePage() {
           size='tiny'
           fluid
         />
+        <Segment>
+          <Label content='Display Name' />
+          <Input fluid />
+          <Label content='Location' />
+          <Input fluid />
+        </Segment>
       </GridColumn>
     </Grid>
   );
