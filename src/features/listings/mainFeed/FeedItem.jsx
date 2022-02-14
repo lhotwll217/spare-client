@@ -5,8 +5,12 @@ import {openModal} from "../../../app/common/modals/modalReducer";
 export default function FeedItem({item}) {
   const {title, lister, listDetails, created_at} = item;
   const dispatch = useDispatch();
+
+  function feedOnClick() {
+    dispatch(openModal({modalType: "ListItemPage", modalProps: {item: item}}));
+  }
   return (
-    <Feed.Event style={{cursor: "pointer"}}>
+    <Feed.Event onClick={() => feedOnClick()} style={{cursor: "pointer"}}>
       <Feed.Label image={lister.photoURL} />
       <Feed.Content>
         <Feed.Summary>
@@ -16,12 +20,9 @@ export default function FeedItem({item}) {
               formatDistanceToNow(created_at, {addSuffix: true})}
           </Feed.Date>
           <Button
+            circular
             style={{padding: 5}}
-            onClick={() =>
-              dispatch(
-                openModal({modalType: "ListItemPage", modalProps: {item: item}})
-              )
-            }
+            onClick={() => feedOnClick()}
             floated='right'
             content='VIEW'
             size='tiny'

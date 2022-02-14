@@ -7,6 +7,7 @@ import ListItemPage from "../../features/listings/listItem/ListItemPage";
 import Sandbox from "../../features/sandbox/Sandbox";
 import ListFormPage from "../../features/listings/listForm/ListFormPage";
 import ModalManager from "../common/modals/ModalManager";
+import ProfilePage from "../../features/profile/profilePage/ProfilePage";
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
         <Route path='listitem' element={<ListItemPage />} />
         <Route path='/listform' element={<ListFormPage />} />
         <Route path='sandbox' element={<Sandbox />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Routes>
     </Router>
   );
