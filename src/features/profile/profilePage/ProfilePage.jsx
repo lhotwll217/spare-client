@@ -8,7 +8,9 @@ import {
   Image,
   Input,
   Label,
+  Progress,
   Segment,
+  SegmentGroup,
 } from "semantic-ui-react";
 import {getUserProfile} from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
@@ -29,6 +31,10 @@ export default function ProfilePage() {
     data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
     deps: [dispatch, userId],
   });
+
+  if (loading || !currentUserProfile) {
+    return <Progress loading={loading.toString()} />;
+  }
   return (
     <Grid style={{marginTop: "30px"}} centered>
       <GridColumn width={12}>
@@ -45,12 +51,22 @@ export default function ProfilePage() {
           size='tiny'
           fluid
         />
-        <Segment>
-          <Label content='Display Name' />
-          <Input fluid />
-          <Label content='Location' />
-          <Input fluid />
-        </Segment>
+        <SegmentGroup>
+          {" "}
+          <Segment>Profile</Segment>
+          <SegmentGroup>
+            {" "}
+            <Segment>
+              <Label content='Display Name' />
+              <h3>{currentUserProfile.displayName}</h3>
+            </Segment>
+            <Segment>
+              <Label content='Location' />
+              <Input fluid />
+            </Segment>
+          </SegmentGroup>
+          <Segment>Bottom</Segment>
+        </SegmentGroup>
       </GridColumn>
     </Grid>
   );
