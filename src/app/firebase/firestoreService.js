@@ -7,6 +7,7 @@ import {
   doc,
   setDoc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -83,4 +84,17 @@ export async function setUserProfileData(user) {
 
 export function getUserProfile(uid) {
   return doc(db, "users", uid);
+}
+
+export async function updateUserLocation(location) {
+  const user = auth.currentUser;
+  const userDoc = doc(db, "users", user.uid);
+
+  try {
+    await updateDoc(userDoc, {
+      location: location,
+    });
+  } catch (error) {
+    throw error;
+  }
 }

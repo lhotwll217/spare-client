@@ -13,9 +13,9 @@ import {
   SegmentGroup,
 } from "semantic-ui-react";
 import {getUserProfile} from "../../../app/firebase/firestoreService";
-import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
 import {listenToCurrentUserProfile} from "../profileActions";
+import LocationForm from "./LocationForm";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export default function ProfilePage() {
             </Segment>
             <Segment>
               <Label content='Location' />
-              <Input fluid />
+              <LocationForm />
             </Segment>
           </SegmentGroup>
           <Segment>Bottom</Segment>
