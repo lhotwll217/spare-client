@@ -1,14 +1,28 @@
 import {Form, Formik} from "formik";
 import {Button} from "semantic-ui-react";
 import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
+import {updateUserLocation} from "../../../app/firebase/firestoreService";
 export default function LocationForm() {
   const initialValues = {
     location: {address: "", latLng: ""},
   };
   return (
-    <Formik initialValues={initialValues} onSubmit={(e) => console.log(e)}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={async (values) => {
+        try {
+          await updateUserLocation(values);
+        } catch (error) {
+          console.log(error);
+        }
+      }}
+    >
       {({values, isValid, isSubmitting, dirty, errors, handleSubmit}) => (
-        <Form style={{marginTop: 7}} className='ui form'>
+        <Form
+          onSubmit={handleSubmit}
+          style={{marginTop: 7}}
+          className='ui form'
+        >
           <MyPlaceInput placeholder='Location...' name='location' />
           <Button
             disabled={!dirty || !isValid || isSubmitting}
