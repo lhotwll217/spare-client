@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -15,16 +16,16 @@ import {
 import {getUserProfile} from "../../../app/firebase/firestoreService";
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
 import {listenToCurrentUserProfile} from "../profileActions";
+import DisplayNameForm from "./DisplayNameForm";
 import LocationForm from "./LocationForm";
 
 export default function ProfilePage() {
+  const [editName, setEditName] = useState(false);
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
 
   let {userId} = useParams();
-
-  console.log(userId);
 
   useFirestoreDoc({
     query: () => getUserProfile(userId),
@@ -53,12 +54,25 @@ export default function ProfilePage() {
         />
         <SegmentGroup>
           {" "}
-          <Segment>Profile</Segment>
+          <Segment loading={loading}>Profile</Segment>
           <SegmentGroup>
             {" "}
             <Segment>
               <Label content='Display Name' />
-              <h3>{currentUserProfile.displayName}</h3>
+              {editName ? (
+                <DisplayNameForm />
+              ) : (
+                <>
+                  {" "}
+                  <h3>{currentUserProfile.displayName}</h3>
+                  <Button
+                    content='Edit'
+                    size='small'
+                    color='teal'
+                    onClick={() => setEditName(true)}
+                  />
+                </>
+              )}
             </Segment>
             <Segment>
               <Label content='Location' />
