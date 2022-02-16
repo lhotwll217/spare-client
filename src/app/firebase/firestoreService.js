@@ -92,7 +92,7 @@ export async function updateUserLocation(location) {
 
   try {
     await updateDoc(userDoc, {
-      location: location,
+      location,
     });
   } catch (error) {
     throw error;

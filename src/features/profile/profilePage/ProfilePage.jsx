@@ -62,7 +62,11 @@ export default function ProfilePage() {
             </Segment>
             <Segment>
               <Label content='Location' />
-              <LocationForm />
+              {currentUserProfile.location ? (
+                <div>{currentUserProfile.location.location.address}</div>
+              ) : (
+                <LocationForm />
+              )}
             </Segment>
           </SegmentGroup>
           <Segment>Bottom</Segment>
