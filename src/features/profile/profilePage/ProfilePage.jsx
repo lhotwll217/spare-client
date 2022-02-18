@@ -62,7 +62,7 @@ export default function ProfilePage() {
           size='tiny'
           fluid
         />{" "}
-        <SegmentGroup>
+        <SegmentGroup style={{backgroundColor: "white"}}>
           <Segment loading={loading}>Profile</Segment>
           <SegmentGroup>
             {" "}
