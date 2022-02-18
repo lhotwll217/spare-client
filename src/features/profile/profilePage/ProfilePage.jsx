@@ -82,7 +82,7 @@ export default function ProfilePage() {
             </Segment>
             <Segment>
               <Label content='Location' />
-              {currentUserProfile.location && !editLocation ? (
+              {currentUserProfile.location?.latLng && !editLocation ? (
                 <div>
                   {" "}
                   <h3>{currentUserProfile.location.address}</h3>
@@ -94,7 +94,10 @@ export default function ProfilePage() {
                   />
                 </div>
               ) : (
-                <LocationForm setEditLocation={setEditLocation} />
+                <LocationForm
+                  profile={currentUserProfile}
+                  setEditLocation={setEditLocation}
+                />
               )}
             </Segment>
           </SegmentGroup>

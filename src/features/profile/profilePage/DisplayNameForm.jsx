@@ -2,10 +2,11 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 import {Form, Formik} from "formik";
 import {Button} from "semantic-ui-react";
 
-export default function DisplayNameForm({setEditName}) {
+export default function DisplayNameForm({setEditName, profile}) {
   const initialValues = {
     displayName: "",
   };
+
   return (
     <Formik initialValues={initialValues} onSubmit={(e) => console.log(e)}>
       {({values, isValid, isSubmitting, dirty, errors, handleSubmit}) => (
