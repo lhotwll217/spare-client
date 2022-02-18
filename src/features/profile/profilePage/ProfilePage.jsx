@@ -60,7 +60,16 @@ export default function ProfilePage() {
             <Segment>
               <Label content='Display Name' />
               {editName ? (
-                <DisplayNameForm />
+                <>
+                  <div style={{display: "inline"}}>
+                    {" "}
+                    <DisplayNameForm />
+                    <Button
+                      content='Cancel'
+                      onClick={() => setEditName(false)}
+                    />
+                  </div>
+                </>
               ) : (
                 <>
                   {" "}
