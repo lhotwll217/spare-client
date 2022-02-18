@@ -98,3 +98,15 @@ export async function updateUserLocation(location) {
     throw error;
   }
 }
+export async function updateDisplayName(displayName) {
+  const user = auth.currentUser;
+  const userDoc = doc(db, "users", user.uid);
+
+  try {
+    await updateDoc(userDoc, {
+      ...displayName,
+    });
+  } catch (error) {
+    throw error;
+  }
+}
