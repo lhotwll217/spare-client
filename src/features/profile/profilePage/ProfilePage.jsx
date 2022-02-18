@@ -63,11 +63,7 @@ export default function ProfilePage() {
                 <>
                   <div style={{display: "inline"}}>
                     {" "}
-                    <DisplayNameForm />
-                    <Button
-                      content='Cancel'
-                      onClick={() => setEditName(false)}
-                    />
+                    <DisplayNameForm setEditName={setEditName} />
                   </div>
                 </>
               ) : (

@@ -2,7 +2,7 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 import {Form, Formik} from "formik";
 import {Button} from "semantic-ui-react";
 
-export default function DisplayNameForm() {
+export default function DisplayNameForm({setEditName}) {
   const initialValues = {
     displayName: "",
   };
@@ -20,6 +20,11 @@ export default function DisplayNameForm() {
             type='submit'
             content='Submit'
             color='teal'
+          />
+          <Button
+            type='button'
+            content='Cancel'
+            onClick={() => setEditName(false)}
           />
         </Form>
       )}
