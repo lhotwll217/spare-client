@@ -7,13 +7,16 @@ import {
   Grid,
   GridColumn,
   Image,
-  Input,
   Label,
   Progress,
   Segment,
   SegmentGroup,
 } from "semantic-ui-react";
-import {getUserProfile} from "../../../app/firebase/firestoreService";
+import {
+  getUserListings,
+  getUserProfile,
+} from "../../../app/firebase/firestoreService";
+import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
 import {listenToCurrentUserProfile} from "../profileActions";
 import DisplayNameForm from "./DisplayNameForm";
@@ -31,6 +34,12 @@ export default function ProfilePage() {
   useFirestoreDoc({
     query: () => getUserProfile(userId),
     data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
+    deps: [dispatch, userId],
+  });
+
+  useFirestoreCollection({
+    query: () => getUserListings(),
+    data: (listings) => console.log(listings),
     deps: [dispatch, userId],
   });
 
@@ -52,9 +61,8 @@ export default function ProfilePage() {
           content='Upload Photo'
           size='tiny'
           fluid
-        />
+        />{" "}
         <SegmentGroup>
-          {" "}
           <Segment loading={loading}>Profile</Segment>
           <SegmentGroup>
             {" "}
@@ -62,7 +70,7 @@ export default function ProfilePage() {
               <Label content='Display Name' />
               {editName ? (
                 <>
-                  <div style={{display: "inline"}}>
+                  <div>
                     {" "}
                     <DisplayNameForm setEditName={setEditName} />
                   </div>
@@ -101,6 +109,7 @@ export default function ProfilePage() {
               )}
             </Segment>
           </SegmentGroup>
+
           <Segment>Bottom</Segment>
         </SegmentGroup>
       </GridColumn>

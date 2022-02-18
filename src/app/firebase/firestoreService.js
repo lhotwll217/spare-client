@@ -6,8 +6,9 @@ import {
   serverTimestamp,
   doc,
   setDoc,
-  getDoc,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -109,4 +110,11 @@ export async function updateDisplayName(displayName) {
   } catch (error) {
     throw error;
   }
+}
+
+export function getUserListings() {
+  const user = auth.currentUser;
+  const listings = collection(db, "listings");
+
+  return query(listings, where("lister.uid", "==", user.uid));
 }
