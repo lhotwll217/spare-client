@@ -21,10 +21,11 @@ import LocationForm from "./LocationForm";
 
 export default function ProfilePage() {
   const [editName, setEditName] = useState(false);
+  const [editLocation, setEditLocation] = useState(false);
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
-
+  console.log(editLocation);
   let {userId} = useParams();
 
   useFirestoreDoc({
@@ -81,10 +82,19 @@ export default function ProfilePage() {
             </Segment>
             <Segment>
               <Label content='Location' />
-              {currentUserProfile.location ? (
-                <div>{currentUserProfile.location.address}</div>
+              {currentUserProfile.location && !editLocation ? (
+                <div>
+                  {" "}
+                  <h3>{currentUserProfile.location.address}</h3>
+                  <Button
+                    content='Edit'
+                    size='small'
+                    color='teal'
+                    onClick={() => setEditLocation(true)}
+                  />
+                </div>
               ) : (
-                <LocationForm />
+                <LocationForm setEditLocation={setEditLocation} />
               )}
             </Segment>
           </SegmentGroup>

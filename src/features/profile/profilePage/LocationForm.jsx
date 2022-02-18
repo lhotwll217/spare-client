@@ -2,7 +2,7 @@ import {Form, Formik} from "formik";
 import {Button} from "semantic-ui-react";
 import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
 import {updateUserLocation} from "../../../app/firebase/firestoreService";
-export default function LocationForm() {
+export default function LocationForm({setEditLocation}) {
   const initialValues = {
     location: {address: "", latLng: ""},
   };
@@ -29,6 +29,11 @@ export default function LocationForm() {
             type='submit'
             content='Submit'
             color='teal'
+          />
+          <Button
+            type='button'
+            content='Cancel'
+            onClick={() => setEditLocation(false)}
           />
         </Form>
       )}
