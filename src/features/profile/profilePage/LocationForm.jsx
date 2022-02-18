@@ -11,7 +11,7 @@ export default function LocationForm({setEditLocation, profile}) {
       initialValues={initialValues}
       onSubmit={async (values) => {
         try {
-          await updateUserLocation(values);
+          await updateUserLocation(values).then(() => setEditLocation(false));
         } catch (error) {
           console.log(error);
         }
@@ -29,6 +29,7 @@ export default function LocationForm({setEditLocation, profile}) {
             type='submit'
             content='Submit'
             color='teal'
+            loading={isSubmitting}
           />
           {profile.location?.address && (
             <Button

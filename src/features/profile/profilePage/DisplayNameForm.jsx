@@ -31,6 +31,7 @@ export default function DisplayNameForm({setEditName}) {
             type='submit'
             content='Submit'
             color='teal'
+            loading={isSubmitting}
           />
           <Button
             type='button'
