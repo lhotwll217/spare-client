@@ -12,6 +12,7 @@ export default function FeedContainer() {
   const {listings} = useSelector((state) => state.listings);
   const dispatch = useDispatch();
   const {loading, error} = useSelector((state) => state.async);
+  const {currentUserProfile} = useSelector((state) => state.profile);
 
   useFirestoreCollection({
     query: () => getListingsFromFirestore(),
@@ -28,7 +29,10 @@ export default function FeedContainer() {
   }
   return (
     <Grid centered>
-      <MyMapContainer listings={listings} />
+      <MyMapContainer
+        latLng={currentUserProfile.location.latLng}
+        listings={listings}
+      />
       <Grid.Column width={10}>
         <Segment loading={loading}>
           <Feed>
