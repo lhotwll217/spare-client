@@ -110,7 +110,7 @@ export default function ProfilePage() {
             </Segment>
           </SegmentGroup>
 
-          <Segment>Bottom</Segment>
+          <Segment></Segment>
         </SegmentGroup>
       </GridColumn>
     </Grid>
