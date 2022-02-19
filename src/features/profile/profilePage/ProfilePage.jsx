@@ -18,7 +18,10 @@ import {
 } from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
-import {listenToCurrentUserProfile} from "../profileActions";
+import {
+  listenToCurrentUserProfile,
+  listenToProfileListings,
+} from "../profileActions";
 import DisplayNameForm from "./DisplayNameForm";
 import LocationForm from "./LocationForm";
 
@@ -28,7 +31,8 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
-  console.log(editLocation);
+  const {listings} = useSelector((state) => state.profile);
+  console.log(listings);
   let {userId} = useParams();
 
   useFirestoreDoc({
@@ -39,7 +43,7 @@ export default function ProfilePage() {
 
   useFirestoreCollection({
     query: () => getUserListings(),
-    data: (listings) => console.log(listings),
+    data: (listings) => dispatch(listenToProfileListings(listings)),
     deps: [dispatch, userId],
   });
 
