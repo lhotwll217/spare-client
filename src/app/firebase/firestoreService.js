@@ -112,9 +112,8 @@ export async function updateDisplayName(displayName) {
   }
 }
 
-export function getUserListings() {
-  const user = auth.currentUser;
+export function getUserListings(userId) {
   const listings = collection(db, "listings");
 
-  return query(listings, where("lister.uid", "==", user.uid));
+  return query(listings, where("lister.uid", "==", userId));
 }

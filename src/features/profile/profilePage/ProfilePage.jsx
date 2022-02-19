@@ -46,7 +46,7 @@ export default function ProfilePage() {
   });
 
   useFirestoreCollection({
-    query: () => getUserListings(),
+    query: () => getUserListings(userId),
     data: (listings) => dispatch(listenToProfileListings(listings)),
     deps: [dispatch, userId],
   });
