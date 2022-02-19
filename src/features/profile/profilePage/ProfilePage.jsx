@@ -4,8 +4,11 @@ import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import {
   Button,
+  Feed,
   Grid,
   GridColumn,
+  Header,
+  HeaderSubheader,
   Image,
   Label,
   Progress,
@@ -24,6 +27,7 @@ import {
 } from "../profileActions";
 import DisplayNameForm from "./DisplayNameForm";
 import LocationForm from "./LocationForm";
+import FeedItem from "../../listings/mainFeed/FeedItem";
 
 export default function ProfilePage() {
   const [editName, setEditName] = useState(false);
@@ -67,22 +71,22 @@ export default function ProfilePage() {
           fluid
         />{" "}
         <SegmentGroup style={{backgroundColor: "white"}}>
-          <Segment loading={loading}>Profile</Segment>
+          <Segment loading={loading}>
+            <Header as='h1' content='Profile' />
+          </Segment>
           <SegmentGroup>
             {" "}
             <Segment>
-              <Label content='Display Name' />
+              <Header as='h3' content='Display Name' />
               {editName ? (
                 <>
-                  <div>
-                    {" "}
-                    <DisplayNameForm setEditName={setEditName} />
-                  </div>
+                  <DisplayNameForm setEditName={setEditName} />
                 </>
               ) : (
                 <>
-                  {" "}
-                  <h3>{currentUserProfile.displayName}</h3>
+                  <h3 style={{margin: 0, marginBottom: 10}}>
+                    {currentUserProfile.displayName}
+                  </h3>
                   <Button
                     content='Edit'
                     size='small'
@@ -93,11 +97,13 @@ export default function ProfilePage() {
               )}
             </Segment>
             <Segment>
-              <Label content='Location' />
+              <Header as='h3' content='Location' />
               {currentUserProfile.location?.latLng && !editLocation ? (
                 <div>
                   {" "}
-                  <h3>{currentUserProfile.location.address}</h3>
+                  <h3 style={{marginTop: 0, marginBottom: 10}}>
+                    {currentUserProfile.location.address}
+                  </h3>
                   <Button
                     content='Edit'
                     size='small'
@@ -114,7 +120,15 @@ export default function ProfilePage() {
             </Segment>
           </SegmentGroup>
 
-          <Segment></Segment>
+          <Segment>
+            <Header subheader content='Listings' />
+            <Feed>
+              {listings &&
+                listings.map((item) => {
+                  return <FeedItem key={item.id} item={item} />;
+                })}
+            </Feed>
+          </Segment>
         </SegmentGroup>
       </GridColumn>
     </Grid>
