@@ -9,6 +9,7 @@ import {
   updateDoc,
   query,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -116,4 +117,10 @@ export function getUserListings(userId) {
   const listings = collection(db, "listings");
 
   return query(listings, where("lister.uid", "==", userId));
+}
+
+export async function deleteListing(listingId) {
+  const response = await deleteDoc(doc(db, "listings", listingId));
+  console.log(response);
+  return response;
 }

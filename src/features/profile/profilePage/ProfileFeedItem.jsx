@@ -2,15 +2,17 @@ import {Button, Feed} from "semantic-ui-react";
 import {formatDistanceToNow} from "date-fns";
 import {useDispatch} from "react-redux";
 import {openModal} from "../../../app/common/modals/modalReducer";
+import {deleteListing} from "../../../app/firebase/firestoreService";
 export default function ProfileFeedItem({item}) {
-  const {title, lister, listDetails, created_at} = item;
+  const {title, lister, listDetails, created_at, id} = item;
   const dispatch = useDispatch();
 
   function feedOnClick() {
     dispatch(openModal({modalType: "ListItemPage", modalProps: {item: item}}));
   }
+  console.log(item);
   return (
-    <Feed.Event onClick={() => feedOnClick()} style={{cursor: "pointer"}}>
+    <Feed.Event>
       <Feed.Label image={lister.photoURL} />
       <Feed.Content>
         <Feed.Summary>
@@ -21,15 +23,21 @@ export default function ProfileFeedItem({item}) {
           </Feed.Date>
           <Button
             style={{padding: 5}}
-            onClick={() => console.log("delete")}
+            onClick={async () => {
+              try {
+                await deleteListing(id);
+              } catch (error) {
+                console.log(error);
+              }
+            }}
             floated='right'
             content='DELETE'
             size='tiny'
             color='red'
           />
           <Button
-            style={{padding: 5}}
             onClick={() => feedOnClick()}
+            style={{padding: 5}}
             floated='right'
             content='VIEW'
             size='tiny'
