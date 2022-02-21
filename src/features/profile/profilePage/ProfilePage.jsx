@@ -1,19 +1,16 @@
-import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import {
   Button,
-  Feed,
   Grid,
   GridColumn,
   Header,
-  HeaderSubheader,
   Image,
-  Label,
   Progress,
   Segment,
   SegmentGroup,
+  TabPane,
 } from "semantic-ui-react";
 import {
   getUserListings,
@@ -25,14 +22,11 @@ import {
   listenToCurrentUserProfile,
   listenToProfileListings,
 } from "../profileActions";
-import DisplayNameForm from "./DisplayNameForm";
-import LocationForm from "./LocationForm";
-import FeedItem from "../../listings/mainFeed/FeedItem";
+
 import UserDetailsTab from "./UserDetailsTab";
+import UserListingsTab from "./UserListingsTab";
 
 export default function ProfilePage() {
-  const [editName, setEditName] = useState(false);
-  const [editLocation, setEditLocation] = useState(false);
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
@@ -51,6 +45,8 @@ export default function ProfilePage() {
     data: (listings) => dispatch(listenToProfileListings(listings)),
     deps: [dispatch, userId],
   });
+
+  const panes = [{menuItem: "User Details", render: () => <TabPane></TabPane>}];
 
   if (loading || !currentUserProfile) {
     return <Progress loading={loading.toString()} />;
@@ -76,16 +72,7 @@ export default function ProfilePage() {
             <Header as='h1' content='Profile' />
           </Segment>
           <UserDetailsTab currentUserProfile={currentUserProfile} />
-
-          <Segment>
-            <Header subheader content='Listings' />
-            <Feed>
-              {listings &&
-                listings.map((item) => {
-                  return <FeedItem key={item.id} item={item} />;
-                })}
-            </Feed>
-          </Segment>
+          <UserListingsTab listings={listings} />
         </SegmentGroup>
       </GridColumn>
     </Grid>
