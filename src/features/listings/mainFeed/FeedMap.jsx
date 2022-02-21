@@ -10,17 +10,21 @@ export default function FeedMap({height, listings, maxWidth}) {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const [latLng, setLatLng] = useState(null);
-  console.log(currentUserProfile);
-  console.log("Top Level :", latLng);
 
   useEffect(() => {
-    if (currentUserProfile) {
+    console.log("useEffect top & latLng is:", latLng);
+    if (currentUserProfile?.location) {
       setLatLng(currentUserProfile.location.latLng);
       console.log(latLng);
     } else {
       setLatLng(null);
     }
+    console.log("useEffect bottom & latLng is:", latLng);
   }, [currentUserProfile]);
+
+  useEffect(() => {
+    console.log(latLng);
+  }, [latLng]);
 
   return (
     <MapContainer

@@ -28,6 +28,7 @@ import {
 import DisplayNameForm from "./DisplayNameForm";
 import LocationForm from "./LocationForm";
 import FeedItem from "../../listings/mainFeed/FeedItem";
+import UserDetailsTab from "./UserDetailsTab";
 
 export default function ProfilePage() {
   const [editName, setEditName] = useState(false);
@@ -74,51 +75,7 @@ export default function ProfilePage() {
           <Segment loading={loading}>
             <Header as='h1' content='Profile' />
           </Segment>
-          <SegmentGroup>
-            {" "}
-            <Segment>
-              <Header as='h3' content='Display Name' />
-              {editName ? (
-                <>
-                  <DisplayNameForm setEditName={setEditName} />
-                </>
-              ) : (
-                <>
-                  <h3 style={{margin: 0, marginBottom: 10}}>
-                    {currentUserProfile.displayName}
-                  </h3>
-                  <Button
-                    content='Edit'
-                    size='small'
-                    color='teal'
-                    onClick={() => setEditName(true)}
-                  />
-                </>
-              )}
-            </Segment>
-            <Segment>
-              <Header as='h3' content='Location' />
-              {currentUserProfile.location?.latLng && !editLocation ? (
-                <div>
-                  {" "}
-                  <h3 style={{marginTop: 0, marginBottom: 10}}>
-                    {currentUserProfile.location.address}
-                  </h3>
-                  <Button
-                    content='Edit'
-                    size='small'
-                    color='teal'
-                    onClick={() => setEditLocation(true)}
-                  />
-                </div>
-              ) : (
-                <LocationForm
-                  profile={currentUserProfile}
-                  setEditLocation={setEditLocation}
-                />
-              )}
-            </Segment>
-          </SegmentGroup>
+          <UserDetailsTab currentUserProfile={currentUserProfile} />
 
           <Segment>
             <Header subheader content='Listings' />
