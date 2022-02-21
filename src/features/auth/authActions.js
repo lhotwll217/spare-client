@@ -1,6 +1,11 @@
 import {SIGN_IN_USER, SIGN_OUT_USER} from "./authConstants";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-
+import {
+  dataFromSnapshot,
+  getUserProfile,
+} from "../../app/firebase/firestoreService";
+import {onSnapshot} from "firebase/firestore";
+import {listenToCurrentUserProfile} from "../profile/profileActions";
 export function signInUser(payload) {
   return {
     type: SIGN_IN_USER,
@@ -13,7 +18,7 @@ export function signOutUser() {
     type: SIGN_OUT_USER,
   };
 }
-//Dispatch this action in the configure store method so we the auth state is listened to continuously
+//Dispatch this action in the configure store method the auth state is listened to continuously after being initialized in the store
 export function verifyAuth() {
   //Return a function with dispatch from the store
   return function (dispatch) {
@@ -23,6 +28,16 @@ export function verifyAuth() {
       //If there is user allready in storage then dispatch a sugn-in action after retrieving the user object from the store.
       if (user) {
         dispatch({type: SIGN_IN_USER, payload: user});
+        const profileRef = getUserProfile(user.uid);
+        onSnapshot(
+          profileRef,
+          (snapshot) => {
+            dispatch(listenToCurrentUserProfile(dataFromSnapshot(snapshot)));
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       } else {
         dispatch(signOutUser());
       }
