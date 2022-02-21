@@ -10,14 +10,16 @@ import ModalManager from "../common/modals/ModalManager";
 import ProfilePage from "../../features/profile/profilePage/ProfilePage";
 import {useSelector} from "react-redux";
 import {Loader} from "semantic-ui-react";
+import ScrollToTop from "./ScrollToTop";
 function App() {
   const {initialized} = useSelector((state) => state.async);
 
   if (!initialized) {
-    return <Loader />;
+    return <Loader conten='Loading' />;
   }
   return (
     <Router>
+      <ScrollToTop />
       <ModalManager />
       <NavBar />
       <Routes>
