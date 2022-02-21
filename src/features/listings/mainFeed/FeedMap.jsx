@@ -1,18 +1,26 @@
+import {useState} from "react";
+import {useEffect} from "react";
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Button} from "semantic-ui-react";
 import {openModal} from "../../../app/common/modals/modalReducer";
 
-export default function FeedMap({height, listings, latLng, maxWidth}) {
+export default function FeedMap({height, listings, maxWidth}) {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
+  const [latLng, setLatLng] = useState(null);
   console.log(currentUserProfile);
-  let lat, lng;
-  if (currentUserProfile) {
-    lat = currentUserProfile.location.latLng.lat;
-    lng = currentUserProfile.location.latLng.lng;
-  }
+  console.log("Top Level :", latLng);
+
+  useEffect(() => {
+    if (currentUserProfile) {
+      setLatLng(currentUserProfile.location.latLng);
+      console.log(latLng);
+    } else {
+      setLatLng(null);
+    }
+  }, [currentUserProfile]);
 
   return (
     <MapContainer
@@ -20,10 +28,11 @@ export default function FeedMap({height, listings, latLng, maxWidth}) {
         height: 350,
         borderRadius: "10px",
       }}
-      center={lat && lng ? [lat, lng] : [42.2173, -73.8646]}
+      center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
       zoom={8}
       scrollWheelZoom={true}
       zIndex={0}
+      key={latLng ? latLng.lat : "key"}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
