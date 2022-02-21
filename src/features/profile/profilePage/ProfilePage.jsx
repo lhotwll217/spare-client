@@ -10,6 +10,7 @@ import {
   Progress,
   Segment,
   SegmentGroup,
+  Tab,
   TabPane,
 } from "semantic-ui-react";
 import {
@@ -46,7 +47,24 @@ export default function ProfilePage() {
     deps: [dispatch, userId],
   });
 
-  const panes = [{menuItem: "User Details", render: () => <TabPane></TabPane>}];
+  const panes = [
+    {
+      menuItem: "User Details",
+      render: () => (
+        <TabPane>
+          <UserDetailsTab currentUserProfile={currentUserProfile} />
+        </TabPane>
+      ),
+    },
+    {
+      menuItem: "Listings",
+      render: () => (
+        <TabPane>
+          <UserListingsTab listings={listings} />
+        </TabPane>
+      ),
+    },
+  ];
 
   if (loading || !currentUserProfile) {
     return <Progress loading={loading.toString()} />;
@@ -67,13 +85,14 @@ export default function ProfilePage() {
           size='tiny'
           fluid
         />{" "}
-        <SegmentGroup style={{backgroundColor: "white"}}>
+        <Tab panes={panes} style={{marginTop: 12}} />
+        {/* <SegmentGroup style={{backgroundColor: "white"}}>
           <Segment loading={loading}>
             <Header as='h1' content='Profile' />
           </Segment>
           <UserDetailsTab currentUserProfile={currentUserProfile} />
           <UserListingsTab listings={listings} />
-        </SegmentGroup>
+        </SegmentGroup> */}
       </GridColumn>
     </Grid>
   );
