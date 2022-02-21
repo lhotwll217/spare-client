@@ -15,7 +15,7 @@ function App() {
   const {initialized} = useSelector((state) => state.async);
 
   if (!initialized) {
-    return <Loader conten='Loading' />;
+    return <Loader content='Loading' />;
   }
   return (
     <Router>

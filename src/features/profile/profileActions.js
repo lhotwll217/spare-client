@@ -1,6 +1,7 @@
 import {
   LISTEN_TO_CURRENT_USER_PROFILE,
   LISTEN_TO_PROFILE_LISTINGS,
+  PROFILE_LOG_OUT,
 } from "./profileConstants";
 
 export function listenToCurrentUserProfile(profile) {
@@ -15,4 +16,8 @@ export function listenToProfileListings(listings) {
     type: LISTEN_TO_PROFILE_LISTINGS,
     payload: listings,
   };
+}
+
+export function profileLogOut() {
+  return {type: PROFILE_LOG_OUT};
 }

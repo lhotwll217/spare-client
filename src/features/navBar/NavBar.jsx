@@ -4,6 +4,7 @@ import {Button, Container, Menu, MenuItem} from "semantic-ui-react";
 import {openModal} from "../../app/common/modals/modalReducer";
 import {signOutFirebase} from "../../app/firebase/firebaseService";
 import {signOutUser} from "../auth/authActions";
+import {profileLogOut} from "../profile/profileActions";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ export default function NavBar() {
                 try {
                   await signOutFirebase().then(() => {
                     dispatch(signOutUser());
+                    dispatch(profileLogOut());
                     navigate("/");
                   });
                 } catch (error) {
