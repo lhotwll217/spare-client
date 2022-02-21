@@ -80,19 +80,12 @@ export default function ProfilePage() {
         />
         <Button
           style={{margin: "auto", padding: 5, borderRadius: 2, maxWidth: 100}}
-          color='green'
+          color='teal'
           content='Upload Photo'
           size='tiny'
           fluid
         />{" "}
         <Tab panes={panes} style={{marginTop: 12}} />
-        {/* <SegmentGroup style={{backgroundColor: "white"}}>
-          <Segment loading={loading}>
-            <Header as='h1' content='Profile' />
-          </Segment>
-          <UserDetailsTab currentUserProfile={currentUserProfile} />
-          <UserListingsTab listings={listings} />
-        </SegmentGroup> */}
       </GridColumn>
     </Grid>
   );
