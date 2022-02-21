@@ -1,18 +1,27 @@
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
+import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Button} from "semantic-ui-react";
 import {openModal} from "../../../app/common/modals/modalReducer";
 
-export default function MyMap({height, listings, latLng, maxWidth}) {
+export default function FeedMap({height, listings, latLng, maxWidth}) {
   const dispatch = useDispatch();
+  const {currentUserProfile} = useSelector((state) => state.profile);
+
   return (
     <MapContainer
       style={{
-        height: height,
+        height: 350,
         borderRadius: "10px",
-        maxWidth: maxWidth,
       }}
-      center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
+      center={
+        currentUserProfile
+          ? [
+              currentUserProfile.location.latLng.lat,
+              currentUserProfile.location.latLng.lng,
+            ]
+          : [42.2173, -73.8646]
+      }
       zoom={9}
       scrollWheelZoom={false}
       zIndex={0}
@@ -22,7 +31,6 @@ export default function MyMap({height, listings, latLng, maxWidth}) {
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
 
-      {/* If listings props are coming from the the the main feed, then map the multiples */}
       {listings &&
         listings.map((item) => {
           const {lat, lng} = item.location.latLng;
@@ -52,8 +60,6 @@ export default function MyMap({height, listings, latLng, maxWidth}) {
                 </Popup>
               </Marker>
             );
-          } else {
-            return null;
           }
         })}
     </MapContainer>

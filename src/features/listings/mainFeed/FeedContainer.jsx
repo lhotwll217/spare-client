@@ -12,6 +12,7 @@ import {listenToCurrentUserProfile} from "../../profile/profileActions";
 import {listenToListings} from "../listingsActions";
 import MyMapContainer from "../map/MyMapContainer";
 import FeedItem from "./FeedItem";
+import FeedMap from "./FeedMap";
 
 export default function FeedContainer() {
   const {listings} = useSelector((state) => state.listings);
@@ -34,10 +35,9 @@ export default function FeedContainer() {
   }
   return (
     <Grid centered>
-      <MyMapContainer
-        latLng={currentUserProfile?.location.latLng}
-        listings={listings}
-      />
+      <Grid.Column style={{marginTop: "80px", marginBottom: "20px"}} width={10}>
+        <FeedMap listings={listings} />
+      </Grid.Column>
       <Grid.Column width={10}>
         <Segment loading={loading}>
           <Feed>
