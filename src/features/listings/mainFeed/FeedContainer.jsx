@@ -2,15 +2,11 @@ import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Feed, Grid, Segment} from "semantic-ui-react";
 import {openModal} from "../../../app/common/modals/modalReducer";
-import {
-  getListingsFromFirestore,
-  getUserProfile,
-} from "../../../app/firebase/firestoreService";
+import {getListingsFromFirestore} from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
-import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
-import {listenToCurrentUserProfile} from "../../profile/profileActions";
+
 import {listenToListings} from "../listingsActions";
-import MyMapContainer from "../map/MyMapContainer";
+
 import FeedItem from "./FeedItem";
 import FeedMap from "./FeedMap";
 

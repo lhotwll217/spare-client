@@ -8,7 +8,14 @@ import Sandbox from "../../features/sandbox/Sandbox";
 import ListFormPage from "../../features/listings/listForm/ListFormPage";
 import ModalManager from "../common/modals/ModalManager";
 import ProfilePage from "../../features/profile/profilePage/ProfilePage";
+import {useSelector} from "react-redux";
+import {Loader} from "semantic-ui-react";
 function App() {
+  const {initialized} = useSelector((state) => state.async);
+
+  if (!initialized) {
+    return <Loader />;
+  }
   return (
     <Router>
       <ModalManager />

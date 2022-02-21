@@ -6,7 +6,10 @@ import {openModal} from "../../../app/common/modals/modalReducer";
 
 export default function FeedMap({height, listings, latLng, maxWidth}) {
   const dispatch = useDispatch();
-  const {currentUserProfile} = useSelector((state) => state.profile);
+  const {lat, lng} = useSelector(
+    (state) => state.profile.currentUserProfile.location.latLng
+  );
+  //   const {lat, lng} = currentUserProfile?.location.latLng;
 
   return (
     <MapContainer
@@ -14,16 +17,9 @@ export default function FeedMap({height, listings, latLng, maxWidth}) {
         height: 350,
         borderRadius: "10px",
       }}
-      center={
-        currentUserProfile
-          ? [
-              currentUserProfile.location.latLng.lat,
-              currentUserProfile.location.latLng.lng,
-            ]
-          : [42.2173, -73.8646]
-      }
+      center={lat && lng ? [lat, lng] : [42.2173, -73.8646]}
       zoom={9}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
       zIndex={0}
     >
       <TileLayer

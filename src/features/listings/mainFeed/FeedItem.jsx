@@ -20,7 +20,6 @@ export default function FeedItem({item}) {
               formatDistanceToNow(created_at, {addSuffix: true})}
           </Feed.Date>
           <Button
-            circular
             style={{padding: 5}}
             onClick={() => feedOnClick()}
             floated='right'

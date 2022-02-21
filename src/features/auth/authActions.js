@@ -6,6 +6,7 @@ import {
 } from "../../app/firebase/firestoreService";
 import {onSnapshot} from "firebase/firestore";
 import {listenToCurrentUserProfile} from "../profile/profileActions";
+import {INITIALIZE_APP} from "../../app/async/asyncReducer";
 export function signInUser(payload) {
   return {
     type: SIGN_IN_USER,
@@ -33,6 +34,7 @@ export function verifyAuth() {
           profileRef,
           (snapshot) => {
             dispatch(listenToCurrentUserProfile(dataFromSnapshot(snapshot)));
+            dispatch({type: INITIALIZE_APP});
           },
           (error) => {
             console.log(error);
@@ -40,6 +42,7 @@ export function verifyAuth() {
         );
       } else {
         dispatch(signOutUser());
+        dispatch({type: INITIALIZE_APP});
       }
     });
   };

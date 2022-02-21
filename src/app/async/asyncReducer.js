@@ -1,6 +1,7 @@
 const ASYNC_ACTION_START = "ASYNC_ACTION_START";
 const ASYNC_ACTION_FINISH = "ASYNC_ACTION_FINISH";
 const ASYNC_ACTION_ERROR = "ASYNC_ACTION_ERROR";
+export const INITIALIZE_APP = "INITIALIZE_APP";
 
 export function asyncActionStart() {
   return {
@@ -22,6 +23,7 @@ export function asyncActionError(error) {
 const initialState = {
   loading: false,
   error: null,
+  initialized: false,
 };
 
 export default function asyncReducer(state = initialState, {type, payload}) {
@@ -40,6 +42,11 @@ export default function asyncReducer(state = initialState, {type, payload}) {
       return {
         ...state,
         error: payload,
+      };
+    case INITIALIZE_APP:
+      return {
+        ...state,
+        initialized: true,
       };
     default:
       return state;
