@@ -124,3 +124,14 @@ export async function deleteListing(listingId) {
   console.log(response);
   return response;
 }
+
+export async function updateListing(id, values) {
+  const docRef = doc(db, "listings", id);
+
+  try {
+    const res = await updateDoc(docRef, values);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}

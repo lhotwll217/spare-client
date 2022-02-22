@@ -8,7 +8,7 @@ export default function ProfileFeedItem({item}) {
   const dispatch = useDispatch();
 
   function feedOnClick() {
-    dispatch(openModal({modalType: "ListItemPage", modalProps: {item: item}}));
+    dispatch(openModal({modalType: "ListItemModal", modalProps: {item: item}}));
   }
 
   function openEditModal() {

@@ -26,6 +26,7 @@ import {
 
 import UserDetailsTab from "./UserDetailsTab";
 import UserListingsTab from "./UserListingsTab";
+import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -84,8 +85,8 @@ export default function ProfilePage() {
           content='Upload Photo'
           size='tiny'
           fluid
-        />{" "}
-        <Tab panes={panes} style={{marginTop: 12}} />
+        />
+        <PhotoDropzone /> <Tab panes={panes} style={{marginTop: 12}} />
       </GridColumn>
     </Grid>
   );

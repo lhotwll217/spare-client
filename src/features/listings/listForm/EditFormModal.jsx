@@ -13,13 +13,13 @@ import MyDateInput from "../../../app/common/form/MyDatePicker";
 import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MyTextInput from "../../../app/common/form/MyTextInput";
-import {addListing} from "../../../app/firebase/firestoreService";
-import {useNavigate} from "react-router-dom";
+import {updateListing} from "../../../app/firebase/firestoreService";
 import ModalWrapper from "../../../app/common/modals/ModalWrapper";
+import {useDispatch} from "react-redux";
+import {closeModal} from "../../../app/common/modals/modalReducer";
 
 export default function EditFormModal({item}) {
-  const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const initialValues = item;
 
   const validationSchema = Yup.object({
@@ -38,10 +38,10 @@ export default function EditFormModal({item}) {
         initialValues={initialValues}
         onSubmit={async (values, {setErrors, setSubmitting}) => {
           try {
-            const docRef = await addListing(values);
+            const docRef = await updateListing(item.id, values);
             console.log(docRef);
+            dispatch(closeModal());
             setSubmitting(false);
-            navigate("/");
           } catch (error) {
             setErrors({firestore: error.message});
           }
@@ -90,6 +90,7 @@ export default function EditFormModal({item}) {
               type='submit'
               content='Submit'
               color='teal'
+              loading={isSubmitting}
             />
           </Form>
         )}
