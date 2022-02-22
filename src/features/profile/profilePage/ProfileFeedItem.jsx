@@ -11,6 +11,9 @@ export default function ProfileFeedItem({item}) {
     dispatch(openModal({modalType: "ListItemPage", modalProps: {item: item}}));
   }
 
+  function openEditModal() {
+    dispatch(openModal({modalType: "EditFormModal", modalProps: {item: item}}));
+  }
   return (
     <Feed.Event>
       <Feed.Label image={lister.photoURL} />
@@ -34,6 +37,13 @@ export default function ProfileFeedItem({item}) {
             content='DELETE'
             size='tiny'
             color='red'
+          />
+          <Button
+            onClick={() => openEditModal()}
+            content='EDIT'
+            style={{padding: 5}}
+            floated='right'
+            size='tiny'
           />
           <Button
             onClick={() => feedOnClick()}

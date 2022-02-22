@@ -18,7 +18,7 @@ import {addListing} from "../../../app/firebase/firestoreService";
 import {useNavigate} from "react-router-dom";
 import ModalWrapper from "../../../app/common/modals/ModalWrapper";
 
-export default function ListFormPage() {
+export default function EditFormModal() {
   const user = useSelector((state) => state.auth.currentUser);
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ export default function ListFormPage() {
     }),
   });
   return (
-    <ModalWrapper>
+    <ModalWrapper width='70%'>
       <Grid centered>
         <GridColumn width={12}>
           <Segment style={{marginTop: "50px"}} clearing>
