@@ -1,11 +1,8 @@
 import React, {useCallback} from "react";
-import {useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Icon} from "semantic-ui-react";
 
-export default function MyDropzone() {
-  const [files, setFiles] = useState([]);
-
+export default function MyDropzone({setFiles}) {
   const dropzoneStyles = {
     border: "dashed 3px #eee",
     borderRadius: "5%",
@@ -41,6 +38,11 @@ export default function MyDropzone() {
       <input {...getInputProps()} />
 
       <Icon name='upload' size='huge' />
+      {/* {files &&
+        files.map((file) => {
+          console.log(file);
+          return <Image size='small' src={file.preview} />;
+        })} */}
     </div>
   );
 }

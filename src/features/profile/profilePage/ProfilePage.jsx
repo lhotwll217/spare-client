@@ -27,6 +27,7 @@ import {
 import UserDetailsTab from "./UserDetailsTab";
 import UserListingsTab from "./UserListingsTab";
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
+import {useState} from "react";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export default function ProfilePage() {
   const {listings} = useSelector((state) => state.profile);
   console.log(listings);
   let {userId} = useParams();
+  const [files, setFiles] = useState(null);
 
   useFirestoreDoc({
     query: () => getUserProfile(userId),
@@ -74,7 +76,11 @@ export default function ProfilePage() {
     <Grid style={{marginTop: "30px"}} centered>
       <GridColumn width={12}>
         <Image
-          src='https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg'
+          src={
+            files
+              ? files[0]?.preview
+              : "https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg"
+          }
           circular
           bordered
           centered
@@ -86,7 +92,8 @@ export default function ProfilePage() {
           size='tiny'
           fluid
         />
-        <PhotoDropzone /> <Tab panes={panes} style={{marginTop: 12}} />
+        <PhotoDropzone setFiles={setFiles} />
+        <Tab panes={panes} style={{marginTop: 12}} />
       </GridColumn>
     </Grid>
   );
