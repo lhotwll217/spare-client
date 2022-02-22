@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import LoginForm from "../../../features/auth/LoginForm";
 import SignUpForm from "../../../features/auth/SignUpForm";
 import ErrorComponent from "../../../features/errors/ErrorComponent";
-import ListItemPage from "../../../features/listings/listItem/ListItemPage";
+import ListItemModal from "../../../features/listings/listItem/ListItemModal";
 import TestModal from "../../../features/sandbox/TestModal";
 
 export default function ModalManager() {
@@ -11,7 +11,7 @@ export default function ModalManager() {
     LoginForm,
     SignUpForm,
     ErrorComponent,
-    ListItemPage,
+    ListItemModal,
   };
   const currentModal = useSelector((state) => state.modals);
   let renderedModal;

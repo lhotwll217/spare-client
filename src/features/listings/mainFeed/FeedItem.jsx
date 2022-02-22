@@ -7,7 +7,7 @@ export default function FeedItem({item}) {
   const dispatch = useDispatch();
 
   function feedOnClick() {
-    dispatch(openModal({modalType: "ListItemPage", modalProps: {item: item}}));
+    dispatch(openModal({modalType: "ListItemModal", modalProps: {item: item}}));
   }
   return (
     <Feed.Event onClick={() => feedOnClick()} style={{cursor: "pointer"}}>

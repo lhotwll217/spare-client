@@ -10,7 +10,7 @@ export default function ProfileFeedItem({item}) {
   function feedOnClick() {
     dispatch(openModal({modalType: "ListItemPage", modalProps: {item: item}}));
   }
-  console.log(item);
+
   return (
     <Feed.Event>
       <Feed.Label image={lister.photoURL} />

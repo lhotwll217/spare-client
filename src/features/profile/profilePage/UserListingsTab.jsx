@@ -5,7 +5,7 @@ import ProfileFeedItem from "./ProfileFeedItem";
 export default function UserListingsTab({listings}) {
   return (
     <>
-      <Header subheader content='Listings' />
+      <Header content='Listings' />
       <Feed>
         {listings &&
           listings.map((item) => {

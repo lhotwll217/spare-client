@@ -34,7 +34,7 @@ export default function FeedMap({height, listings, maxWidth}) {
       }}
       center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
       zoom={8}
-      scrollWheelZoom={true}
+      scrollWheelZoom={false}
       zIndex={0}
       key={latLng ? latLng.lat : "key"}
     >
