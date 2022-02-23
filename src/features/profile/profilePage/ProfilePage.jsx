@@ -37,7 +37,7 @@ export default function ProfilePage() {
   console.log(listings);
   let {userId} = useParams();
   const [files, setFiles] = useState(null);
-
+  const [upload, setUpload] = useState(false);
   useFirestoreDoc({
     query: () => getUserProfile(userId),
     data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
@@ -85,14 +85,44 @@ export default function ProfilePage() {
           bordered
           centered
         />
-        <Button
-          style={{margin: "auto", padding: 5, borderRadius: 2, maxWidth: 100}}
-          color='teal'
-          content='Upload Photo'
-          size='tiny'
-          fluid
-        />
-        <PhotoDropzone setFiles={setFiles} />
+        {!upload && (
+          <Button
+            style={{margin: "auto", padding: 5, borderRadius: 2, maxWidth: 100}}
+            color='teal'
+            content='Upload Photo'
+            size='tiny'
+            fluid
+            onClick={() => setUpload(true)}
+          />
+        )}
+
+        {upload && (
+          <div>
+            <PhotoDropzone setFiles={setFiles} />
+            <Button
+              style={{maxWidth: 100, margin: "auto", padding: 5}}
+              content='Cancel'
+              onClick={() => {
+                setFiles(null);
+                setUpload(false);
+              }}
+              fluid
+              size='tiny'
+              color='red'
+            />
+          </div>
+        )}
+        {upload && files && (
+          <Button
+            style={{maxWidth: 100, margin: "auto", padding: 5}}
+            content='Submit'
+            onClick={() => console.log("Submit")}
+            fluid
+            size='tiny'
+            color='green'
+          />
+        )}
+
         <Tab panes={panes} style={{marginTop: 12}} />
       </GridColumn>
     </Grid>

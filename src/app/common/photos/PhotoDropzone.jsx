@@ -4,10 +4,13 @@ import {Icon} from "semantic-ui-react";
 
 export default function MyDropzone({setFiles}) {
   const dropzoneStyles = {
-    border: "dashed 3px #eee",
+    border: "dashed 3px black",
     borderRadius: "5%",
     paddingTop: "30px",
     textAlign: "center",
+    maxWidth: "33%",
+    margin: "auto",
+    padding: "1em",
   };
 
   const dropzoneActive = {
@@ -38,11 +41,7 @@ export default function MyDropzone({setFiles}) {
       <input {...getInputProps()} />
 
       <Icon name='upload' size='huge' />
-      {/* {files &&
-        files.map((file) => {
-          console.log(file);
-          return <Image size='small' src={file.preview} />;
-        })} */}
+      <div>Click to upload or drag & drop</div>
     </div>
   );
 }
