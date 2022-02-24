@@ -144,10 +144,9 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
 
   try {
     const userDoc = await getDoc(userDocRef);
-    if (!userDoc.data().photoURL) {
-      await updateDoc(userDocRef, {photoURL: downloadURL});
-      await updateAuthProfilePhoto(user, downloadURL);
-    }
+
+    await updateDoc(userDocRef, {photoURL: downloadURL});
+    await updateAuthProfilePhoto(user, downloadURL);
   } catch (error) {
     throw error;
   }

@@ -63,6 +63,8 @@ export default function ProfilePage() {
         uploadRef.metadata.fullPath
       );
       await updateUserProfilePhoto(downloadURL);
+      setUpload(false);
+      setFiles(null);
       console.log(downloadURL);
     } catch (error) {
       console.log(error);
@@ -97,13 +99,16 @@ export default function ProfilePage() {
       <GridColumn width={12}>
         <Image
           src={
-            files
-              ? files[0]?.preview
-              : "https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg"
+            files && upload
+              ? files[0]?.preview ||
+                "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+              : currentUserProfile.photoURL ||
+                "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
           }
           circular
           bordered
           centered
+          size='large'
         />
         {!upload && (
           <Button
