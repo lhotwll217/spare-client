@@ -36,6 +36,7 @@ export default function ProfilePage() {
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
   const {listings} = useSelector((state) => state.profile);
+  const [submitting, setSubmitting] = useState(false);
 
   let {userId} = useParams();
   const [files, setFiles] = useState(null);
@@ -54,10 +55,20 @@ export default function ProfilePage() {
 
   async function handleUploadImage(image) {
     const filename = image.name;
-    const uploadRef = await uploadToFirebaseStorage(image, filename);
-    const downloadURL = await firebaseDownloadURL(uploadRef.metadata.fullPath);
-    await updateUserProfilePhoto(downloadURL);
-    console.log(downloadURL);
+
+    try {
+      setSubmitting(true);
+      const uploadRef = await uploadToFirebaseStorage(image, filename);
+      const downloadURL = await firebaseDownloadURL(
+        uploadRef.metadata.fullPath
+      );
+      await updateUserProfilePhoto(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
   }
   const panes = [
     {
@@ -129,6 +140,7 @@ export default function ProfilePage() {
             fluid
             size='tiny'
             color='green'
+            loading={submitting}
           />
         )}
 
