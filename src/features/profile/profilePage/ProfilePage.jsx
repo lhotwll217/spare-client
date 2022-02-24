@@ -48,9 +48,10 @@ export default function ProfilePage() {
     deps: [dispatch, userId],
   });
 
-  function handleUploadImage(image) {
+  async function handleUploadImage(image) {
     const filename = "filename";
-    uploadToFirebaseStorage(image, filename);
+    const uploadRef = await uploadToFirebaseStorage(image, filename);
+    console.log(uploadRef);
   }
   const panes = [
     {

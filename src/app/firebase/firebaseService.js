@@ -52,7 +52,7 @@ export async function signOutFirebase() {
 export function uploadToFirebaseStorage(file, filename) {
   const user = getAuth().currentUser;
   const storageRef = ref(storage, `${user.uid}/user_images/${filename}`);
-  uploadBytes(storageRef, file).then((snapshot) => console.log(snapshot));
+  return uploadBytes(storageRef, file);
 }
 
 export function updateUserProfilePhoto(user, downloadURL) {
