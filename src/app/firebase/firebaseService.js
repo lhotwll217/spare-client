@@ -5,7 +5,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import {getStorage, ref, uploadBytes} from "firebase/storage";
+import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import {app} from "../config/firebaseConfig";
 import {setUserProfileData} from "./firestoreService";
 const storage = getStorage();
@@ -54,7 +54,9 @@ export function uploadToFirebaseStorage(file, filename) {
   const storageRef = ref(storage, `${user.uid}/user_images/${filename}`);
   return uploadBytes(storageRef, file);
 }
-
+export function firebaseDownloadURL(path) {
+  return getDownloadURL(ref(storage, path));
+}
 export function updateUserProfilePhoto(user, downloadURL) {
   return updateProfile(user, {photoURL: downloadURL});
 }

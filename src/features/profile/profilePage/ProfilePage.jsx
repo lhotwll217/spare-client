@@ -25,14 +25,17 @@ import UserDetailsTab from "./UserDetailsTab";
 import UserListingsTab from "./UserListingsTab";
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 import {useState} from "react";
-import {uploadToFirebaseStorage} from "../../../app/firebase/firebaseService";
+import {
+  firebaseDownloadURL,
+  uploadToFirebaseStorage,
+} from "../../../app/firebase/firebaseService";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
   const {listings} = useSelector((state) => state.profile);
-  console.log(listings);
+
   let {userId} = useParams();
   const [files, setFiles] = useState(null);
   const [upload, setUpload] = useState(false);
@@ -49,9 +52,10 @@ export default function ProfilePage() {
   });
 
   async function handleUploadImage(image) {
-    const filename = "filename";
+    const filename = "filename6";
     const uploadRef = await uploadToFirebaseStorage(image, filename);
-    console.log(uploadRef);
+    const downloadURL = await firebaseDownloadURL(uploadRef.metadata.fullPath);
+    console.log(downloadURL);
   }
   const panes = [
     {
