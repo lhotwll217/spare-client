@@ -5,10 +5,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import {getStorage, ref} from "firebase/storage";
+import {getStorage, ref, uploadBytes} from "firebase/storage";
 import {app} from "../config/firebaseConfig";
 import {setUserProfileData} from "./firestoreService";
-const storage = getStorage(app);
+const storage = getStorage();
 
 export async function registerWithEmail(creds) {
   const auth = getAuth(app);
@@ -51,8 +51,8 @@ export async function signOutFirebase() {
 
 export function uploadToFirebaseStorage(file, filename) {
   const user = getAuth().currentUser;
-  const storageRef = ref(storage);
-  return storageRef.child(`${user.uid}/user_images/${filename}`).put(file);
+  const storageRef = ref(storage, `${user.uid}/user_images/${filename}`);
+  uploadBytes(storageRef, file).then((snapshot) => console.log(snapshot));
 }
 
 export function updateUserProfilePhoto(user, downloadURL) {
