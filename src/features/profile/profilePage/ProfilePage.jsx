@@ -13,6 +13,7 @@ import {
 import {
   getUserListings,
   getUserProfile,
+  updateUserProfilePhoto,
 } from "../../../app/firebase/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
@@ -55,6 +56,7 @@ export default function ProfilePage() {
     const filename = image.name;
     const uploadRef = await uploadToFirebaseStorage(image, filename);
     const downloadURL = await firebaseDownloadURL(uploadRef.metadata.fullPath);
+    await updateUserProfilePhoto(downloadURL);
     console.log(downloadURL);
   }
   const panes = [

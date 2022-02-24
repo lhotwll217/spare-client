@@ -57,6 +57,6 @@ export function uploadToFirebaseStorage(file, filename) {
 export function firebaseDownloadURL(path) {
   return getDownloadURL(ref(storage, path));
 }
-export function updateUserProfilePhoto(user, downloadURL) {
+export function updateAuthProfilePhoto(user, downloadURL) {
   return updateProfile(user, {photoURL: downloadURL});
 }

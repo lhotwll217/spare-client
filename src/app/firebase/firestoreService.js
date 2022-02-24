@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
+import {updateAuthProfilePhoto} from "./firebaseService";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -145,7 +146,7 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
     const userDoc = await getDoc(userDocRef);
     if (!userDoc.data().photoURL) {
       await updateDoc(userDocRef, {photoURL: downloadURL});
-      await updateUserProfilePhoto(user, downloadURL);
+      await updateAuthProfilePhoto(user, downloadURL);
     }
   } catch (error) {
     throw error;
