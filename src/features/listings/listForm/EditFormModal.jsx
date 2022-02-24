@@ -1,6 +1,6 @@
 import {Formik} from "formik";
 import * as Yup from "yup";
-import {Grid, Form, Button, Header, Label} from "semantic-ui-react";
+import {Form, Button, Header, Label} from "semantic-ui-react";
 import MyDateInput from "../../../app/common/form/MyDatePicker";
 import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";

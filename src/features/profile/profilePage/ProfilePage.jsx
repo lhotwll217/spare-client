@@ -5,11 +5,8 @@ import {
   Button,
   Grid,
   GridColumn,
-  Header,
   Image,
   Progress,
-  Segment,
-  SegmentGroup,
   Tab,
   TabPane,
 } from "semantic-ui-react";

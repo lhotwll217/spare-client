@@ -10,10 +10,6 @@ import {signInWithEmail} from "../../app/firebase/firebaseService";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
-  function handleSubmit(e) {
-    dispatch(signInUser(e));
-    dispatch(closeModal());
-  }
 
   return (
     <ModalWrapper header='Login'>

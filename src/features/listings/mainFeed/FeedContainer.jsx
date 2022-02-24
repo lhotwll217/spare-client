@@ -14,7 +14,6 @@ export default function FeedContainer() {
   const {listings} = useSelector((state) => state.listings);
   const dispatch = useDispatch();
   const {loading, error} = useSelector((state) => state.async);
-  const {currentUserProfile} = useSelector((state) => state.profile);
 
   useFirestoreCollection({
     query: () => getListingsFromFirestore(),

@@ -1,17 +1,5 @@
 import {useState} from "react";
-import {
-  Button,
-  Feed,
-  Grid,
-  GridColumn,
-  Header,
-  HeaderSubheader,
-  Image,
-  Label,
-  Progress,
-  Segment,
-  SegmentGroup,
-} from "semantic-ui-react";
+import {Button, Header, Segment, SegmentGroup} from "semantic-ui-react";
 import DisplayNameForm from "./DisplayNameForm";
 import LocationForm from "./LocationForm";
 

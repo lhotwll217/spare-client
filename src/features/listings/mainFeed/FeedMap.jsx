@@ -20,7 +20,7 @@ export default function FeedMap({height, listings, maxWidth}) {
       setLatLng(null);
     }
     console.log("useEffect bottom & latLng is:", latLng);
-  }, [currentUserProfile]);
+  }, [currentUserProfile, latLng]);
 
   useEffect(() => {
     console.log(latLng);
@@ -72,6 +72,8 @@ export default function FeedMap({height, listings, maxWidth}) {
                 </Popup>
               </Marker>
             );
+          } else {
+            return null;
           }
         })}
     </MapContainer>
