@@ -52,7 +52,7 @@ export default function ProfilePage() {
   });
 
   async function handleUploadImage(image) {
-    const filename = "filename6";
+    const filename = image.name;
     const uploadRef = await uploadToFirebaseStorage(image, filename);
     const downloadURL = await firebaseDownloadURL(uploadRef.metadata.fullPath);
     console.log(downloadURL);
