@@ -10,6 +10,7 @@ import {
   query,
   where,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -131,6 +132,21 @@ export async function updateListing(id, values) {
   try {
     const res = await updateDoc(docRef, values);
     return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateUserProfilePhoto(downloadURL, filename) {
+  const user = auth.currentUser;
+  const userDocRef = doc(db, "users", user.uid);
+
+  try {
+    const userDoc = await getDoc(userDocRef);
+    if (!userDoc.data().photoURL) {
+      await updateDoc(userDocRef, {photoURL: downloadURL});
+      await updateUserProfilePhoto(user, downloadURL);
+    }
   } catch (error) {
     throw error;
   }

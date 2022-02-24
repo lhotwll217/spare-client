@@ -5,9 +5,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import {getStorage, ref} from "firebase/storage";
 import {app} from "../config/firebaseConfig";
 import {setUserProfileData} from "./firestoreService";
-// const auth = getAuth(app);
+const storage = getStorage(app);
 
 export async function registerWithEmail(creds) {
   const auth = getAuth(app);
@@ -46,4 +47,14 @@ export async function signOutFirebase() {
   const auth = getAuth();
   const result = await signOut(auth);
   return result;
+}
+
+export function uploadToFirebaseStorage(file, filename) {
+  const user = getAuth().currentUser;
+  const storageRef = ref(storage);
+  return storageRef.child(`${user.uid}/user_images/${filename}`).put(file);
+}
+
+export function updateUserProfilePhoto(user, downloadURL) {
+  return updateProfile(user, {photoURL: downloadURL});
 }

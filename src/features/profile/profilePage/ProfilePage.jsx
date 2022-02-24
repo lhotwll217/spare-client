@@ -25,6 +25,7 @@ import UserDetailsTab from "./UserDetailsTab";
 import UserListingsTab from "./UserListingsTab";
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 import {useState} from "react";
+import {uploadToFirebaseStorage} from "../../../app/firebase/firebaseService";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ export default function ProfilePage() {
     deps: [dispatch, userId],
   });
 
+  function handleUploadImage(image) {
+    const filename = "filename";
+    uploadToFirebaseStorage(image, filename);
+  }
   const panes = [
     {
       menuItem: "User Details",
@@ -113,7 +118,7 @@ export default function ProfilePage() {
           <Button
             style={{maxWidth: 100, margin: "auto", padding: 5}}
             content='Submit'
-            onClick={() => console.log("Submit")}
+            onClick={() => handleUploadImage(files[0])}
             fluid
             size='tiny'
             color='green'
