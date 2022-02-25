@@ -69,7 +69,7 @@ export default function ListFormPage() {
               try {
                 setSubmitting(true);
                 await listingSubmitWithPhotos(files, values);
-                // navigate("/");
+                navigate("/");
               } catch (error) {
                 setErrors({firestore: error.message});
               } finally {
@@ -128,6 +128,7 @@ export default function ListFormPage() {
                   type='submit'
                   content='Submit'
                   color='teal'
+                  loading={isSubmitting}
                 />
               </Form>
             )}

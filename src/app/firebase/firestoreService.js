@@ -160,13 +160,13 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
 export async function listingSubmitWithPhotos(files, values) {
   const user = auth.currentUser;
   const listingId = cuid();
-  const promises = files.map(async (file) => {
+  const promises = files.map((file) => {
     return uploadListingPhotos(file, file.name, listingId).then((ref) =>
       firebaseDownloadURL(ref.metadata.fullPath)
     );
   });
 
-  return await Promise.all(promises).then((downloadURLs) => {
+  return Promise.all(promises).then((downloadURLs) => {
     setDoc(doc(db, "listings", listingId), {
       title: values.title,
       listDetails: values.listDetails,
