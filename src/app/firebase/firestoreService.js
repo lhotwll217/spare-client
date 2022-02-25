@@ -166,7 +166,7 @@ export async function listingSubmitWithPhotos(files, values) {
     );
   });
 
-  Promise.all(promises).then((downloadURLs) => {
+  return await Promise.all(promises).then((downloadURLs) => {
     setDoc(doc(db, "listings", listingId), {
       title: values.title,
       listDetails: values.listDetails,

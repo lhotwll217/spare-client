@@ -66,7 +66,15 @@ export default function ListFormPage() {
             enableReinitialize
             validationSchema={validationSchema}
             onSubmit={async (values, {setErrors, setSubmitting}) => {
-              await listingSubmitWithPhotos(files, values);
+              try {
+                setSubmitting(true);
+                await listingSubmitWithPhotos(files, values);
+                // navigate("/");
+              } catch (error) {
+                setErrors({firestore: error.message});
+              } finally {
+                setSubmitting(false);
+              }
             }}
           >
             {({values, isValid, dirty, isSubmitting, errors, handleSubmit}) => (
