@@ -85,7 +85,13 @@ export default function ListFormPage() {
                 />
                 {files &&
                   files.map((photo) => {
-                    return <Image size='small' src={photo.preview} />;
+                    return (
+                      <Image
+                        key={photo.name}
+                        size='small'
+                        src={photo.preview}
+                      />
+                    );
                   })}
                 <PhotoDropzone setFiles={setFiles} />
                 <MyDateInput

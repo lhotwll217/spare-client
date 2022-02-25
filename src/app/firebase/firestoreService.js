@@ -19,6 +19,7 @@ import {
   updateAuthProfilePhoto,
   uploadListingPhotos,
 } from "./firebaseService";
+import cuid from "cuid";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -158,7 +159,7 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
 
 export async function listingSubmitWithPhotos(files, values) {
   const user = auth.currentUser;
-  const listingId = "fhui4y6t8897w45";
+  const listingId = cuid();
   const promises = files.map(async (file) => {
     return uploadListingPhotos(file, file.name, listingId).then((ref) =>
       firebaseDownloadURL(ref.metadata.fullPath)
@@ -166,7 +167,7 @@ export async function listingSubmitWithPhotos(files, values) {
   });
 
   Promise.all(promises).then((downloadURLs) => {
-    addDoc(collection(db, "listings"), {
+    setDoc(doc(db, "listings", listingId), {
       title: values.title,
       listDetails: values.listDetails,
       tradeDetails: values.tradeDetails,
