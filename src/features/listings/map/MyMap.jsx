@@ -47,7 +47,7 @@ export default function MyMap({height, listings, latLng, maxWidth}) {
                     onClick={() =>
                       dispatch(
                         openModal({
-                          modalType: "ListItemPage",
+                          modalType: "ListItemModal",
                           modalProps: {item: item},
                         })
                       )

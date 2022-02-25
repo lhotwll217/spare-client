@@ -63,7 +63,7 @@ export default function FeedMap({height, listings, maxWidth}) {
                     onClick={() =>
                       dispatch(
                         openModal({
-                          modalType: "ListItemPage",
+                          modalType: "ListItemModal",
                           modalProps: {item: item},
                         })
                       )

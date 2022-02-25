@@ -99,16 +99,15 @@ export default function ProfilePage() {
       <GridColumn width={12}>
         <Image
           src={
-            files && upload
-              ? files[0]?.preview ||
-                "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+            files
+              ? files[0]?.preview
               : currentUserProfile.photoURL ||
                 "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
           }
           circular
           bordered
           centered
-          size='large'
+          size='medium'
         />
         {!upload && (
           <Button
