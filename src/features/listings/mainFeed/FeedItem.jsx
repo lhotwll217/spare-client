@@ -15,10 +15,10 @@ export default function FeedItem({item}) {
       <Feed.Content>
         <Feed.Summary>
           {title}
-          <Feed.Date>
+          {/* <Feed.Date>
             {created_at !== undefined &&
               formatDistanceToNow(created_at, {addSuffix: true})}
-          </Feed.Date>
+          </Feed.Date> */}
           <Button
             style={{padding: 5}}
             onClick={() => feedOnClick()}
