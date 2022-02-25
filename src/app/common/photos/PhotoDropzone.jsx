@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
 import {Icon} from "semantic-ui-react";
 
-export default function MyDropzone({setFiles}) {
+export default function PhotoDropzone({setFiles}) {
   const dropzoneStyles = {
     border: "dashed 3px black",
     borderRadius: "5%",
@@ -19,13 +19,14 @@ export default function MyDropzone({setFiles}) {
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
+      setFiles((previousValue) => [
+        ...previousValue,
+        ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
-        )
-      );
+        ),
+      ]);
     },
     [setFiles]
   );

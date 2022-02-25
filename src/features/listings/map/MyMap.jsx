@@ -1,10 +1,6 @@
-import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
-import {useDispatch} from "react-redux";
-import {Button} from "semantic-ui-react";
-import {openModal} from "../../../app/common/modals/modalReducer";
+import {MapContainer, TileLayer, Marker} from "react-leaflet";
 
-export default function MyMap({height, listings, latLng, maxWidth}) {
-  const dispatch = useDispatch();
+export default function MyMap({height, latLng, maxWidth}) {
   return (
     <MapContainer
       style={{
@@ -21,45 +17,7 @@ export default function MyMap({height, listings, latLng, maxWidth}) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      {latLng && (
-        <Marker position={[latLng.lat, latLng.lng]}>
-          <Popup>Okay!</Popup>
-        </Marker>
-      )}
-      {/* If listings props are coming from the the the main feed, then map the multiples */}
-      {listings &&
-        listings.map((item) => {
-          const {lat, lng} = item.location.latLng;
-
-          if (lat !== undefined) {
-            return (
-              <Marker key={item.id} position={[lat, lng]}>
-                <Popup>
-                  <strong>{item.title}</strong>
-
-                  <br />
-                  <Button
-                    style={{padding: 5, maxWidth: "70%", margin: "auto"}}
-                    fluid
-                    color='teal'
-                    content='VIEW'
-                    size='tiny'
-                    onClick={() =>
-                      dispatch(
-                        openModal({
-                          modalType: "ListItemModal",
-                          modalProps: {item: item},
-                        })
-                      )
-                    }
-                  />
-                </Popup>
-              </Marker>
-            );
-          } else {
-            return null;
-          }
-        })}
+      {latLng && <Marker position={[latLng.lat, latLng.lng]}></Marker>}
     </MapContainer>
   );
 }

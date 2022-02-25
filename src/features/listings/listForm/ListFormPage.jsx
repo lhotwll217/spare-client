@@ -8,6 +8,7 @@ import {
   Button,
   Header,
   Label,
+  Image,
 } from "semantic-ui-react";
 import MyDateInput from "../../../app/common/form/MyDatePicker";
 import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
@@ -16,8 +17,12 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 
 import {addListing} from "../../../app/firebase/firestoreService";
 import {useNavigate} from "react-router-dom";
+import MyDropzone from "../../../app/common/photos/PhotoDropzone";
+import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
+import {useState} from "react";
 
 export default function ListFormPage() {
+  const [files, setFiles] = useState(null);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -72,7 +77,11 @@ export default function ListFormPage() {
                   placeholder='Trade for...'
                   name='tradeDetails'
                 />
-
+                {files &&
+                  files.map((photo) => {
+                    return <Image size='small' src={photo.preview} />;
+                  })}
+                <PhotoDropzone setFiles={setFiles} />
                 <MyDateInput
                   type='date'
                   name='availStart'
