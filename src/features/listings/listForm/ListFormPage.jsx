@@ -69,10 +69,10 @@ export default function ListFormPage() {
               try {
                 setSubmitting(true);
                 await listingSubmitWithPhotos(files, values);
+                setSubmitting(false);
                 navigate("/");
               } catch (error) {
                 setErrors({firestore: error.message});
-              } finally {
                 setSubmitting(false);
               }
             }}
