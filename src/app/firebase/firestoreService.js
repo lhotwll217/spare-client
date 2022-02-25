@@ -14,7 +14,11 @@ import {
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
-import {updateAuthProfilePhoto} from "./firebaseService";
+import {
+  firebaseDownloadURL,
+  updateAuthProfilePhoto,
+  uploadListingPhotos,
+} from "./firebaseService";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -150,4 +154,37 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
   } catch (error) {
     throw error;
   }
+}
+
+export async function listingSubmitWithPhotos(files, values) {
+  const user = auth.currentUser;
+  const listingId = "fhui4y6t8897w45";
+  const promises = files.map(async (file) => {
+    return uploadListingPhotos(file, file.name, listingId).then((ref) =>
+      firebaseDownloadURL(ref.metadata.fullPath)
+    );
+  });
+
+  Promise.all(promises).then((downloadURLs) => {
+    addDoc(collection(db, "listings"), {
+      title: values.title,
+      listDetails: values.listDetails,
+      tradeDetails: values.tradeDetails,
+      availStart: values.availStart,
+      availEnd: values.availEnd,
+      location: {
+        address: values.location.address,
+        latLng: values.location.latLng,
+      },
+      pictures: downloadURLs,
+      lister: {
+        displayName: user.displayName,
+        uid: user.uid,
+        photoURL:
+          user.photoURL ||
+          "https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg",
+      },
+      created_at: serverTimestamp(),
+    });
+  });
 }

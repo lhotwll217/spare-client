@@ -15,14 +15,17 @@ import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 
-import {addListing} from "../../../app/firebase/firestoreService";
+import {
+  addListing,
+  listingSubmitWithPhotos,
+} from "../../../app/firebase/firestoreService";
 import {useNavigate} from "react-router-dom";
 import MyDropzone from "../../../app/common/photos/PhotoDropzone";
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 import {useState} from "react";
 
 export default function ListFormPage() {
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState([]);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -50,18 +53,21 @@ export default function ListFormPage() {
         <Segment style={{marginTop: "50px"}} clearing>
           <Formik
             initialValues={initialValues}
-            onSubmit={async (values, {setErrors, setSubmitting}) => {
-              try {
-                const docRef = await addListing(values);
-                console.log(docRef);
-                setSubmitting(false);
-                navigate("/");
-              } catch (error) {
-                setErrors({firestore: error.message});
-              }
-            }}
+            // onSubmit={async (values, {setErrors, setSubmitting}) => {
+            //   try {
+            //     const docRef = await addListing(values);
+            //     console.log(docRef);
+            //     setSubmitting(false);
+            //     navigate("/");
+            //   } catch (error) {
+            //     setErrors({firestore: error.message});
+            //   }
+            // }}
             enableReinitialize
             validationSchema={validationSchema}
+            onSubmit={async (values, {setErrors, setSubmitting}) => {
+              await listingSubmitWithPhotos(files, values);
+            }}
           >
             {({values, isValid, dirty, isSubmitting, errors, handleSubmit}) => (
               <Form onSubmit={handleSubmit}>
