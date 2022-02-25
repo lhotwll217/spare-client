@@ -60,3 +60,8 @@ export function firebaseDownloadURL(path) {
 export function updateAuthProfilePhoto(user, downloadURL) {
   return updateProfile(user, {photoURL: downloadURL});
 }
+
+export function uploadListingPhotos(file, filename, listingId) {
+  const storageRef = ref(storage, `listingPhotos/${listingId}/${filename}`);
+  return uploadBytes(storageRef, file);
+}
