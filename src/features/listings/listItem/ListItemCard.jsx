@@ -24,8 +24,7 @@ export default function ListItemCard({item, setViewPhoto}) {
               <Item.Image
                 onClick={() => setViewPhoto(pic)}
                 key={pic}
-                size='tiny
-            '
+                size='tiny'
                 src={pic}
               />
             );

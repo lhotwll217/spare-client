@@ -22,7 +22,7 @@ export default function ListItemModal(props) {
               color='teal'
               size='tiny'
               fluid
-              style={{padding: 5, margin: "auto", maxWidth: 80}}
+              style={{padding: 5, margin: "auto", marginTop: 5, maxWidth: 80}}
             />
           </>
         )}

@@ -11,6 +11,7 @@ import {
   where,
   deleteDoc,
   getDoc,
+  writeBatch,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -20,6 +21,7 @@ import {
   uploadListingPhotos,
 } from "./firebaseService";
 import cuid from "cuid";
+import {deleteObject, getStorage, ref, listAll} from "firebase/storage";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -127,9 +129,18 @@ export function getUserListings(userId) {
 }
 
 export async function deleteListing(listingId) {
-  const response = await deleteDoc(doc(db, "listings", listingId));
-  console.log(response);
-  return response;
+  const storage = getStorage();
+  const storageRef = ref(storage, `/listingPhotos/${listingId}/`);
+  const fileRefs = await listAll(storageRef);
+  console.log(fileRefs);
+  try {
+    await deleteDoc(doc(db, "listings", listingId));
+    fileRefs.items.forEach(async (ref) => {
+      await deleteObject(ref);
+    });
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function updateListing(id, values) {
@@ -160,32 +171,36 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
 export async function listingSubmitWithPhotos(files, values) {
   const user = auth.currentUser;
   const listingId = cuid();
+
   const promises = files.map((file) => {
     return uploadListingPhotos(file, file.name, listingId).then((ref) =>
       firebaseDownloadURL(ref.metadata.fullPath)
     );
   });
-
-  return Promise.all(promises).then((downloadURLs) => {
-    setDoc(doc(db, "listings", listingId), {
-      title: values.title,
-      listDetails: values.listDetails,
-      tradeDetails: values.tradeDetails,
-      availStart: values.availStart,
-      availEnd: values.availEnd,
-      location: {
-        address: values.location.address,
-        latLng: values.location.latLng,
-      },
-      pictures: downloadURLs,
-      lister: {
-        displayName: user.displayName,
-        uid: user.uid,
-        photoURL:
-          user.photoURL ||
-          "https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg",
-      },
-      created_at: serverTimestamp(),
+  if (promises) {
+    return Promise.all(promises).then((downloadURLs) => {
+      setDoc(doc(db, "listings", listingId), {
+        title: values.title,
+        listDetails: values.listDetails,
+        tradeDetails: values.tradeDetails,
+        availStart: values.availStart,
+        availEnd: values.availEnd,
+        location: {
+          address: values.location.address,
+          latLng: values.location.latLng,
+        },
+        pictures: downloadURLs,
+        lister: {
+          displayName: user.displayName,
+          uid: user.uid,
+          photoURL:
+            user.photoURL ||
+            "https://ballstatepbs.org/wp-content/uploads/2019/07/generic-female-profile-picture-8.jpg",
+        },
+        created_at: serverTimestamp(),
+      });
     });
-  });
+  } else {
+    throw new Error("Photos Unable To Upload");
+  }
 }
