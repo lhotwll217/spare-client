@@ -17,10 +17,18 @@ export default function ListItem({item}) {
           <Header sub={true} content='List Details' />
         </ItemContent>
         <ItemContent>{item.listDetails}</ItemContent>
-        <Item.Image
-          size={"tiny"}
-          src='https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg'
-        />
+
+        {item.pictures &&
+          item.pictures.map((pic) => {
+            return (
+              <Item.Image
+                key={pic}
+                size='small
+            '
+                src={pic}
+              />
+            );
+          })}
       </Item.Group>
       <Item.Group>
         <ItemContent>

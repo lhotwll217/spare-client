@@ -15,12 +15,9 @@ import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 
-import {
-  addListing,
-  listingSubmitWithPhotos,
-} from "../../../app/firebase/firestoreService";
+import {listingSubmitWithPhotos} from "../../../app/firebase/firestoreService";
 import {useNavigate} from "react-router-dom";
-import MyDropzone from "../../../app/common/photos/PhotoDropzone";
+
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 import {useState} from "react";
 
@@ -95,6 +92,7 @@ export default function ListFormPage() {
                   files.map((photo) => {
                     return (
                       <Image
+                        style={{display: "inline"}}
                         key={photo.name}
                         size='small'
                         src={photo.preview}
