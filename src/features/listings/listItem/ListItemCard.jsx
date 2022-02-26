@@ -1,7 +1,7 @@
 import {Header, Item, ItemContent, Segment} from "semantic-ui-react";
 import {format} from "date-fns";
 
-export default function ListItem({item}) {
+export default function ListItemCard({item, setViewPhoto}) {
   return (
     <Segment>
       <Item.Group>
@@ -22,8 +22,9 @@ export default function ListItem({item}) {
           item.pictures.map((pic) => {
             return (
               <Item.Image
+                onClick={() => setViewPhoto(pic)}
                 key={pic}
-                size='small
+                size='tiny
             '
                 src={pic}
               />
