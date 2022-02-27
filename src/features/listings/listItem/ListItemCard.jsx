@@ -1,9 +1,12 @@
 import {Button, Header, Item, ItemContent, Segment} from "semantic-ui-react";
 import {format} from "date-fns";
 import {useSelector} from "react-redux";
+import {useState} from "react";
+import MyTextArea from "../../../app/common/form/MyTextArea";
 
 export default function ListItemCard({item, setViewPhoto}) {
   const {currentUser} = useSelector((state) => state.auth);
+  const [message, setMessage] = useState(false);
   return (
     <Segment>
       <Item.Group>
@@ -47,7 +50,19 @@ export default function ListItemCard({item, setViewPhoto}) {
           {format(item.availEnd, "LLLL do")}
         </ItemContent>
       </Item.Group>
-      {item.lister.uid !== currentUser.uid && <Button content='Message' />}
+      {message && (
+        <>
+          <input />
+          <Button
+            content='Cancel'
+            color='red'
+            onClick={() => setMessage(false)}
+          />
+        </>
+      )}
+      {item.lister.uid !== currentUser.uid && (
+        <Button content='Message' onClick={() => setMessage(true)} />
+      )}
     </Segment>
   );
 }
