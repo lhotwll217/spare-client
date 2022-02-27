@@ -67,19 +67,20 @@ export function uploadListingPhotos(file, filename, listingId) {
   return uploadBytes(storageRef, file);
 }
 
-export function addEventMessage(listerId, listingId, message) {
+export function addEventMessage(listerId, listingId, listingTitle, message) {
   const user = getAuth().currentUser;
 
   const newMessage = {
     displayName: user.displayName,
-    photoURL: user.photoURL,
+    photoURL:
+      user.photoURL ||
+      "https://react.semantic-ui.com/images/avatar/small/jenny.jpg",
     email: user.email,
     uid: user.uid,
-    text: message,
+    text: message.message,
     date: Date.now(),
+    listingTitle: listingTitle,
   };
 
-  set(
-    ref_db(database, `chat/${listerId}/${listingId}/${user.uid}`, newMessage)
-  );
+  return set(ref_db(database, "chat/" + user.uid), newMessage);
 }

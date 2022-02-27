@@ -1,15 +1,8 @@
-import {
-  Button,
-  Header,
-  Item,
-  ItemContent,
-  ListContent,
-  Segment,
-} from "semantic-ui-react";
+import {Button, Header, Item, ItemContent, Segment} from "semantic-ui-react";
 import {format} from "date-fns";
 import {useSelector} from "react-redux";
 import {useState} from "react";
-import MyTextArea from "../../../app/common/form/MyTextArea";
+
 import ListItemMessageForm from "./ListItemMessageForm";
 
 export default function ListItemCard({item, setViewPhoto}) {
@@ -61,7 +54,7 @@ export default function ListItemCard({item, setViewPhoto}) {
 
       {message && (
         <>
-          <ListItemMessageForm />
+          <ListItemMessageForm item={item} />
           <Button
             content='Cancel'
             color='red'
@@ -69,7 +62,7 @@ export default function ListItemCard({item, setViewPhoto}) {
           />
         </>
       )}
-      {item.lister.uid !== currentUser.uid && (
+      {item.lister.uid !== currentUser.uid && !message && (
         <Button content='Message' onClick={() => setMessage(true)} />
       )}
     </Segment>
