@@ -1,7 +1,9 @@
-import {Header, Item, ItemContent, Segment} from "semantic-ui-react";
+import {Button, Header, Item, ItemContent, Segment} from "semantic-ui-react";
 import {format} from "date-fns";
+import {useSelector} from "react-redux";
 
 export default function ListItemCard({item, setViewPhoto}) {
+  const {currentUser} = useSelector((state) => state.auth);
   return (
     <Segment>
       <Item.Group>
@@ -45,6 +47,7 @@ export default function ListItemCard({item, setViewPhoto}) {
           {format(item.availEnd, "LLLL do")}
         </ItemContent>
       </Item.Group>
+      {item.lister.uid !== currentUser.uid && <Button content='Message' />}
     </Segment>
   );
 }
