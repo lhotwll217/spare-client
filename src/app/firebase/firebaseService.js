@@ -8,8 +8,9 @@ import {
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import {app} from "../config/firebaseConfig";
 import {setUserProfileData} from "./firestoreService";
+import {getDatabase, set, ref as ref_db} from "firebase/database";
 const storage = getStorage();
-
+const database = getDatabase();
 export async function registerWithEmail(creds) {
   const auth = getAuth(app);
 
@@ -64,4 +65,21 @@ export function updateAuthProfilePhoto(user, downloadURL) {
 export function uploadListingPhotos(file, filename, listingId) {
   const storageRef = ref(storage, `listingPhotos/${listingId}/${filename}`);
   return uploadBytes(storageRef, file);
+}
+
+export function addEventMessage(listerId, listingId, message) {
+  const user = getAuth().currentUser;
+
+  const newMessage = {
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    email: user.email,
+    uid: user.uid,
+    text: message,
+    date: Date.now(),
+  };
+
+  set(
+    ref_db(database, `chat/${listerId}/${listingId}/${user.uid}`, newMessage)
+  );
 }
