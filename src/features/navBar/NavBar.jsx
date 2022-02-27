@@ -5,6 +5,7 @@ import {openModal} from "../../app/common/modals/modalReducer";
 import {signOutFirebase} from "../../app/firebase/firebaseService";
 import {signOutUser} from "../auth/authActions";
 import {profileLogOut} from "../profile/profileActions";
+import ChatDropdown from "./ChatDropdown";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -30,7 +31,9 @@ export default function NavBar() {
             />
           </>
         )}
-
+        <MenuItem postion='right'>
+          <ChatDropdown />
+        </MenuItem>
         <MenuItem position='right'>
           {authenticated ? (
             <Button
