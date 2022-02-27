@@ -11,7 +11,6 @@ import {
   where,
   deleteDoc,
   getDoc,
-  writeBatch,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -127,7 +126,7 @@ export function getUserListings(userId) {
 
   return query(listings, where("lister.uid", "==", userId));
 }
-
+//Firebase storage does not allow to delete folders at their path, you must list all files at that reference, loop through them calling, deleteObj upon them.
 export async function deleteListing(listingId) {
   const storage = getStorage();
   const storageRef = ref(storage, `/listingPhotos/${listingId}/`);

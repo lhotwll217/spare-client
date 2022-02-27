@@ -39,7 +39,7 @@ export default function ProfilePage() {
   const [submitting, setSubmitting] = useState(false);
 
   let {userId} = useParams();
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState([]);
   const [upload, setUpload] = useState(false);
   useFirestoreDoc({
     query: () => getUserProfile(userId),
@@ -64,7 +64,7 @@ export default function ProfilePage() {
       );
       await updateUserProfilePhoto(downloadURL);
       setUpload(false);
-      setFiles(null);
+      setFiles([]);
       console.log(downloadURL);
     } catch (error) {
       console.log(error);
@@ -99,7 +99,7 @@ export default function ProfilePage() {
       <GridColumn width={12}>
         <Image
           src={
-            files
+            files.length > 0
               ? files[0]?.preview
               : currentUserProfile.photoURL ||
                 "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
@@ -136,7 +136,7 @@ export default function ProfilePage() {
             />
           </div>
         )}
-        {upload && files && (
+        {upload && files.length > 0 && (
           <Button
             style={{maxWidth: 100, margin: "auto", padding: 5}}
             content='Submit'
