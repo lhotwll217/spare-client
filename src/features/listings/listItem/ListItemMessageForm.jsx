@@ -3,17 +3,19 @@ import {Button, Segment} from "semantic-ui-react";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import {addEventMessage} from "../../../app/firebase/firebaseService";
 
-export default function ListItemMessageForm({item}) {
+export default function ListItemMessageForm({item, setMessage}) {
   const initialValues = {
     message: "",
   };
-  console.log("render?");
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={async (values, {setSubmitting}) => {
         try {
           await addEventMessage(item.lister.uid, item.id, item.title, values);
+          setSubmitting(false);
+          setMessage(false);
         } catch (error) {
           console.log(error);
         } finally {
@@ -31,6 +33,11 @@ export default function ListItemMessageForm({item}) {
             content='Submit'
             color='teal'
             loading={isSubmitting}
+          />
+          <Button
+            content='Cancel'
+            color='red'
+            onClick={() => setMessage(false)}
           />
         </Form>
       )}

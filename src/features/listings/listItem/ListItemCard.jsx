@@ -54,15 +54,10 @@ export default function ListItemCard({item, setViewPhoto}) {
 
       {message && (
         <>
-          <ListItemMessageForm item={item} />
-          <Button
-            content='Cancel'
-            color='red'
-            onClick={() => setMessage(false)}
-          />
+          <ListItemMessageForm setMessage={setMessage} item={item} />
         </>
       )}
-      {item.lister.uid !== currentUser.uid && !message && (
+      {item.lister.uid !== currentUser?.uid && !message && (
         <Button content='Message' onClick={() => setMessage(true)} />
       )}
     </Segment>
