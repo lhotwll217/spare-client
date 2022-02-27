@@ -82,5 +82,8 @@ export function addEventMessage(listerId, listingId, listingTitle, message) {
     listingTitle: listingTitle,
   };
 
-  return set(ref_db(database, "chat/" + user.uid), newMessage);
+  return set(
+    ref_db(database, `/chat/${listerId}/${listingId}/${user.uid}`),
+    newMessage
+  );
 }
