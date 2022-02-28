@@ -1,6 +1,9 @@
+import {onValue} from "firebase/database";
 import {useEffect} from "react";
 import {Dropdown} from "semantic-ui-react";
 import {
+  firebaseMessageQuery,
+  firebaseObjectToArray,
   getMessages,
   listenToMessages,
 } from "../../app/firebase/firebaseService";
@@ -35,10 +38,12 @@ const friendOptions = [
 ];
 export default function ChatDropdown() {
   useEffect(() => {
-    const unsubscribe = getMessages();
+    const unsubscribe = onValue(firebaseMessageQuery(), (snapshot) => {
+      console.log(firebaseObjectToArray(snapshot.val()));
+    });
 
     return unsubscribe;
   });
-  getMessages();
+
   return <Dropdown options={friendOptions} text='Messages'></Dropdown>;
 }

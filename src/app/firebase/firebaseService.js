@@ -118,14 +118,10 @@ export function addEventMessage(listerId, listingId, listingTitle, message) {
 //   }
 // }
 
-export function getMessages() {
+export function firebaseMessageQuery() {
   const user = getAuth().currentUser;
 
   if (user) {
-    const userMessageRef = ref_db(database, `/messages/${user.uid}`);
-
-    onValue(userMessageRef, (snapshot) => {
-      console.log(firebaseObjectToArray(snapshot.val()));
-    });
+    return ref_db(database, `/messages/${user.uid}`);
   }
 }
