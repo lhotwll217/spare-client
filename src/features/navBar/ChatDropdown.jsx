@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import {Dropdown} from "semantic-ui-react";
 import {
   getMessages,
@@ -33,6 +34,11 @@ const friendOptions = [
   },
 ];
 export default function ChatDropdown() {
+  useEffect(() => {
+    const unsubscribe = getMessages();
+
+    return unsubscribe;
+  });
   getMessages();
   return <Dropdown options={friendOptions} text='Messages'></Dropdown>;
 }

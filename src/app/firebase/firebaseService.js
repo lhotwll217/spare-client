@@ -19,6 +19,14 @@ import {
 } from "firebase/database";
 const storage = getStorage();
 const database = getDatabase();
+
+export function firebaseObjectToArray(snapshot) {
+  if (snapshot) {
+    return Object.entries(snapshot).map((e) =>
+      Object.assign({}, e[1], {id: e[0]})
+    );
+  }
+}
 export async function registerWithEmail(creds) {
   const auth = getAuth(app);
 
@@ -117,7 +125,7 @@ export function getMessages() {
     const userMessageRef = ref_db(database, `/messages/${user.uid}`);
 
     onValue(userMessageRef, (snapshot) => {
-      console.log(snapshot.val());
+      console.log(firebaseObjectToArray(snapshot.val()));
     });
   }
 }
