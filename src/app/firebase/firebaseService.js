@@ -14,6 +14,8 @@ import {
   ref as ref_db,
   serverTimestamp,
   push,
+  onChildAdded,
+  onValue,
 } from "firebase/database";
 const storage = getStorage();
 const database = getDatabase();
@@ -98,6 +100,24 @@ export function addEventMessage(listerId, listingId, listingTitle, message) {
   return set(newMessageRef, newMessage);
 }
 
-export function listenToMessages() {
-  const chat
+// export function listenToMessages() {
+//   const user = getAuth().currentUser;
+//   if (user) {
+//     const messageRef = ref_db(database, `/messages/${user.uid}`);
+//     onChildAdded(messageRef, (data) => {
+//       console.log(data.val());
+//     });
+//   }
+// }
+
+export function getMessages() {
+  const user = getAuth().currentUser;
+
+  if (user) {
+    const userMessageRef = ref_db(database, `/messages/${user.uid}`);
+
+    onValue(userMessageRef, (snapshot) => {
+      console.log(snapshot.val());
+    });
+  }
 }

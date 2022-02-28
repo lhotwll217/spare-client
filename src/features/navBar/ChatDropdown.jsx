@@ -1,4 +1,8 @@
 import {Dropdown} from "semantic-ui-react";
+import {
+  getMessages,
+  listenToMessages,
+} from "../../app/firebase/firebaseService";
 const friendOptions = [
   {
     key: "Jenny Hess",
@@ -29,5 +33,6 @@ const friendOptions = [
   },
 ];
 export default function ChatDropdown() {
+  getMessages();
   return <Dropdown options={friendOptions} text='Messages'></Dropdown>;
 }
