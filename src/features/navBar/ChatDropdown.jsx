@@ -1,4 +1,4 @@
-import {Dropdown, DropdownItem} from "semantic-ui-react";
+import {Dropdown} from "semantic-ui-react";
 const friendOptions = [
   {
     key: "Jenny Hess",

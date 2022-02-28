@@ -8,7 +8,12 @@ import {
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import {app} from "../config/firebaseConfig";
 import {setUserProfileData} from "./firestoreService";
-import {getDatabase, set, ref as ref_db} from "firebase/database";
+import {
+  getDatabase,
+  set,
+  ref as ref_db,
+  serverTimestamp,
+} from "firebase/database";
 const storage = getStorage();
 const database = getDatabase();
 export async function registerWithEmail(creds) {
@@ -71,19 +76,25 @@ export function addEventMessage(listerId, listingId, listingTitle, message) {
   const user = getAuth().currentUser;
 
   const newMessage = {
-    displayName: user.displayName,
-    photoURL:
-      user.photoURL ||
-      "https://react.semantic-ui.com/images/avatar/small/jenny.jpg",
-    email: user.email,
-    uid: user.uid,
+    sentBy: {
+      displayName: user.displayName,
+      photoURL:
+        user.photoURL ||
+        "https://react.semantic-ui.com/images/avatar/small/jenny.jpg",
+      email: user.email,
+      uid: user.uid,
+    },
     text: message.message,
-    date: Date.now(),
-    listingTitle: listingTitle,
+    date: serverTimestamp(),
+    listing: {
+      title: listingTitle,
+      uid: listingId,
+    },
   };
 
-  return set(
-    ref_db(database, `/chat/${listerId}/${listingId}/${user.uid}`),
-    newMessage
-  );
+  return set(ref_db(database, `/messages/${listerId}`), newMessage);
 }
+
+// export function listenToMessages() {
+//   const chat
+// }

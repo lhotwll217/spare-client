@@ -1,5 +1,5 @@
 import {Form, Formik} from "formik";
-import {Button, Segment} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import {addEventMessage} from "../../../app/firebase/firebaseService";
 

@@ -10,7 +10,6 @@ import {
   query,
   where,
   deleteDoc,
-  getDoc,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -158,8 +157,6 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
   const userDocRef = doc(db, "users", user.uid);
 
   try {
-    const userDoc = await getDoc(userDocRef);
-
     await updateDoc(userDocRef, {photoURL: downloadURL});
     await updateAuthProfilePhoto(user, downloadURL);
   } catch (error) {

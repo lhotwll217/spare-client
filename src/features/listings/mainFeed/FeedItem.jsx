@@ -5,7 +5,7 @@ import {openModal} from "../../../app/common/modals/modalReducer";
 export default function FeedItem({item}) {
   const {title, lister, listDetails, created_at} = item;
   const dispatch = useDispatch();
-  console.log(item);
+
   function feedOnClick() {
     dispatch(openModal({modalType: "ListItemModal", modalProps: {item: item}}));
   }
