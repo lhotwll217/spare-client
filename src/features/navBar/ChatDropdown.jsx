@@ -58,7 +58,7 @@ export default function ChatDropdown() {
   return (
     <Dropdown text='Messages'>
       <DropdownMenu>
-        {messages.map((e) => {
+        {messages?.map((e) => {
           return (
             <DropdownItem
               image={e.sentBy.photoURL}

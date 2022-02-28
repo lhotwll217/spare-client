@@ -31,9 +31,12 @@ export default function NavBar() {
             />
           </>
         )}
-        <MenuItem postion='right'>
-          <ChatDropdown />
-        </MenuItem>
+        {authenticated && (
+          <MenuItem postion='right'>
+            <ChatDropdown />
+          </MenuItem>
+        )}
+
         <MenuItem position='right'>
           {authenticated ? (
             <Button
