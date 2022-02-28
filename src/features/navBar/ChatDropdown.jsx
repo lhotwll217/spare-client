@@ -1,7 +1,8 @@
 import {onValue} from "firebase/database";
 import {useEffect} from "react";
+import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
-import {Dropdown} from "semantic-ui-react";
+import {Dropdown, DropdownItem, DropdownMenu} from "semantic-ui-react";
 import {
   firebaseMessageQuery,
   firebaseObjectToArray,
@@ -39,6 +40,10 @@ const friendOptions = [
 ];
 export default function ChatDropdown() {
   const dispatch = useDispatch();
+  const {messages} = useSelector((state) => state.messages);
+
+  console.log(messages);
+
   useEffect(() => {
     const unsubscribe = onValue(firebaseMessageQuery(), (snapshot) => {
       dispatch({
@@ -48,7 +53,21 @@ export default function ChatDropdown() {
     });
 
     return unsubscribe;
-  });
+  }, [dispatch]);
 
-  return <Dropdown options={friendOptions} text='Messages'></Dropdown>;
+  return (
+    <Dropdown text='Messages'>
+      <DropdownMenu>
+        {messages.map((e) => {
+          return (
+            <DropdownItem
+              image={e.sentBy.photoURL}
+              label={e.listing.title}
+              description={`Sent by ${e.sentBy.displayName}`}
+            />
+          );
+        })}
+      </DropdownMenu>
+    </Dropdown>
+  );
 }
