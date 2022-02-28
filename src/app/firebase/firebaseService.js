@@ -13,6 +13,7 @@ import {
   set,
   ref as ref_db,
   serverTimestamp,
+  push,
 } from "firebase/database";
 const storage = getStorage();
 const database = getDatabase();
@@ -74,6 +75,8 @@ export function uploadListingPhotos(file, filename, listingId) {
 
 export function addEventMessage(listerId, listingId, listingTitle, message) {
   const user = getAuth().currentUser;
+  const messageListRef = ref_db(database, `/messages/${listerId}`);
+  const newMessageRef = push(messageListRef);
 
   const newMessage = {
     sentBy: {
@@ -92,9 +95,9 @@ export function addEventMessage(listerId, listingId, listingTitle, message) {
     },
   };
 
-  return set(ref_db(database, `/messages/${listerId}`), newMessage);
+  return set(newMessageRef, newMessage);
 }
 
-// export function listenToMessages() {
-//   const chat
-// }
+export function listenToMessages() {
+  const chat
+}
