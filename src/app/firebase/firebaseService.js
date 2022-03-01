@@ -14,8 +14,6 @@ import {
   ref as ref_db,
   serverTimestamp,
   push,
-  onChildAdded,
-  onValue,
 } from "firebase/database";
 const storage = getStorage();
 const database = getDatabase();
