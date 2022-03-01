@@ -5,6 +5,7 @@ import ErrorComponent from "../../../features/errors/ErrorComponent";
 import ListItemModal from "../../../features/listings/listItem/ListItemModal";
 import TestModal from "../../../features/sandbox/TestModal";
 import EditFormModal from "../../../features/listings/listForm/EditFormModal";
+import MessageModal from "../../../features/messages/MessageModal";
 
 export default function ModalManager() {
   const modalLookup = {
@@ -14,6 +15,7 @@ export default function ModalManager() {
     ErrorComponent,
     ListItemModal,
     EditFormModal,
+    MessageModal,
   };
   const currentModal = useSelector((state) => state.modals);
   let renderedModal;

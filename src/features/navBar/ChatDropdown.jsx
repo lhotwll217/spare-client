@@ -7,12 +7,11 @@ import {
   firebaseMessageQuery,
   firebaseObjectToArray,
 } from "../../app/firebase/firebaseService";
+import {openModal} from "../../app/common/modals/modalReducer";
 
 export default function ChatDropdown() {
   const dispatch = useDispatch();
   const {messages} = useSelector((state) => state.messages);
-
-  console.log(messages);
 
   useEffect(() => {
     const unsubscribe = onValue(firebaseMessageQuery(), (snapshot) => {
@@ -21,7 +20,6 @@ export default function ChatDropdown() {
         payload: firebaseObjectToArray(snapshot.val()),
       });
     });
-
     return unsubscribe;
   }, [dispatch]);
 
@@ -29,12 +27,21 @@ export default function ChatDropdown() {
     <Dropdown text='Messages'>
       <DropdownMenu>
         {messages?.length > 0 ? (
-          messages?.map((e) => {
+          messages?.map((message) => {
             return (
               <DropdownItem
-                image={e.sentBy.photoURL}
-                label={e.listing.title}
-                description={`Sent by ${e.sentBy.displayName}`}
+                key={message.id}
+                image={message.sentBy.photoURL}
+                label={message.listing.title}
+                description={`Sent by ${message.sentBy.displayName}`}
+                onClick={() =>
+                  dispatch(
+                    openModal({
+                      modalType: "MessageModal",
+                      modalProps: {message: message},
+                    })
+                  )
+                }
               />
             );
           })
