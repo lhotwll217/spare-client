@@ -26,7 +26,14 @@ export default function MessageModal({message}) {
                 message.sentBy.displayName
               } ${formatDistanceToNow(message.date, {addSuffix: true})}`}
             />
-            <Button content='Reply' size='small' color='teal' />
+            <Button
+              content='Reply'
+              size='small'
+              color='teal'
+              onClick={() =>
+                (window.location = `mailto:${message.sentBy.email}`)
+              }
+            />
           </ItemContent>
         </Item>
       </ItemGroup>
