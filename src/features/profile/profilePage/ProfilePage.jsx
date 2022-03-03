@@ -60,14 +60,16 @@ export default function ProfilePage() {
 
     try {
       setSubmitting(true);
-      const uploadRef = await uploadToFirebaseStorage(image, filename);
-      const downloadURL = await firebaseDownloadURL(
-        uploadRef.metadata.fullPath
-      );
-      await updateUserProfilePhoto(downloadURL);
-      setUpload(false);
-      setFiles([]);
-      console.log(downloadURL);
+      image.toBlob(async (blob) => {
+        const uploadRef = await uploadToFirebaseStorage(blob, filename);
+        const downloadURL = await firebaseDownloadURL(
+          uploadRef.metadata.fullPath
+        );
+        await updateUserProfilePhoto(downloadURL);
+        setUpload(false);
+        setFiles([]);
+        console.log(downloadURL);
+      });
     } catch (error) {
       console.log(error);
     } finally {
