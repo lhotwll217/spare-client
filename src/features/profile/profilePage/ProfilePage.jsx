@@ -30,17 +30,19 @@ import {
   firebaseDownloadURL,
   uploadToFirebaseStorage,
 } from "../../../app/firebase/firebaseService";
-
+import MyCropper from "../../../app/common/photos/MyCropper";
+import cuid from "cuid";
 export default function ProfilePage() {
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
   const {loading} = useSelector((state) => state.async);
   const {listings} = useSelector((state) => state.profile);
   const [submitting, setSubmitting] = useState(false);
-
+  const [image, setImage] = useState(null);
   let {userId} = useParams();
   const [files, setFiles] = useState([]);
   const [upload, setUpload] = useState(false);
+  console.log(image);
   useFirestoreDoc({
     query: () => getUserProfile(userId),
     data: (profile) => dispatch(listenToCurrentUserProfile(profile)),
@@ -54,7 +56,7 @@ export default function ProfilePage() {
   });
 
   async function handleUploadImage(image) {
-    const filename = image.name;
+    const filename = cuid();
 
     try {
       setSubmitting(true);
@@ -99,8 +101,8 @@ export default function ProfilePage() {
       <GridColumn width={12}>
         <Image
           src={
-            files.length > 0
-              ? files[0]?.preview
+            files.length > 0 && image
+              ? image.toDataURL()
               : currentUserProfile.photoURL ||
                 "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
           }
@@ -119,16 +121,16 @@ export default function ProfilePage() {
             onClick={() => setUpload(true)}
           />
         )}
-
+        {upload && !image && <PhotoDropzone setFiles={setFiles} />}
         {upload && (
           <div>
-            <PhotoDropzone setFiles={setFiles} />
             <Button
               style={{maxWidth: 100, margin: "auto", padding: 5}}
               content='Cancel'
               onClick={() => {
-                setFiles(null);
+                setFiles([]);
                 setUpload(false);
+                setImage(null);
               }}
               fluid
               size='tiny'
@@ -136,16 +138,19 @@ export default function ProfilePage() {
             />
           </div>
         )}
-        {upload && files.length > 0 && (
+        {upload && image && (
           <Button
             style={{maxWidth: 100, margin: "auto", padding: 5}}
             content='Submit'
-            onClick={() => handleUploadImage(files[0])}
+            onClick={() => handleUploadImage(image)}
             fluid
             size='tiny'
             color='green'
             loading={submitting}
           />
+        )}
+        {files.length > 0 && (
+          <MyCropper src={files[0].preview} setImage={setImage} />
         )}
 
         <Tab panes={panes} style={{marginTop: 12}} />
