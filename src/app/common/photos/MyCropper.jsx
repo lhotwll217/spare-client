@@ -15,15 +15,14 @@ export default function MyCropper({src, setImage}) {
     <Cropper
       src={src}
       style={{height: 200, width: "100%"}}
-      // Cropper.js options
-      //   initialAspectRatio={1}
       aspectRatio={1}
-      viewMode={1}
+      viewMode={3}
       guides={false}
       crop={onCrop}
       scalable={false}
       ref={cropperRef}
       background={false}
+      //   cropend={}
     />
   );
 }
