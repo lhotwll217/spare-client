@@ -165,16 +165,16 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
   console.log(userListingsQuery);
   const batch = writeBatch(db);
   try {
-    updateDoc(userDocRef, {photoURL: downloadURL});
+    batch.update(userDocRef, {photoURL: downloadURL});
 
     const listingsQuerySnap = await getDocs(userListingsQuery);
     for (let i = 0; i < listingsQuerySnap.docs.length; i++) {
-      await updateDoc(listingsQuerySnap.docs[i].ref, {
+      batch.update(listingsQuerySnap.docs[i].ref, {
         "lister.photoURL": downloadURL,
       });
     }
 
-    await updateAuthProfilePhoto(user, downloadURL);
+    batch.commit().then(() => updateAuthProfilePhoto(user, downloadURL));
   } catch (error) {
     throw error;
   }
@@ -216,3 +216,4 @@ export async function listingSubmitWithPhotos(files, values) {
     throw new Error("Photos Unable To Upload");
   }
 }
+// 6a3c026ca8e9
