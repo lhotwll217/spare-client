@@ -23,7 +23,6 @@ import {
 } from "./firebaseService";
 import cuid from "cuid";
 import {deleteObject, getStorage, ref, listAll} from "firebase/storage";
-import {batch} from "react-redux";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -164,8 +163,9 @@ export async function updateUserProfilePhoto(downloadURL, filename) {
     where("lister.uid", "==", user.uid)
   );
   console.log(userListingsQuery);
+  const batch = writeBatch(db);
   try {
-    // updateDoc(userDocRef, {photoURL: downloadURL});
+    updateDoc(userDocRef, {photoURL: downloadURL});
 
     const listingsQuerySnap = await getDocs(userListingsQuery);
     for (let i = 0; i < listingsQuerySnap.docs.length; i++) {
