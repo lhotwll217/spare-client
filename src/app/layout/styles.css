@@ -71,3 +71,7 @@ h3 {
 h1 {
   font-family: "Poppins", sans-serif;
 }
+
+.ui.dropdown .menu > .item > img {
+  border-radius: 50%;
+}

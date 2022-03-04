@@ -16,12 +16,14 @@ export default function MyCropper({src, setImage}) {
       src={src}
       style={{height: 200, width: "100%"}}
       aspectRatio={1}
-      viewMode={3}
+      viewMode={2}
       guides={false}
       crop={onCrop}
       scalable={false}
       ref={cropperRef}
       background={false}
+      preview='.img-preview'
+
       //   cropend={}
     />
   );
