@@ -21,19 +21,9 @@ export default function NavBar() {
           <img src='/assets/spare_icon.png' alt='Spare Logo' />
           <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
         </MenuItem>
-        {/* <MenuItem as={NavLink} to='sandbox' name='sandbox' /> */}
+        <div style={{display: "flex", width: "100%"}} />
         {authenticated && (
-          <>
-            <MenuItem as={NavLink} to='listform' name='Create Listing' />
-            <MenuItem
-              as={NavLink}
-              to={`/profile/${currentUser.uid}`}
-              name='Profile'
-            />
-          </>
-        )}
-        {authenticated && (
-          <MenuItem postion='right'>
+          <MenuItem position='right'>
             <ChatDropdown />
           </MenuItem>
         )}
@@ -41,26 +31,9 @@ export default function NavBar() {
         {authenticated ? (
           <SignedInMenu />
         ) : (
-          // <Button
-          //   onClick={async () => {
-          //     try {
-          //       await signOutFirebase().then(() => {
-          //         dispatch(signOutUser());
-          //         dispatch(profileLogOut());
-          //         navigate("/");
-          //       });
-          //     } catch (error) {
-          //       console.log(error);
-          //     }
-          //   }}
-          //   basic
-          //   content='Sign Out'
-          //   style={{marginLeft: "0.5em"}}
-          // />
           <>
-            <Button
-              basic
-              size='tiny'
+            <MenuItem
+              position='right'
               content='Login'
               onClick={() =>
                 dispatch(
@@ -70,9 +43,7 @@ export default function NavBar() {
                 )
               }
             />
-            <Button
-              size='tiny'
-              basic
+            <MenuItem
               content='Sign Up'
               onClick={() =>
                 dispatch(

@@ -75,3 +75,7 @@ h1 {
 .ui.dropdown .menu > .item > img {
   border-radius: 50%;
 }
+
+.ui.menu .item:before {
+  width: 0px;
+}

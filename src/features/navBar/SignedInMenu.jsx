@@ -30,7 +30,7 @@ export default function SignedInMenu() {
   }
 
   return (
-    <MenuItem position='right'>
+    <MenuItem position='right' style={{marginLeft: "0px 0px 0px 0px"}}>
       <Image
         avatar
         spaced='right'
