@@ -12,7 +12,7 @@ import {signOutFirebase} from "../../app/firebase/firebaseService";
 import {signOutUser} from "../auth/authActions";
 import {profileLogOut} from "../profile/profileActions";
 
-export default function SignedInMenu() {
+export default function SignedInMenu({currentUser}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {currentUserProfile} = useSelector((state) => state.profile);
@@ -47,14 +47,14 @@ export default function SignedInMenu() {
             text='Create Listing'
             icon='plus'
           />
-          <DropdownItem text='My Account' icon='settings' />
+          {/* <DropdownItem text='My Account' icon='settings' /> */}
           <DropdownItem
             text='My Profile'
             icon='user'
             as={Link}
-            to={`/profile`}
+            to={`/profile/${currentUserProfile?.id}`}
           />
-          <DropdownItem onClick={handleSignOut} text='Sign out' icon='plus' />
+          <DropdownItem onClick={handleSignOut} text='Sign out' icon='x' />
         </DropdownMenu>
       </Dropdown>
     </MenuItem>

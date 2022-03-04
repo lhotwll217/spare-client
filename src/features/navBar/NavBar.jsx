@@ -29,7 +29,7 @@ export default function NavBar() {
         )}
 
         {authenticated ? (
-          <SignedInMenu />
+          <SignedInMenu currentUser={currentUser} />
         ) : (
           <>
             <MenuItem

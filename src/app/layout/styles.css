@@ -79,3 +79,16 @@ h1 {
 .ui.menu .item:before {
   width: 0px;
 }
+
+.ui.feed > .event > .label {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.ui.attached.tabular.menu {
+  font-family: "Poppins", sans-serif;
+}
+
+.ui.tabular.menu .active.item {
+  font-weight: 500;
+}

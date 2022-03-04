@@ -15,7 +15,7 @@ export default function FeedItem({item}) {
   }
   return (
     <Feed.Event onClick={() => feedOnClick()} style={{cursor: "pointer"}}>
-      <Feed.Label image={lister.photoURL} content={lister.displayName} />
+      <Feed.Label image={lister.photoURL} />
 
       <Feed.Content>
         <Feed.Summary>

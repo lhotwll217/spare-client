@@ -24,7 +24,7 @@ export default function ChatDropdown() {
   }, [dispatch]);
 
   return (
-    <Dropdown text='Messages'>
+    <Dropdown pointing='top right' icon='mail'>
       <DropdownMenu>
         {messages?.length > 0 ? (
           messages?.map((message) => {
