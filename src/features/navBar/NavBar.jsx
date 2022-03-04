@@ -6,6 +6,7 @@ import {signOutFirebase} from "../../app/firebase/firebaseService";
 import {signOutUser} from "../auth/authActions";
 import {profileLogOut} from "../profile/profileActions";
 import ChatDropdown from "./ChatDropdown";
+import SignedInMenu from "./SignedInMenu";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -37,53 +38,52 @@ export default function NavBar() {
           </MenuItem>
         )}
 
-        <MenuItem position='right'>
-          {authenticated ? (
+        {authenticated ? (
+          <SignedInMenu />
+        ) : (
+          // <Button
+          //   onClick={async () => {
+          //     try {
+          //       await signOutFirebase().then(() => {
+          //         dispatch(signOutUser());
+          //         dispatch(profileLogOut());
+          //         navigate("/");
+          //       });
+          //     } catch (error) {
+          //       console.log(error);
+          //     }
+          //   }}
+          //   basic
+          //   content='Sign Out'
+          //   style={{marginLeft: "0.5em"}}
+          // />
+          <>
             <Button
-              onClick={async () => {
-                try {
-                  await signOutFirebase().then(() => {
-                    dispatch(signOutUser());
-                    dispatch(profileLogOut());
-                    navigate("/");
-                  });
-                } catch (error) {
-                  console.log(error);
-                }
-              }}
               basic
-              content='Sign Out'
-              style={{marginLeft: "0.5em"}}
+              size='tiny'
+              content='Login'
+              onClick={() =>
+                dispatch(
+                  openModal({
+                    modalType: "LoginForm",
+                  })
+                )
+              }
             />
-          ) : (
-            <>
-              <Button
-                basic
-                size='tiny'
-                content='Login'
-                onClick={() =>
-                  dispatch(
-                    openModal({
-                      modalType: "LoginForm",
-                    })
-                  )
-                }
-              />
-              <Button
-                size='tiny'
-                basic
-                content='Sign Up'
-                onClick={() =>
-                  dispatch(
-                    openModal({
-                      modalType: "SignUpForm",
-                    })
-                  )
-                }
-              />
-            </>
-          )}
-        </MenuItem>
+            <Button
+              size='tiny'
+              basic
+              content='Sign Up'
+              onClick={() =>
+                dispatch(
+                  openModal({
+                    modalType: "SignUpForm",
+                  })
+                )
+              }
+            />
+          </>
+        )}
       </Container>
     </Menu>
   );
