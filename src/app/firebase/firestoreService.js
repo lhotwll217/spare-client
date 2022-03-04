@@ -10,6 +10,9 @@ import {
   query,
   where,
   deleteDoc,
+  getDocs,
+  writeBatch,
+  collectionGroup,
 } from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import {app} from "../config/firebaseConfig";
@@ -20,6 +23,7 @@ import {
 } from "./firebaseService";
 import cuid from "cuid";
 import {deleteObject, getStorage, ref, listAll} from "firebase/storage";
+import {batch} from "react-redux";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -155,9 +159,21 @@ export async function updateListing(id, values) {
 export async function updateUserProfilePhoto(downloadURL, filename) {
   const user = auth.currentUser;
   const userDocRef = doc(db, "users", user.uid);
-
+  const userListingsQuery = query(
+    collection(db, "listings"),
+    where("lister.uid", "==", user.uid)
+  );
+  console.log(userListingsQuery);
   try {
-    await updateDoc(userDocRef, {photoURL: downloadURL});
+    // updateDoc(userDocRef, {photoURL: downloadURL});
+
+    const listingsQuerySnap = await getDocs(userListingsQuery);
+    for (let i = 0; i < listingsQuerySnap.docs.length; i++) {
+      await updateDoc(listingsQuerySnap.docs[i].ref, {
+        "lister.photoURL": downloadURL,
+      });
+    }
+
     await updateAuthProfilePhoto(user, downloadURL);
   } catch (error) {
     throw error;

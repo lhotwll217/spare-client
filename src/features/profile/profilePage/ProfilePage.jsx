@@ -59,8 +59,9 @@ export default function ProfilePage() {
     const filename = cuid();
 
     try {
-      setSubmitting(true);
-      image.toBlob(async (blob) => {
+      console.log(submitting);
+      await image.toBlob(async (blob) => {
+        setSubmitting(true);
         const uploadRef = await uploadToFirebaseStorage(blob, filename);
         const downloadURL = await firebaseDownloadURL(
           uploadRef.metadata.fullPath
@@ -68,6 +69,8 @@ export default function ProfilePage() {
         await updateUserProfilePhoto(downloadURL);
         setUpload(false);
         setFiles([]);
+        setImage(null);
+
         console.log(downloadURL);
       });
     } catch (error) {

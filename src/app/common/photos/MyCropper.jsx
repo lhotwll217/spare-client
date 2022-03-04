@@ -18,6 +18,7 @@ export default function MyCropper({src, setImage}) {
       // Cropper.js options
       //   initialAspectRatio={1}
       aspectRatio={1}
+      viewMode={1}
       guides={false}
       crop={onCrop}
       scalable={false}
