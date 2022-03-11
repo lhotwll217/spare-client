@@ -27,8 +27,9 @@ import UserListingsTab from "./UserListingsTab";
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 import {useState} from "react";
 import {
+  deleteAllPhotos,
   firebaseDownloadURL,
-  uploadToFirebaseStorage,
+  uploadPhotosToFirebaseStorage,
 } from "../../../app/firebase/firebaseService";
 import MyCropper from "../../../app/common/photos/MyCropper";
 import cuid from "cuid";
@@ -62,7 +63,8 @@ export default function ProfilePage() {
       console.log(submitting);
       await image.toBlob(async (blob) => {
         setSubmitting(true);
-        const uploadRef = await uploadToFirebaseStorage(blob, filename);
+        await deleteAllPhotos();
+        const uploadRef = await uploadPhotosToFirebaseStorage(blob, filename);
         const downloadURL = await firebaseDownloadURL(
           uploadRef.metadata.fullPath
         );

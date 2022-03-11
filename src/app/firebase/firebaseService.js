@@ -14,6 +14,7 @@ import {
   ref as ref_db,
   serverTimestamp,
   push,
+  update,
 } from "firebase/database";
 const storage = getStorage();
 const database = getDatabase();
@@ -64,7 +65,7 @@ export async function signOutFirebase() {
   return result;
 }
 
-export function uploadToFirebaseStorage(file, filename) {
+export function uploadPhotosToFirebaseStorage(file, filename) {
   const user = getAuth().currentUser;
   const storageRef = ref(storage, `${user.uid}/user_images/${filename}`);
   return uploadBytes(storageRef, file);
@@ -121,5 +122,21 @@ export function firebaseMessageQuery() {
 
   if (user) {
     return ref_db(database, `/messages/${user.uid}`);
+  }
+}
+
+export async function deleteAllPhotos() {
+  const user = getAuth.currentUser;
+  if (user) {
+    const photoRef = ref_db(database, `${user.uid}/user_images`);
+    photoRef.forEach(async (ref) => {
+      await update(ref, null)
+        .then(() => {
+          console.log("Photos Deleted");
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
   }
 }
