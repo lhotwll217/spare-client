@@ -5,7 +5,14 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  deleteObject,
+} from "firebase/storage";
 import {app} from "../config/firebaseConfig";
 import {setUserProfileData} from "./firestoreService";
 import {
@@ -125,18 +132,17 @@ export function firebaseMessageQuery() {
   }
 }
 
-export async function deleteAllPhotos() {
-  const user = getAuth.currentUser;
-  if (user) {
-    const photoRef = ref_db(database, `${user.uid}/user_images`);
-    photoRef.forEach(async (ref) => {
-      await update(ref, null)
-        .then(() => {
-          console.log("Photos Deleted");
-        })
-        .catch((error) => {
-          throw error;
-        });
+export async function deleteAllUserProfilePhotos() {
+  const user = getAuth().currentUser;
+
+  const photoRef = ref(storage, `${user.uid}/user_images`);
+  const fileRefs = await listAll(photoRef);
+
+  try {
+    fileRefs.items.forEach(async (ref) => {
+      await deleteObject(ref);
     });
+  } catch (error) {
+    throw error;
   }
 }
