@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {Button} from "semantic-ui-react";
 import {openModal} from "../../../app/common/modals/modalReducer";
+import MarkerClusterGroup from "react-leaflet-markercluster";
 
 export default function FeedMap({height, listings, maxWidth}) {
   const dispatch = useDispatch();
@@ -27,55 +28,59 @@ export default function FeedMap({height, listings, maxWidth}) {
   }, [latLng]);
 
   return (
-    <MapContainer
-      style={{
-        height: 350,
-        borderRadius: "10px",
-      }}
-      center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
-      zoom={8}
-      scrollWheelZoom={false}
-      zIndex={0}
-      key={latLng ? latLng.lat : "key"}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-      />
+    <div>
+      <MapContainer
+        className='marketcluster-map'
+        style={{
+          height: 350,
+          borderRadius: "10px",
+        }}
+        center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
+        zoom={8}
+        scrollWheelZoom={false}
+        zIndex={0}
+        key={latLng ? latLng.lat : "key"}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+        <MarkerClusterGroup maxClusterRadius={30}>
+          {listings &&
+            listings.map((item) => {
+              const {lat, lng} = item.location.latLng;
 
-      {listings &&
-        listings.map((item) => {
-          const {lat, lng} = item.location.latLng;
+              if (lat !== undefined) {
+                return (
+                  <Marker key={item.id} position={[lat, lng]}>
+                    <Popup>
+                      <strong>{item.title}</strong>
 
-          if (lat !== undefined) {
-            return (
-              <Marker key={item.id} position={[lat, lng]}>
-                <Popup>
-                  <strong>{item.title}</strong>
-
-                  <br />
-                  <Button
-                    style={{padding: 5, maxWidth: "70%", margin: "auto"}}
-                    fluid
-                    color='teal'
-                    content='VIEW'
-                    size='tiny'
-                    onClick={() =>
-                      dispatch(
-                        openModal({
-                          modalType: "ListItemModal",
-                          modalProps: {item: item},
-                        })
-                      )
-                    }
-                  />
-                </Popup>
-              </Marker>
-            );
-          } else {
-            return null;
-          }
-        })}
-    </MapContainer>
+                      <br />
+                      <Button
+                        style={{padding: 5, maxWidth: "70%", margin: "auto"}}
+                        fluid
+                        color='teal'
+                        content='VIEW'
+                        size='tiny'
+                        onClick={() =>
+                          dispatch(
+                            openModal({
+                              modalType: "ListItemModal",
+                              modalProps: {item: item},
+                            })
+                          )
+                        }
+                      />
+                    </Popup>
+                  </Marker>
+                );
+              } else {
+                return null;
+              }
+            })}
+        </MarkerClusterGroup>
+      </MapContainer>
+    </div>
   );
 }
