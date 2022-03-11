@@ -23,12 +23,18 @@ export default function ModalWrapper({
 
   return (
     <Modal
-      style={{width: width, marginTop: marginTop}}
+      style={{width: width, marginTop: marginTop, borderRadius: "5px"}}
       open={true}
       onClose={modalClose}
       size='small'
     >
-      <Button content='x' className='modal-btn' floated='right' color='red' />
+      <Button
+        content='x'
+        className='modal-btn'
+        floated='right'
+        color='red'
+        onClick={modalClose}
+      />
       {header && <ModalHeader>{header}</ModalHeader>}
       <ModalContent>{children}</ModalContent>
     </Modal>
