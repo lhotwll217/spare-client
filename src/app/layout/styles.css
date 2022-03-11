@@ -96,3 +96,7 @@ h1 {
 .ui.button.modal-btn {
   padding: 6px;
 }
+.ui.modal > .content {
+  z-index: 1;
+  border-radius: 5px;
+}
