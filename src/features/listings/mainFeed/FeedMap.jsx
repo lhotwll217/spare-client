@@ -6,6 +6,8 @@ import {useDispatch} from "react-redux";
 import {Button} from "semantic-ui-react";
 import {openModal} from "../../../app/common/modals/modalReducer";
 import MarkerClusterGroup from "react-leaflet-markercluster";
+import {divIcon} from "leaflet";
+import {renderToStaticMarkup} from "react-dom/server";
 
 export default function FeedMap({height, listings, maxWidth}) {
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ export default function FeedMap({height, listings, maxWidth}) {
         zIndex={0}
         key={latLng ? latLng.lat : "key"}
       >
+        console.log(L)
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -51,8 +54,16 @@ export default function FeedMap({height, listings, maxWidth}) {
               const {lat, lng} = item.location.latLng;
 
               if (lat !== undefined) {
+                const iconMarkup = renderToStaticMarkup(<i className='pin1' />);
+                const customMarkerIcon = divIcon({
+                  html: iconMarkup,
+                });
                 return (
-                  <Marker key={item.id} position={[lat, lng]}>
+                  <Marker
+                    key={item.id}
+                    position={[lat, lng]}
+                    icon={customMarkerIcon}
+                  >
                     <Popup>
                       <strong>{item.title}</strong>
 
