@@ -1,5 +1,5 @@
 import {Form, Formik} from "formik";
-import {Button, Label} from "semantic-ui-react";
+import {Button, Header, Label} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
 import * as Yup from "yup";
@@ -12,7 +12,8 @@ export default function LoginForm() {
   const dispatch = useDispatch();
 
   return (
-    <ModalWrapper header='Login'>
+    <ModalWrapper>
+      <Header content='Login' />
       <Formik
         initialValues={{email: "", password: ""}}
         validationSchema={Yup.object({

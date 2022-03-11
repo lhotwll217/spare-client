@@ -1,6 +1,6 @@
 import {Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
-import {Button, Label} from "semantic-ui-react";
+import {Button, Header, Label} from "semantic-ui-react";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import {closeModal} from "../../app/common/modals/modalReducer";
 import ModalWrapper from "../../app/common/modals/ModalWrapper";
@@ -16,7 +16,8 @@ export default function SignUpForm() {
   };
 
   return (
-    <ModalWrapper header='Register'>
+    <ModalWrapper>
+      <Header content='Register' />
       <Formik
         onSubmit={async (values, {setSubmitting, setErrors}) => {
           try {
