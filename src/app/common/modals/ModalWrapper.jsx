@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {Modal, ModalContent, ModalHeader} from "semantic-ui-react";
+import {Button, Modal, ModalContent, ModalHeader} from "semantic-ui-react";
 import {closeModal} from "./modalReducer";
 
 export default function ModalWrapper({
@@ -28,6 +28,7 @@ export default function ModalWrapper({
       onClose={modalClose}
       size='small'
     >
+      <Button content='x' className='modal-btn' floated='right' color='red' />
       {header && <ModalHeader>{header}</ModalHeader>}
       <ModalContent>{children}</ModalContent>
     </Modal>

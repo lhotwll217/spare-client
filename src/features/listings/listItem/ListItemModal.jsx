@@ -9,7 +9,7 @@ export default function ListItemModal(props) {
   return (
     <ModalWrapper size='small' width={"70%"} marginTop={40}>
       {" "}
-      <div style={{margin: "auto"}}>
+      <div style={{margin: "auto", marginTop: "15px"}}>
         {" "}
         {viewPhoto.length < 1 ? (
           <MyMap latLng={props.item.location.latLng} height={"250px"} />

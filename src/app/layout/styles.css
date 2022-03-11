@@ -92,3 +92,7 @@ h1 {
 .ui.tabular.menu .active.item {
   font-weight: 500;
 }
+
+.ui.button.modal-btn {
+  padding: 6px;
+}
