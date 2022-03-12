@@ -105,7 +105,7 @@ h1 {
   position: absolute;
 
   border-radius: 50% 50% 50% 0;
-  border: 4px solid red;
+  border: 5px solid red;
   width: 30px;
   padding-bottom: 15px;
   height: 30px;
@@ -139,44 +139,44 @@ h1 {
 }
 
 .blue {
-  border: 4px solid rgb(66, 66, 159);
+  border: 5px solid rgb(61, 61, 255);
 }
 
 .blue::after {
-  background-color: rgb(66, 66, 159);
+  background-color: rgb(61, 61, 255);
 }
 .green {
-  border: 4px solid rgb(35, 67, 35);
+  border: 5px solid rgb(25, 198, 25);
 }
 
 .green::after {
-  background-color: rgb(35, 67, 35);
+  background-color: rgb(25, 198, 25);
 }
 .pink {
-  border: 4px solid rgb(215, 113, 201);
+  border: 5px solid rgb(215, 113, 201);
 }
 
 .pink::after {
   background-color: rgb(215, 113, 201);
 }
 .red {
-  border: 4px solid rgb(249, 73, 73);
+  border: 5px solid rgb(249, 73, 73);
 }
 
 .red::after {
   background-color: rgb(249, 73, 73);
 }
 .orange {
-  border: 4px solid rgb(240, 170, 18);
+  border: 5px solid rgb(240, 170, 18);
 }
 
 .orange::after {
   background-color: rgb(240, 170, 18);
 }
 .yellow {
-  border: 4px solid rgb(150, 150, 2);
+  border: 5px solid rgb(203, 203, 0);
 }
 
 .yellow::after {
-  background-color: rgb(150, 150, 2);
+  background-color: rgb(203, 203, 0);
 }

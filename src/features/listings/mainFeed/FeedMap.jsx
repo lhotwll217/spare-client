@@ -30,8 +30,7 @@ export default function FeedMap({height, listings, maxWidth}) {
   }, [latLng]);
   //6
   function markerRandomizer() {
-    const randomNumber = Math.round(5 * Math.random());
-    switch (randomNumber) {
+    switch (Math.round(5 * Math.random())) {
       case 0:
         return "pin1 yellow";
       case 1:
@@ -58,8 +57,8 @@ export default function FeedMap({height, listings, maxWidth}) {
           height: 350,
           borderRadius: "10px",
         }}
-        center={latLng ? [latLng.lat, latLng.lng] : [42.2173, -73.8646]}
-        zoom={8}
+        center={latLng ? [latLng.lat, latLng.lng] : [39.8283, -98.5795]}
+        zoom={latLng ? 8 : 3}
         scrollWheelZoom={false}
         zIndex={0}
         key={latLng ? latLng.lat : "key"}
