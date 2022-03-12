@@ -8,6 +8,7 @@ import {openModal} from "../../../app/common/modals/modalReducer";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import {divIcon} from "leaflet";
 import {renderToStaticMarkup} from "react-dom/server";
+import markerColorRandomizer from "../../../app/functions/markerColorRandomizer";
 
 export default function FeedMap({height, listings, maxWidth}) {
   const dispatch = useDispatch();
@@ -29,26 +30,7 @@ export default function FeedMap({height, listings, maxWidth}) {
     console.log(latLng);
   }, [latLng]);
   //6
-  function markerRandomizer() {
-    switch (Math.round(5 * Math.random())) {
-      case 0:
-        return "pin1 yellow";
-      case 1:
-        return "pin1 orange";
-      case 2:
-        return "pin1 pink";
-      case 3:
-        return "pin1 blue";
-      case 4:
-        return "pin1 green";
-      case 5:
-        return "pin1 red";
-      default:
-        return "pin1 blue";
-    }
-  }
 
-  console.log(markerRandomizer());
   return (
     <div>
       <MapContainer
@@ -75,7 +57,7 @@ export default function FeedMap({height, listings, maxWidth}) {
 
               if (lat !== undefined) {
                 const iconMarkup = renderToStaticMarkup(
-                  <i className={markerRandomizer()} />
+                  <i className={markerColorRandomizer()} />
                 );
                 const customMarkerIcon = divIcon({
                   html: iconMarkup,
