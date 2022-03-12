@@ -28,7 +28,28 @@ export default function FeedMap({height, listings, maxWidth}) {
   useEffect(() => {
     console.log(latLng);
   }, [latLng]);
+  //6
+  function markerRandomizer() {
+    const randomNumber = Math.round(5 * Math.random());
+    switch (randomNumber) {
+      case 0:
+        return "pin1 yellow";
+      case 1:
+        return "pin1 orange";
+      case 2:
+        return "pin1 pink";
+      case 3:
+        return "pin1 blue";
+      case 4:
+        return "pin1 green";
+      case 5:
+        return "pin1 red";
+      default:
+        return "pin1 blue";
+    }
+  }
 
+  console.log(markerRandomizer());
   return (
     <div>
       <MapContainer
@@ -48,14 +69,14 @@ export default function FeedMap({height, listings, maxWidth}) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <MarkerClusterGroup maxClusterRadius={30}>
+        <MarkerClusterGroup maxClusterRadius={15}>
           {listings &&
             listings.map((item) => {
               const {lat, lng} = item.location.latLng;
 
               if (lat !== undefined) {
                 const iconMarkup = renderToStaticMarkup(
-                  <i className='pin1 yellow' />
+                  <i className={markerRandomizer()} />
                 );
                 const customMarkerIcon = divIcon({
                   html: iconMarkup,
