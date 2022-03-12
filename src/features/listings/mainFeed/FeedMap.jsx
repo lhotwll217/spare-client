@@ -54,7 +54,9 @@ export default function FeedMap({height, listings, maxWidth}) {
               const {lat, lng} = item.location.latLng;
 
               if (lat !== undefined) {
-                const iconMarkup = renderToStaticMarkup(<i className='pin1' />);
+                const iconMarkup = renderToStaticMarkup(
+                  <i className='pin1 yellow' />
+                );
                 const customMarkerIcon = divIcon({
                   html: iconMarkup,
                 });
