@@ -30,10 +30,13 @@ export default function FeedContainer() {
   }
   return (
     <Grid centered>
-      <Grid.Column style={{marginTop: "80px", marginBottom: "20px"}} width={10}>
+      <Grid.Column
+        width={10}
+        style={{marginTop: "80px", marginBottom: "20px", minWidth: "75vw"}}
+      >
         <FeedMap listings={listings} />
       </Grid.Column>
-      <Grid.Column width={10}>
+      <Grid.Column style={{width: "75vw"}}>
         <Segment loading={loading}>
           <Feed>
             {listings.map((item) => {
