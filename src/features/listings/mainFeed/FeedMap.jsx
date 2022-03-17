@@ -59,7 +59,7 @@ export default function FeedMap({height, listings, maxWidth}) {
               if (lat !== undefined) {
                 let color = randomColor();
                 const iconMarkup = renderToStaticMarkup(
-                  <i style={{borderColor: color}} className='pin1' />
+                  <i style={{backgroundColor: color}} className='pin1' />
                 );
                 const customMarkerIcon = divIcon({
                   html: iconMarkup,
