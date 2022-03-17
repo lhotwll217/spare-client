@@ -1,4 +1,11 @@
-import {Button, Header, Item, ItemContent, Segment} from "semantic-ui-react";
+import {
+  Button,
+  Header,
+  Image,
+  Item,
+  ItemContent,
+  Segment,
+} from "semantic-ui-react";
 import {format} from "date-fns";
 import {useSelector} from "react-redux";
 import {useState} from "react";
@@ -27,11 +34,18 @@ export default function ListItemCard({item, setViewPhoto}) {
         {item.pictures &&
           item.pictures.map((pic) => {
             return (
-              <Item.Image
+              <Image
+                style={{
+                  margin: "5px",
+                  borderRadius: "5px",
+                  height: "60px",
+                  objectFit: "cover",
+                }}
                 onClick={() => setViewPhoto(pic)}
                 key={pic}
                 size='tiny'
                 src={pic}
+                inline={true}
               />
             );
           })}
