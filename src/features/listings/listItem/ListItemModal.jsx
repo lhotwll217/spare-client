@@ -15,7 +15,10 @@ export default function ListItemModal(props) {
           <MyMap latLng={props.item.location.latLng} height={"250px"} />
         ) : (
           <>
-            <Image style={{maxHeight: 250}} src={viewPhoto} />
+            <Image
+              style={{maxHeight: 250, margin: "auto", borderRadius: "3px"}}
+              src={viewPhoto}
+            />
             <Button
               onClick={() => setViewPhoto([])}
               content='View Map'
