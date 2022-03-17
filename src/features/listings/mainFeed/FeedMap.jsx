@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {Button} from "semantic-ui-react";
 import {openModal} from "../../../app/common/modals/modalReducer";
 import MarkerClusterGroup from "react-leaflet-markercluster";
+import randomColor from "randomcolor";
 import {divIcon} from "leaflet";
 import {renderToStaticMarkup} from "react-dom/server";
 import markerColorRandomizer from "../../../app/functions/markerColorRandomizer";
@@ -56,8 +57,9 @@ export default function FeedMap({height, listings, maxWidth}) {
               const {lat, lng} = item.location.latLng;
 
               if (lat !== undefined) {
+                let color = randomColor();
                 const iconMarkup = renderToStaticMarkup(
-                  <i className={markerColorRandomizer()} />
+                  <i style={{borderColor: color}} className='pin1' />
                 );
                 const customMarkerIcon = divIcon({
                   html: iconMarkup,
