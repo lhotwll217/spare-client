@@ -13,6 +13,10 @@ export default function ChatDropdown() {
   const dispatch = useDispatch();
   const {messages} = useSelector((state) => state.messages);
 
+  function truncate(str, n = 15) {
+    return str.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
+
   useEffect(() => {
     const unsubscribe = onValue(firebaseMessageQuery(), (snapshot) => {
       dispatch({
@@ -32,7 +36,7 @@ export default function ChatDropdown() {
               <DropdownItem
                 key={message.id}
                 image={message.sentBy.photoURL}
-                label={message.listing.title}
+                text={truncate(message.listing.title)}
                 description={`Sent by ${message.sentBy.displayName}`}
                 onClick={() =>
                   dispatch(
