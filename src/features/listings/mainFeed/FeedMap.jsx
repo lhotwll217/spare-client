@@ -45,6 +45,7 @@ export default function FeedMap({height, listings, maxWidth}) {
         scrollWheelZoom={false}
         zIndex={0}
         key={latLng ? latLng.lat : "key"}
+        tap={false}
       >
         console.log(L)
         <TileLayer

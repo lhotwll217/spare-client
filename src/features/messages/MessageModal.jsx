@@ -14,9 +14,9 @@ import {formatDistanceToNow} from "date-fns";
 export default function MessageModal({message}) {
   return (
     <ModalWrapper>
-      <ItemGroup>
+      <ItemGroup unstackable={true}>
         <Item>
-          <ItemImage circular size='tiny' src={message.sentBy.photoURL} />
+          <ItemImage avatar size='tiny' src={message.sentBy.photoURL} />
 
           <ItemContent>
             <ItemHeader content={message.listing.title} />
