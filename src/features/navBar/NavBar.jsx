@@ -17,9 +17,11 @@ export default function NavBar() {
   return (
     <Menu fixed='top'>
       <Container>
-        <MenuItem as={Link} to='/' header style={{padding: "10px"}}>
-          <img src='/assets/spare_icon.png' alt='Spare Logo' />
-          <h3 style={{margin: "0", height: "auto"}}>Spare</h3>
+        <MenuItem as={Link} to='/' header style={{padding: "5px"}}>
+          <img src='/assets/spare_logo.png' alt='Spare Logo' />
+          <h3 style={{margin: "0", marginLeft: "5px", height: "auto"}}>
+            Spare
+          </h3>
         </MenuItem>
         <div style={{display: "flex", width: "100%"}} />
         {authenticated && (
