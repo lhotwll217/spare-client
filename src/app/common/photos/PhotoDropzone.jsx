@@ -19,24 +19,24 @@ export default function PhotoDropzone({setFiles}) {
   };
 
   const options = {
-    maxWidthOrHeight: 200,
+    maxWidthOrHeight: 600,
   };
 
   const onDrop = useCallback(
     async (acceptedFiles) => {
-      const compImage = await acceptedFiles.map((img) => {
-        return imageCompression(img, options);
-      });
+      const compImage = await imageCompression(acceptedFiles[0], options);
 
-      console.log(compImage);
+      console.log(new File([compImage], compImage.name));
+
+      const file = new File([compImage], compImage.name);
+      console.log(acceptedFiles[0]);
 
       setFiles((previousValue) => [
         ...previousValue,
-        ...acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        ),
+
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        }),
       ]);
     },
     [setFiles]
