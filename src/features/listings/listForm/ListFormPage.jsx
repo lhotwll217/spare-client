@@ -91,12 +91,23 @@ export default function ListFormPage() {
                 {files &&
                   files.map((photo) => {
                     return (
-                      <Image
-                        style={{display: "inline"}}
-                        key={photo.name}
-                        size='small'
-                        src={photo.preview}
-                      />
+                      <div style={{position: "relative", display: "inline"}}>
+                        <button
+                          style={{
+                            right: "0px",
+                            position: "absolute",
+                            zIndex: 1400,
+                          }}
+                        >
+                          X{" "}
+                        </button>
+                        <Image
+                          style={{display: "inline"}}
+                          key={photo.name}
+                          size='small'
+                          src={photo.preview}
+                        />
+                      </div>
                     );
                   })}
                 <PhotoDropzone setFiles={setFiles} />

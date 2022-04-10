@@ -206,7 +206,5 @@ h1 {
 }
 
 .leaflet-popup-content-wrapper {
-  padding: 1px;
   text-align: center;
-  border-radius: 12px;
 }
