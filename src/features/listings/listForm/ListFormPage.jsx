@@ -93,6 +93,7 @@ export default function ListFormPage() {
                     return (
                       <div style={{position: "relative", display: "inline"}}>
                         <button
+                          type='button'
                           style={{
                             right: "0px",
                             position: "absolute",
