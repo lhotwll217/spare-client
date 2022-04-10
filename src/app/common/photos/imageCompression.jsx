@@ -21,3 +21,23 @@ async function handleImageUpload(event) {
     console.log(error);
   }
 }
+
+const onDrop = useCallback(
+  async (acceptedFiles) => {
+    const compImages = await imageCompression(acceptedFiles[0], options);
+
+    console.log(new File([compImage], compImage.name));
+
+    const file = new File([compImage], compImage.name);
+    console.log(acceptedFiles[0]);
+
+    setFiles((previousValue) => [
+      ...previousValue,
+
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      }),
+    ]);
+  },
+  [setFiles]
+);

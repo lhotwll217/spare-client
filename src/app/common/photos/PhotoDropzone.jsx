@@ -24,20 +24,37 @@ export default function PhotoDropzone({setFiles}) {
 
   const onDrop = useCallback(
     async (acceptedFiles) => {
-      const compImage = await imageCompression(acceptedFiles[0], options);
+      Promise.all(
+        acceptedFiles.map((file) => {
+          return imageCompression(file, options);
+        })
+      ).then((blobArray) => {
+        const fileArray = blobArray.map((blob) => {
+          return new File([blob], blob.name);
+        });
+        console.log(fileArray[0]);
+        setFiles((previousValue) => [
+          ...previousValue,
+          ...fileArray.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          ),
+        ]);
+      });
 
-      console.log(new File([compImage], compImage.name));
+      // console.log(new File([compImage], compImage.name));
 
-      const file = new File([compImage], compImage.name);
-      console.log(acceptedFiles[0]);
+      // const file = new File([compImage], compImage.name);
+      // console.log(acceptedFiles[0]);
 
-      setFiles((previousValue) => [
-        ...previousValue,
+      // setFiles((previousValue) => [
+      //   ...previousValue,
 
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        }),
-      ]);
+      //   Object.assign(file, {
+      //     preview: URL.createObjectURL(file),
+      //   }),
+      // ]);
     },
     [setFiles]
   );
