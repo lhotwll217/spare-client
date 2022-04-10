@@ -7,7 +7,7 @@ import ListItemCard from "./ListItemCard";
 export default function ListItemModal(props) {
   const [viewPhoto, setViewPhoto] = useState([]);
   return (
-    <ModalWrapper size='small' width={"70%"} marginTop={40}>
+    <ModalWrapper size='small' width={"70%"} marginTop={60}>
       {" "}
       <div style={{margin: "auto", marginTop: "15px"}}>
         {" "}
