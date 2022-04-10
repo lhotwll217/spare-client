@@ -91,22 +91,39 @@ export default function ListFormPage() {
                 {files &&
                   files.map((photo) => {
                     return (
-                      <div style={{position: "relative", display: "inline"}}>
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "inline-block",
+                          margin: "5px",
+                          maxWidth: 75,
+                        }}
+                      >
                         <button
                           type='button'
                           style={{
                             right: "0px",
                             position: "absolute",
                             zIndex: 1400,
+                            backgroundColor: "red",
+                            color: "white",
+                            borderRadius: 2,
                           }}
                         >
                           X{" "}
                         </button>
-                        <Image
-                          style={{display: "inline"}}
+                        <img
+                          style={{
+                            display: "inline",
+                            borderRadius: 2,
+                            width: 75,
+
+                            height: 75,
+                            objectFit: "cover",
+                          }}
                           key={photo.name}
-                          size='small'
                           src={photo.preview}
+                          alt={photo.name}
                         />
                       </div>
                     );
