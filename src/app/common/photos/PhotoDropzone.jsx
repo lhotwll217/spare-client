@@ -18,12 +18,11 @@ export default function PhotoDropzone({setFiles}) {
     border: "dashed 3px green",
   };
 
-  const options = {
-    maxWidthOrHeight: 600,
-  };
-
   const onDrop = useCallback(
     async (acceptedFiles) => {
+      const options = {
+        maxWidthOrHeight: 600,
+      };
       Promise.all(
         acceptedFiles.map((file) => {
           return imageCompression(file, options);
@@ -42,19 +41,6 @@ export default function PhotoDropzone({setFiles}) {
           ),
         ]);
       });
-
-      // console.log(new File([compImage], compImage.name));
-
-      // const file = new File([compImage], compImage.name);
-      // console.log(acceptedFiles[0]);
-
-      // setFiles((previousValue) => [
-      //   ...previousValue,
-
-      //   Object.assign(file, {
-      //     preview: URL.createObjectURL(file),
-      //   }),
-      // ]);
     },
     [setFiles]
   );
