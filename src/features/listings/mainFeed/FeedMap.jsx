@@ -9,7 +9,6 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import randomColor from "randomcolor";
 import {divIcon} from "leaflet";
 import {renderToStaticMarkup} from "react-dom/server";
-import markerColorRandomizer from "../../../app/functions/markerColorRandomizer";
 
 export default function FeedMap({height, listings, maxWidth}) {
   const dispatch = useDispatch();
@@ -17,18 +16,18 @@ export default function FeedMap({height, listings, maxWidth}) {
   const [latLng, setLatLng] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect top & latLng is:", latLng);
+    // console.log("useEffect top & latLng is:", latLng);
     if (currentUserProfile?.location) {
       setLatLng(currentUserProfile.location.latLng);
-      console.log(latLng);
+      // console.log(latLng);
     } else {
       setLatLng(null);
     }
-    console.log("useEffect bottom & latLng is:", latLng);
+    // console.log("useEffect bottom & latLng is:", latLng);
   }, [currentUserProfile, latLng]);
 
   useEffect(() => {
-    console.log(latLng);
+    // console.log(latLng);
   }, [latLng]);
   //6
 
@@ -72,11 +71,16 @@ export default function FeedMap({height, listings, maxWidth}) {
                     icon={customMarkerIcon}
                   >
                     <Popup>
-                      <strong>{item.title}</strong>
+                      <strong style={{margin: "auto"}}>{item.title}</strong>
 
                       <br />
                       <Button
-                        style={{padding: 5, maxWidth: "70%", margin: "auto"}}
+                        style={{
+                          padding: 5,
+                          maxWidth: "70%",
+                          minWidth: "80px",
+                          margin: "auto",
+                        }}
                         fluid
                         color='teal'
                         content='VIEW'
