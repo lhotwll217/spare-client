@@ -204,3 +204,9 @@ h1 {
   border: 10px solid transparent;
   border-top: 17px solid rgb(85, 84, 84);
 }
+
+.leaflet-popup-content-wrapper {
+  padding: 1px;
+  text-align: center;
+  border-radius: 12px;
+}
