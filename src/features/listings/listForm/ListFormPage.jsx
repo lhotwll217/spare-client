@@ -8,7 +8,6 @@ import {
   Button,
   Header,
   Label,
-  Image,
 } from "semantic-ui-react";
 import MyDateInput from "../../../app/common/form/MyDatePicker";
 import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
@@ -24,6 +23,11 @@ import {useState} from "react";
 export default function ListFormPage() {
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
+  console.log(files);
+
+  function handleImageDelete(uid) {
+    setFiles(files.filter((file) => file.uid !== uid));
+  }
 
   const initialValues = {
     title: "",
@@ -92,6 +96,7 @@ export default function ListFormPage() {
                   files.map((photo) => {
                     return (
                       <div
+                        key={photo.uid}
                         style={{
                           position: "relative",
                           display: "inline-block",
@@ -100,6 +105,7 @@ export default function ListFormPage() {
                         }}
                       >
                         <button
+                          onClick={() => handleImageDelete(photo.uid)}
                           type='button'
                           style={{
                             right: "0px",
