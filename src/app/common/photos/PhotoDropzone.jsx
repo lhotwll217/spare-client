@@ -2,6 +2,7 @@ import React, {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
 import {Icon} from "semantic-ui-react";
 import imageCompression from "browser-image-compression";
+import cuid from "cuid";
 
 export default function PhotoDropzone({setFiles}) {
   const dropzoneStyles = {
@@ -20,23 +21,25 @@ export default function PhotoDropzone({setFiles}) {
 
   const onDrop = useCallback(
     async (acceptedFiles) => {
-      const options = {
-        maxWidthOrHeight: 600,
-      };
       Promise.all(
         acceptedFiles.map((file) => {
+          const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1200,
+          };
           return imageCompression(file, options);
         })
       ).then((blobArray) => {
         const fileArray = blobArray.map((blob) => {
           return new File([blob], blob.name);
         });
-        console.log(fileArray[0]);
+
         setFiles((previousValue) => [
           ...previousValue,
           ...fileArray.map((file) =>
             Object.assign(file, {
               preview: URL.createObjectURL(file),
+              uid: cuid(),
             })
           ),
         ]);
