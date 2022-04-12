@@ -29,7 +29,8 @@ export default function ListFormPage() {
   const dispatch = useDispatch();
   console.log(files);
 
-  function handleImageDelete(uid) {
+  function handleImageDelete(e, uid) {
+    e.stopPropagation();
     setFiles(files.filter((file) => file.uid !== uid));
   }
 
@@ -117,7 +118,7 @@ export default function ListFormPage() {
                         }}
                       >
                         <button
-                          onClick={() => handleImageDelete(photo.uid)}
+                          onClick={(e) => handleImageDelete(e, photo.uid)}
                           type='button'
                           style={{
                             right: "0px",
