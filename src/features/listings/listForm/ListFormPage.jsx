@@ -101,7 +101,12 @@ export default function ListFormPage() {
                     return (
                       <div
                         onClick={() =>
-                          dispatch(openModal({modalType: "PhotoModal"}))
+                          dispatch(
+                            openModal({
+                              modalType: "PhotoModal",
+                              modalProps: {photo: photo.preview},
+                            })
+                          )
                         }
                         key={photo.uid}
                         style={{
