@@ -3,8 +3,8 @@ import ModalWrapper from "../modals/ModalWrapper";
 
 export default function PhotoModal({photo}) {
   return (
-    <ModalWrapper>
-      <Image size='medium' src={photo} />
+    <ModalWrapper marginTop={"-200px"}>
+      <Image centered size='medium' src={photo} />
     </ModalWrapper>
   );
 }

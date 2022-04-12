@@ -123,7 +123,6 @@ export default function ListFormPage() {
                           style={{
                             right: "0px",
                             position: "absolute",
-                            zIndex: 1400,
                             backgroundColor: "red",
                             color: "white",
                             borderRadius: 2,
