@@ -19,10 +19,14 @@ import {useNavigate} from "react-router-dom";
 
 import PhotoDropzone from "../../../app/common/photos/PhotoDropzone";
 import {useState} from "react";
+import {openModal} from "../../../app/common/modals/modalReducer";
+import PhotoModal from "../../../app/common/photos/PhotoModal";
+import {useDispatch} from "react-redux";
 
 export default function ListFormPage() {
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   console.log(files);
 
   function handleImageDelete(uid) {
@@ -96,6 +100,9 @@ export default function ListFormPage() {
                   files.map((photo) => {
                     return (
                       <div
+                        onClick={() =>
+                          dispatch(openModal({modalType: "PhotoModal"}))
+                        }
                         key={photo.uid}
                         style={{
                           position: "relative",
